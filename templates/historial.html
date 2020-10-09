@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Historial</title>
+    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
+    <link href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+    
+    <style>
+      .header{background-color: #f7f9fb;
+          width: 100%;
+          height: 7%;
+          padding-top: 3px;
+          padding-bottom: 0px;
+          margin-top: 0px;
+        }
+
+
+    .bienvenido{
+      background-color:transparent; border: none;
+    }
+
+    </style>
+  </head>
+
+<body style="background-image: url('static/img/fondo.png'); background-repeat: no-repeat; background-size: cover;">
+
+  {% if errorLog %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<strong>Error</strong> {{errorLog}}.
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  </div>
+
+	{% endif %}
+
+
+    <div class="row header">
+      <div class="col-sm-2" >
+        <img src="static/img/chica.jpg" class="rounded-circle" style="height: 60px; width: 60px; margin-left: 10px;" alt="" loading="lazy">
+      </div>
+      <div class="col-sm-6" style="padding: 0px;" > 
+        <div class="card bienvenido">
+          <div class="card-body">
+            <h5 class="card-title">Bienvenid@</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{g.user}}</h6>
+          </div>
+       </div>
+      </div>
+      <div class="col-sm-4" >
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="/perfil">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/historial">Historial</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/conversion">Conversion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Catalogo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/close">Cerrar Sesion</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% if vac %}
+    <div class="alert alert-info" role="alert" style="text-align: center; width: 70%; margin: auto;"> 
+       {{vac}}.
+      </div>
+  
+    {% endif %}
+    <table class="table" style="width: 80%; margin: auto; background-color:#eceeef;">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Folio</th>
+          <th scope="col">Monto de compra</th>
+          <th scope="col">Fecha de compra</th>
+          <th scope="col">Rubro</th>
+          <th scope="col">Puntos obtenidos</th>
+          <th scope="col">Expiración</th>
+          <th scope="col">Status</th>
+
+          <th scope="col"> </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in tabla %}
+          <tr>
+              {% for cell in row %}
+                <td>{{cell}}</td>
+              {% endfor %}
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

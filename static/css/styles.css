@@ -1,0 +1,547 @@
+
+
+html {
+	box-sizing: border-box;
+	font-size: 62.5%; /**RESET PARA REMS 62.5%=10PX DE 16PX**/ 
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	
+	font-family: 'Lato', sans-serif;
+	font-size: 1.6rem;
+	line-height: 1.8;
+	
+}
+
+
+/*GLOBALES*/
+img { 
+	/** como está en globales hace que todas las imágenes
+	sean responsivas**/
+	max-width: 100%;
+	}
+	
+
+.contenedor{
+	max-width: 120rem;
+	margin: 0 auto ;
+}
+
+h1 {
+	font-size: 3.8rem;
+}
+
+h2 {
+	font-size: 3.4rem;
+}
+
+h3 {
+	font-size: 3rem; 
+}
+
+h4 {
+	font-size: 2.6rem;
+}
+/**Utilidades**/
+
+.seccion {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.fw-300{
+	
+	font-weight: 300;
+	
+}
+
+
+
+.centrar-texto{
+	
+	text-align: center;
+}
+.d-block {
+	display: block!important;
+}
+
+.contenido-centrado{
+	max-width: 700px;
+}
+
+
+/**Botones**/
+
+.boton{
+	color: #FFFFFF;
+	font-weight: 700;
+	text-decoration: none;
+	font-size:1.8rem;
+	
+	padding: 1rem 3rem;
+	display: inline-block;
+	/**Le tengo que cambiar a display: block para poder cambiarle el tamaño, margin y padding
+	Con inline-block no me cubre todo el espacio**/
+	
+	margin-top: 3rem;
+	text-align: center;
+	border: none;
+	
+	
+}
+.boton1{
+	
+  border:0;
+  outline:none;
+  border-radius:0;
+  padding:15px 0;
+  font-size:2rem;
+  
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  background:#B4571B;
+  color:#FCFCFC;
+  transition:all.5s ease;
+  -webkit-appearance: none;
+ 
+}
+.button-block {
+  display:block;
+  width:100%;
+}
+.boton:hover {
+	cursor: pointer;
+}
+.boton-amarillo{
+	background-color: #C0931D;
+}
+.boton-verde{
+	background-color: #71B100;
+	
+
+	
+}
+
+/**header**/
+
+.site-header{
+	background-color: #333333;
+	padding: 1rem 0 3rem 0;
+}
+.site-header.inicio {
+	background-image: url("../img/puntos_enca2.jpg");
+	background-position: center center;
+	background-size: cover;
+	height: 100vh;
+	min-height: 100rem;	
+}
+
+.contenido-header{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: azure;
+	
+}
+
+.contenido-header h1 {
+	
+	color: azure;
+	padding-bottom: 2rem;
+	max-width: 60rem;
+	line-height: 1.8;
+	
+}
+.barra {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 3rem;
+}
+
+/*navegacion*/
+.navegacion a {
+	
+	color: #F2F2F2;
+	text-decoration: none;
+	font-size: 3rem;
+	margin-right: 2rem;
+	
+}
+
+
+.navegacion a:hover {
+	color: #E59FED;
+}
+.navegacion a:last-of-type {
+	margin: 0;
+}
+
+/**Iconos Nosotros**/
+
+.iconos-nosotros{
+	
+	display: flex;
+	/** flex sirve para acomodar los hijos(los div dentro del div padre) y que tomen el epacio que deben**/
+	justify-content: space-between;
+	
+	
+}
+.icono { 
+	flex-basis: calc(33.3% - 1rem);
+	/**calc sirve para hacer operaciones, con esa fórmula divide en 3 toda la pantalla menos 1 rem que sirve para el márgen**/
+	text-align: center;
+	
+}
+.logoimg {
+	
+	margin-top: 1.5rem;
+	height:2rem;
+	border: none;
+}
+.icono h3 {
+	text-transform: uppercase;
+	text-align: center;
+	
+}
+
+/**anuncios**/
+.contenedor-anuncios{
+	display:flex;
+	justify-content: space-between;
+	/**Para arreglar la parte de que no tenga que hacer scroll a los lados-->**/
+	flex-wrap:wrap;
+	
+	
+}
+.con{
+	
+    display: -webkit-flex;
+    display: flex;
+  
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+  
+      margin: 0 auto;
+	 background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+
+}
+
+.anuncio{
+	/**sirve para darle formato a mi anuncio**/
+	flex-grow: 0;
+	/**esta parte fue para que los anuncios en anuncio.html hace que no se encojan sus imágenes **/
+	flex-shrink: 0;
+	
+	flex-basis: calc(33.3% - 1rem);
+	/** permite crear 3 columnas (33.3%)**/
+	border-style: solid;
+	border-color: #B5B5B5;
+	border-width: 1px;
+	background: #f5f5f5;
+	/**Para espacio hacia afuera **/
+	margin-bottom: 2rem;
+	
+	
+}
+.contenido-anuncio{
+	padding: 2rem;
+	/**aplica en todas las direcciones con el padding**/
+}
+.contenido-anuncio h3,
+.contenido-anuncio h3{
+	/**se pueden agregarvaties con comas**/
+	margin: 0;
+}
+.etiquetanum{
+	color: #71B100;
+	font-weight: 1000px;
+}
+.icono-caracteristicas{
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content:space-evenly;
+	max-width: 500px;
+	flex: 1;
+	/**Para que crezcan los iconos**/
+	
+}
+.icono-caracteristicas li {
+/*	flex:1;*/
+	display: flex;
+	/**separación entre el número y el ícono**/
+	
+}
+.icono-caracteristicallllm  s liimg {
+	margin-right: 2rem;
+	
+}
+.ver-todas{
+	display:flex;
+	justify-content: flex-end;
+	/**para moverlo del todo a la derecha**/
+}
+/**contacto*/
+.imagen-contacto{
+	background-image: url(../../img/encuentra.jpg);
+	background-position: center center;
+	background-size: cover;
+	height: 40rem;
+	display: flex;
+	align-items: center
+		
+	
+}
+.contenido-bottom {
+	flex: 1;
+	color: azure;
+	
+	
+}
+.contenido-buttom p {
+	
+	font-size: 1.8rem;
+}
+
+/*seccion inferior**/
+.seccion-inferior {
+	display: flex;
+	justify-content: space-between;
+	
+}
+.seccion-inferior .blog {
+	
+	flex-basis: 60%;
+	
+}
+.seccion-inferior .testimoniales {
+	
+	flex-basis: calc(40% - 2rem);
+}
+
+
+.entrada-blog {
+	display: flex;
+	/**aquí se hacela división de columnasen el blog**/
+	justify-content: space-between;
+	margin-bottom: 2rem;
+}
+
+.entrada-blog:last-of-type {
+	
+	margin-bottom: 0;
+}
+
+
+.entrada-blog .imagen {
+	flex-basis: 40%;
+	
+}
+.entrada-blog .texto-entrada {
+	flex-basis: calc(60% - 3rem);
+}
+.texto-entrada a {
+	color: black;
+	text-decoration: none;
+	margin: 0;
+	line-height: 1.2;
+}
+
+
+.texto-entrada h4 {
+	margin: 0;
+	line-height: 1.4;
+}
+
+.texto-entrada h4::after {
+	/**crear un pseudo elemento en h4, no se pueden seleccionar**/
+	content: none;
+	display: block;
+	width: 15rem;
+	height: 1rem;
+	background-color: aquamarine;
+	margin-top: 10px;
+}
+
+.texto-entrada span {
+	color: coral;
+}
+
+/**testimoniales**/
+
+.testimonial {
+	background-color: #71B100;
+	font-size: 2.4REM;
+	padding: 2rem;
+	color: #ffffff;
+	border-radius: 2rem;
+	/** puedes dividirlo por ezquinas(es para ezquinas redondeadas**/
+	
+}
+
+.testimonial p {
+	text-align: right;
+	
+}
+.testimonial blockquote::before {
+	content: '';
+	background: url("../../img/comilla.svg");
+	width: 4rem;
+	height: 4rem;
+	position: absolute;
+	left: -2rem;
+	
+}
+
+.testimonial blockquote {
+	position: relative;
+	/**si no lo pongo en relativo, la comilla se va hasta el principio de la página**/
+	padding-left: 5rem;
+	font-weight: 300;
+	
+}
+
+.testimonial blockquote::after {
+	content: '';
+	background: url("../../img/comilla.svg");
+	width: 4rem;
+	height: 4rem;
+	display: block;
+		
+	
+}
+
+/**footer**/
+.site-footer { 
+	background-color: #333333;
+	margin: 0;
+}
+
+
+.contenedor-footer { 
+	padding: 3rem 0;
+	display:flex;
+	justify-content: space-between;
+}
+
+.copyrigh { 
+	margin: 0;
+	color: aliceblue;
+}
+
+/**para páginas internas**/
+
+.contenido-nosotros {
+	
+
+	
+	display: grid;
+	/**es como display flex pero grid tiene columnas**/
+	grid-template-columns: repeat(2, 50%);
+	/** tiene queestar en la clase padre significa 2 columnas 50% 50%**/
+	grid-column-gap: 2rem;
+
+}
+
+.texto-nosotros blockquote {
+	
+	font-weight: 900;
+	font-size: 2rem;
+	margin: 0;
+	padding: 1rem 0 3rem 0;
+}
+/**Pagina anuncio2**/
+.resumen-propiedad{
+	display: flex;
+	/**Alinia horizontal**/
+	justify-content: space-between;
+	/**Alinia vertical**/
+	align-items: center;
+
+}
+
+/**Contacto**/
+
+form p {
+	font-size: 1.5rem;
+	color:#4f4f4f;
+	margin: 2rem 0 0 0;
+}
+legend { 
+	
+	font-size: 2rem;
+	color: #4f4f4f;
+}
+
+label {
+	font-weight: 700;
+	text-transform: uppercase;
+	display: block;
+	/*Block hace que tome todo el espacio desponible y no se encime*/
+}
+
+input:not([type="submit"]),
+textarea, select {
+	padding: 1rem;
+	display: block;
+	width: 100%;
+	background-color: #E1E1E1;
+	margin-bottom: 2rem;
+	border:none;
+	/**Para bordes redondeados**/
+	border-radius: 1rem;
+	
+}
+input[type="radio"]{
+	
+	/**para tomar el espacio que se requiere y no más**/
+	width: auto;
+	margin: 0;
+	
+	
+}
+select {
+	-webkit-appearance: none;
+	appearance: none;
+	
+}
+
+textarea {
+	height: 20rem;
+}
+
+.forma-contacto { 
+	max-width: 30rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+form{
+	
+	
+    width: 450px;
+    min-height: 500px;
+    height: auto;
+    border-radius: 5px;
+    margin: 2% auto;
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    padding: 2%;
+   
+
+	
+}
+fieldset {
+	border: hidden;
+	
+}
+
+
+
