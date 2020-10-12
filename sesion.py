@@ -7,7 +7,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 import pytesseract
 from PIL import Image
-from cv2 import cv2
+#from cv2 import cv2
 import os
 from werkzeug.utils import secure_filename
 import re
