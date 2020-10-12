@@ -11,18 +11,13 @@ from PIL import Image
 import os
 from werkzeug.utils import secure_filename
 import re
-from tkinter import messagebox
+#from tkinter import messagebox
 from decimal import Decimal
 
 
 
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 
-#im = Image.open("cuponera\\uploads\\comida.jpg")
-#img_cv = cv2.imread("cuponera\\uploads\\comida.jpg")
-
-#texto = pytesseract.image_to_string(im,lang='spa')
-#texto2 = pytesseract.image_to_string(img_cv,lang='spa')
 
 
 app = Flask(__name__)
