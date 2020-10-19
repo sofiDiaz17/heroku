@@ -16,12 +16,13 @@ from decimal import Decimal
 
 
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 
 
 app = Flask(__name__)
 app.secret_key = 'claveultrasecretadeapp'
+
+MYDIR = os.path.dirname(os.path.abspath(__file__))
 
 app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['UPLOAD_EXTENSIONS'] = ['png', 'jpg', 'jpeg']
@@ -118,7 +119,8 @@ def conversion():
 def guardarArch(file):
     try:
         filename = secure_filename(file.filename)
-        file.save(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+        file.save(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
+        print(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
         return True
     except Exception as e:
         print(str(e))  
@@ -126,9 +128,7 @@ def guardarArch(file):
 
 def extraerInfo(filename):
     try:
-        img = Image.open(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
-        print("tratando de analizar")
-        print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+        img = Image.open(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
         texto = pytesseract.image_to_string(img,lang='spa')
         Modelo.entities(session['user'],'GetTextFromImage','El programa extrajo el texto de la foto')
         return texto
@@ -204,6 +204,7 @@ def form():
                 print(filename)
                 save=guardarArch(file)
             if save: 
+                print('se guardo')
                 Modelo.entities(session['user'],'SavePicture','El usuario subio una foto y se guardo')
                 try:
                     info=extraerInfo(filename)
