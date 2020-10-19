@@ -24,7 +24,7 @@ app.secret_key = 'claveultrasecretadeapp'
 
 MYDIR = os.path.dirname(__file__)
 
-app.config['UPLOAD_FOLDER'] = "uploads"
+app.config['UPLOAD_FOLDER'] = "./uploads"
 app.config['UPLOAD_EXTENSIONS'] = ['png', 'jpg', 'jpeg']
 
 @app.before_request
