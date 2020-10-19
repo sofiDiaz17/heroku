@@ -22,6 +22,8 @@ pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 app = Flask(__name__)
 app.secret_key = 'claveultrasecretadeapp'
 
+MYDIR = os.path.dirname(__file__)
+
 app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['UPLOAD_EXTENSIONS'] = ['png', 'jpg', 'jpeg']
 
@@ -117,8 +119,8 @@ def conversion():
 def guardarArch(file):
     try:
         filename = secure_filename(file.filename)
-        file.save(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
-        print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+        file.save(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
+        print(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
         return True
     except Exception as e:
         print(str(e))  
