@@ -22,9 +22,9 @@ pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 app = Flask(__name__)
 app.secret_key = 'claveultrasecretadeapp'
 
-MYDIR = os.path.dirname(__file__)
+MYDIR = os.path.dirname(os.path.abspath(__file__))
 
-app.config['UPLOAD_FOLDER'] = "./uploads"
+app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['UPLOAD_EXTENSIONS'] = ['png', 'jpg', 'jpeg']
 
 @app.before_request
