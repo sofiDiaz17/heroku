@@ -221,7 +221,7 @@ def form():
                         if mont:
                             session['mon']=mont
                         else:
-                            mont=0
+                            session['mon']=""
                         if date:
                             try:
                                 fecha=datetime.datetime.strptime(date, "%d/%b/%Y").strftime('%Y-%m-%d')
@@ -238,6 +238,8 @@ def form():
                         session['arc']=filename
                         return redirect(url_for('form2'))
                     else:
+                        session['fec']=""
+                        session['fol']=""
                         session['arc']=filename
                         return redirect(url_for('form2'))
                 except:
