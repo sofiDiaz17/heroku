@@ -119,6 +119,7 @@ def guardarArch(file):
     try:
         filename = secure_filename(file.filename)
         file.save(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+        print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
         return True
     except Exception as e:
         print(str(e))  
