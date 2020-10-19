@@ -23,7 +23,7 @@ pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesse
 app = Flask(__name__)
 app.secret_key = 'claveultrasecretadeapp'
 
-app.config['UPLOAD_FOLDER'] = "cuponera\\uploads"
+app.config['UPLOAD_FOLDER'] = "uploads"
 app.config['UPLOAD_EXTENSIONS'] = ['png', 'jpg', 'jpeg']
 
 @app.before_request
