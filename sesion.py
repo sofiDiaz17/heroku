@@ -132,8 +132,9 @@ def extraerInfo(filename):
         texto = pytesseract.image_to_string(img,lang='spa')
         Modelo.entities(session['user'],'GetTextFromImage','El programa extrajo el texto de la foto')
         return texto
-    except:
+    except Exception as e:
         print("No pude analizar")
+        print(str(e))
         Modelo.entities(session['user'],'GetTextFromImage.Fail','El programa no pudo leer la foto')
         return False
 
