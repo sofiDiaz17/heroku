@@ -126,11 +126,14 @@ def guardarArch(file):
 
 def extraerInfo(filename):
     try:
-        img = Image.open(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        img = Image.open(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+        print("tratando de analizar")
+        print(os.path.abspath(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
         texto = pytesseract.image_to_string(img,lang='spa')
         Modelo.entities(session['user'],'GetTextFromImage','El programa extrajo el texto de la foto')
         return texto
     except:
+        print("No pude analizar")
         Modelo.entities(session['user'],'GetTextFromImage.Fail','El programa no pudo leer la foto')
         return False
 
@@ -198,6 +201,7 @@ def form():
             file = request.files['comprobante']
             if file:
                 filename = secure_filename(file.filename)
+                print(filename)
                 save=guardarArch(file)
             if save: 
                 Modelo.entities(session['user'],'SavePicture','El usuario subio una foto y se guardo')
@@ -229,6 +233,9 @@ def form():
                                     session['fec']=fecha
                         else:
                             session['fec']=""
+                        session['arc']=filename
+                        return redirect(url_for('form2'))
+                    else:
                         session['arc']=filename
                         return redirect(url_for('form2'))
                 except:
