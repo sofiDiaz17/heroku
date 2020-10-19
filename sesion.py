@@ -16,7 +16,7 @@ from decimal import Decimal
 
 
 
-pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = './.apt/usr/bin/tesseract'
 
 
 app = Flask(__name__)
