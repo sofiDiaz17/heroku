@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registro</title>
+
+    <link rel="icon" type="image/png" href="static/img/icons/favicon.ico"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="static/fonts/material-icon/css/material-design-iconic-font.min.css">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="static/css/registro.css">
+</head>
+<body style="background-image: url('static/img/bg-01.jpg'); background-repeat: no-repeat; background-size: cover;">
+      
+    <div style="background-color: rgba(255, 255, 255, 0.753); height: 100%; width: 100%; padding-top: 7%;padding-bottom:7%;">
+
+      {% if errorLog %}
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Error</strong> {{errorLog}}.
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+    {% endif %}
+
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        <h2 class="form-title">Crear cuenta</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="name" required id="name" placeholder="Nombre"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" required id="email" placeholder="Correo"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" required id="password" placeholder="Contraseña"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="re_password" required id="re_password" placeholder="Vuelva a introducir la contraseña"/>
+                        </div>
+                        <div class="form-group" style="padding: 3px;">
+                            <label>
+                                <input type="radio" name="img" class="imgCh" value="elefante.png" checked>
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/elefante.png">
+                              </label>
+                              
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="estrella-de-mar.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/estrella-de-mar.png">
+                              </label>
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="leon.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/leon.png">
+                              </label>
+                              
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="loro.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/loro.png">
+                              </label>
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="gorila.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/gorila.png">
+                              </label>
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="gato.png">
+                                <img class="imgSel"style="height: 57px; width: 57px;" src="static/img/imgPerfil/gato.png">
+                              </label>
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="perro.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/perro.png">
+                              </label>
+                              <label>
+                                <input type="radio" class="imgCh" name="img" value="pez.png">
+                                <img class="imgSel" style="height: 57px; width: 57px;" src="static/img/imgPerfil/pez.png">
+                              </label> 
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" required name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>He leído y acepto los <a href="#" class="term-service">Términos y condiciones de uso</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Ya posees una cuenta <a href="/login" class="loginhere-link">Inicia sesión aquí</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+
+    $(".imgSel").click(function(){
+      console.log("Cliiiiiiik");
+      $(this).parent().find('input[type=radio]').prop('checked', true);;
+    
+    });     
+
+    </script>
+    <!-- JS -->
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/js/registro.js"></script>
+</body>
+</html>

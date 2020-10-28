@@ -14,6 +14,26 @@ app.config['MYSQL_DATABASE_DB'] = 'sepherot_sofiaBD'
 app.config['MYSQL_DATABASE_HOST'] = 'nemonico.com.mx'
 mysql = MySQL(app)
 
+def crearUsr(_correo, _contraseña,_nombre,_img):
+    try:
+        if _correo and _contraseña and _nombre:
+            conn = mysql.connect()
+            cursor = conn.cursor()
+            query="INSERT INTO C_Users (correo, password, salt, name, foto) VALUES (%s, %s, 0, %s, %s);"
+            try:
+                cursor.execute(query, (_correo,_contraseña,_nombre,_img))
+                return True
+            except Exception as e:
+                print(str(e))
+                return False
+            cursor.close() 
+            conn.close()
+        else:
+            return json.dumps({'html':'<span>Datos faltantes</span>'})
+    except Exception as e:
+        return json.dumps({'error':str(e)})
+
+
 def loginUser(_correo, _contraseña):
     try:
         if _correo and _contraseña:
@@ -56,6 +76,25 @@ def buscarUser(_user):
     else:
         return json.dumps({'html':'<span>Datos faltantes</span>'})
 
+def fotoUser(_user):
+    if _user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query="SELECT foto FROM C_Users WHERE correo = %s"
+        try:
+            cursor.execute(query, (_user))
+            data = cursor.fetchall()
+            if data:
+                return data
+            else:
+                return False
+        except Exception as e:
+            return e
+        finally:
+            cursor.close() 
+            conn.close()
+    else:
+        return json.dumps({'html':'<span>Datos faltantes</span>'})
 
 def dataUsuario(_user):
     if _user:
@@ -140,6 +179,59 @@ def crearPurch(folio, user, monto, fecha,  rubro, arch):
     cursor.close() 
     conn.close()
 
+
+def catalogo():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query="SELECT * FROM C_Catalog"
+    try:
+        cursor.execute(query)
+        data = cursor.fetchall()
+        if data:
+            return data
+        else:
+            return False
+    except Exception as e:
+        return e
+    cursor.close() 
+    conn.close()
+
+
+def puntfal(_user):
+    if _user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query="SELECT puntos FROM T_Purchas where estado=1 and usuario= %s"
+        cursor.execute(query,_user)
+        data = cursor.fetchall()
+        try:
+            if data:
+                return data
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+    else:
+        return json.dumps({'html':'<span>Datos faltantes</span>'})
+
+
+def buscarObj(_nombre):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query="SELECT * FROM C_Catalog where nombreO = %s"
+    try:
+        cursor.execute(query,_nombre)
+        data = cursor.fetchall()
+        if data:
+            return data
+        else:
+            return False
+    except Exception as e:
+        return e
+    cursor.close() 
+    conn.close()
 
 def entities(user,stage,info):
     conn = mysql.connect()
