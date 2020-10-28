@@ -15,7 +15,7 @@ from PIL import Image
 import os
 from werkzeug.utils import secure_filename
 import re
-from tkinter import messagebox
+#from tkinter import messagebox
 from decimal import Decimal
 import requests, uuid
 import json
