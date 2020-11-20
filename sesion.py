@@ -98,27 +98,35 @@ def perfil():
     if not g.user:
         return redirect(url_for('login'))
     try:
-        maxExp= Modelo.expDate(session['user'])
-        dataP= Modelo.puntosUsuario(session['user'])
-        acumP=Modelo.puntfal(session['user'])
-        try:
-            date_= maxExp[0][0].strftime("%d/%m/%Y")
-        except:
-            date_="- No hay fecha registrada"
-        puntos = 0
-        puntosF = 0 
-        try:
-            for data in dataP:
-                puntos = puntos + data[0]
-        except:
+        estado=Modelo.estadoOnboarding(session['user'])
+        if estado:
+            userOnBoard=estado[0][0]
+            maxExp= Modelo.expDate(session['user'])
+            dataP= Modelo.puntosUsuario(session['user'])
+            acumP=Modelo.puntfal(session['user'])
+            try:
+                date_= maxExp[0][0].strftime("%d/%m/%Y")
+            except:
+                date_="- No hay fecha registrada"
             puntos = 0
-        try:
-            for dataf in acumP:
-                puntosF = puntosF + dataf[0]
-        except:
             puntosF = 0 
-        Modelo.entities(session['user'],'ProfileLoad','Se cargo el perfil del usuario')
-        return render_template('perfil.html',puntos=puntos, expiracion=date_,puntosF=puntosF )
+            try:
+                for data in dataP:
+                    puntos = puntos + data[0]
+            except:
+                puntos = 0
+            try:
+                for dataf in acumP:
+                    puntosF = puntosF + dataf[0]
+            except:
+                puntosF = 0 
+            Modelo.entities(session['user'],'ProfileLoad','Se cargo el perfil del usuario')
+            return render_template('perfil.html',onboarding=userOnBoard,puntos=puntos, expiracion=date_,puntosF=puntosF )
+        else:
+            Modelo.entities(session['user'],'UserOnBoarding.Fail','Ocurrio un error con el proceso de OnBoarding del usuario')
+            errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
+            return render_template('login.html',errorLog=errorLog)
+        
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'ProfileLoad.Fail.NotFound','Error al cargar el perfil del usuario')
@@ -131,9 +139,11 @@ def historial():
     if not g.user:
         return redirect(url_for('login'))
     try:
+        estado=Modelo.estadoOnboarding(session['user'])
+        userOnBoard=estado[0][0]
         dataU = Modelo.dataUsuario(session['user'])
         Modelo.entities(session['user'],'HistoryLoad','Se cargo el historial del usuario')
-        return render_template('historial.html', tabla=dataU)
+        return render_template('historial.html',onboarding=userOnBoard, tabla=dataU)
     except:
         try:
             Modelo.entities(session['user'],'HistoryLoad','Se cargo el historial del usuario')
@@ -320,7 +330,9 @@ def recibos():
                         Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
                         errorLog="Revise los datos"
                         return render_template('uploadAn.html',errorLog=errorLog)
-    return render_template('uploadAn.html')
+    estado=Modelo.estadoOnboarding(session['user'])
+    userOnBoard=estado[0][0]
+    return render_template('uploadAn.html',onboarding=userOnBoard)
 
 @app.route('/tester',methods=['GET','POST'])
 def tester():
@@ -333,7 +345,9 @@ def tester():
         puntos = 0
     try:
         Modelo.entities(session['user'],'TesterLoad','Se cargo la pagina de tester')
-        return render_template('fotoTest.html',puntos=puntos)
+        estado=Modelo.estadoOnboarding(session['user'])
+        userOnBoard=estado[0][0]
+        return render_template('fotoTest.html',puntos=puntos,onboarding=userOnBoard)
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'TesterLoad.Fail.NotFound','Error al cargar el tester')
@@ -404,6 +418,24 @@ def getObjDB():
             print(str(e))
             return json.dumps(False)
 
+@app.route('/OnBoard',methods=['GET','POST'])
+def OnBoard():
+    if request.method=='POST':
+        data=request.get_json()
+        estado=data['estado']
+        try:
+            data=Modelo.setEstadoOnboarding(session['user'],estado)
+            if data:
+                Modelo.entities(session['user'],'ChangeState','El usuario completo una fase del OnBoarding')
+                return json.dumps(data,ensure_ascii=False)
+            else:
+                Modelo.entities(session['user'],'ChangeState.Fail','No se pudo cambiar el estado del OnBoarding')
+                return json.dumps(False)
+        except Exception as e:
+            Modelo.entities(session['user'],'ChangeState.Fail','No se pudo cambiar el estado del OnBoarding')
+            print(str(e))
+            return json.dumps(False)
+
 @app.route('/close')
 def close():
     try:
@@ -421,5 +453,5 @@ def inicio():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
     

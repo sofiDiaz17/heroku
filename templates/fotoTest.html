@@ -22,14 +22,6 @@ body {font-family: "Lato", sans-serif}
 input[type="file"] {
     display: none;
 }
-.custom-file-upload {
-  border: 1px solid rgb(129, 190, 248);
-    background-color:#7579ff;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 90px; 
-}
 
 .gradient {
   background: #9152f8;
@@ -77,8 +69,72 @@ input[type="file"] {
   max-width: 30%;
   max-height: 30%;
 }
+
+.bubble {
+ 
+ background: #00bfb6;
+ padding: 1.5em;
+ text-align: center;
+ font-weight: 900;
+ color: #fff;
+ font-family: arial;
+ position: relative;
+}
+
+.bubble:after { 
+ content: "";
+ width: 0px;
+ height: 0px;
+ position: absolute;
+ border-left: 10px solid #00bfb6;
+ border-right: 10px solid transparent;
+ border-top: 10px solid #00bfb6;
+ border-bottom: 10px solid transparent;
+ left: 39px;
+ bottom: -19px;
+}
+
+.circle {
+ width: 70px;
+ height: 70px;
+ position: relative;
+ left: 15px;
+ margin-top: 5%;
+}
+
+
+.chatB{
+  margin: auto; 
+  height: 40%;
+  width: 46%; 
+  margin-top: 20%;
+}
+
+@media(max-width:420px){
+  .chatB{
+  margin: auto; 
+  height: 40%;
+  width: 46%; 
+  margin-top: 59%;
+}
+}
 </style>
-<body>
+<body style="background-image: url('static/img/bg-01.jpg'); padding: 0; margin: 0;">
+  {% if onboarding == 2 %}
+  <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+    <div  class="chatB" id="chatB">
+      <div class="bubble" id="bubble">
+        <div id="textBot">
+          Bienvenido al tester
+          <br>Aquí podras subir fotos de objetos que te interesen y ver su disponibilidad.
+          <br>Intentalo!.
+        </div>
+        <button id="btnFot"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+      </div>
+      <img src="static/img/botHelp.png" id="bipbop" class="circle">
+    </div>
+  </div>
+  {% endif %}
 
 <!-- Navbar -->
 <div class="w3-top">
@@ -97,9 +153,9 @@ input[type="file"] {
     <a href="/historial" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
     <a href="/conversion" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
     <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Catalogo <i class="fa fa-caret-down"></i></button>     
+      <button class="w3-padding-large w3-button" title="More">Productos <i class="fa fa-caret-down"></i></button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="/catalogo" class="w3-bar-item w3-button">Productos</a>
+        <a href="/catalogo" class="w3-bar-item w3-button">Catalogo</a>
       </div>
     </div>
     <a href="/close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
@@ -111,11 +167,12 @@ input[type="file"] {
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
   <a href="/historial" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
   <a href="/conversion" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
-  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Productos</a>
+  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
+  <a href="/close" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
 </div>
 
 <!-- Page content -->
-<div class="w3-content" style="max-width:2000px; margin-top:46px">
+<div class="w3-content" style="max-width:2000px; ">
 
 
   {% if errorLog %}
@@ -208,16 +265,15 @@ input[type="file"] {
   <div class="col-sm-1"></div>
   <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
     <h3>Buscar objeto</h3> <div class="loader" id="loader"></div>
-    <div>
-      <form id="upload-file" method="post" enctype="multipart/form-data">
-        <label for="file-upload" class="custom-file-upload" id="upbtn">
+    <div id="formFot">
+      <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
+        <label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
           <i class="fa fa-cloud-upload"></i> Subir foto de objeto
       </label>
       <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
-      <button type="button" id="upload-file-btn" class="login100-form-btn">Buscar</button>
     </form>
     </div>
-    <div class="card" style="width: 18rem; padding-left: 5px; margin-top: 3%;">
+    <div id="cardObj" class="card" style="width: 18rem; padding-left: 5px; margin-top: 23%;">
       <img src="static/img/bienes.png" id="imOb" class="card-img-top" alt="..." style="height: 180px;">
       <div class="card-body">
         <h5 class="card-title" id="nomOb">Nombre</h5>
@@ -315,7 +371,7 @@ $(document).ready(function(){
 
 
 $(function() {
-    $('#upload-file-btn').click(function() {
+    $('input[type="file"]').change(function() {
       name=document.getElementById("upbtn").innerHTML;
         console.log(name);
         if(name.includes("Subir foto de objeto", 0))
@@ -352,16 +408,64 @@ $(function() {
                         console.log(res);
                         if(res){
                           n=res[0][1];
-                        p=res[0][3];
-                        i=res[0][4];
-                        document.getElementById("nomOb").innerHTML=n;
-                        document.getElementById("puntOb").innerHTML=p;
-                        document.getElementById("imOb").src="static/img/catalogo/"+i;
-                        document.getElementById("loader").style.display='none';
+                          p=res[0][3];
+                          i=res[0][4];
+                          document.getElementById("nomOb").innerHTML=n;
+                          document.getElementById("puntOb").innerHTML=p;
+                          document.getElementById("imOb").src="static/img/catalogo/"+i;
+                          document.getElementById("loader").style.display='none';
+
+                          var bip=document.getElementById("bipbop");
+                          if(bip){
+                            document.getElementById('cardObj').style.zIndex=2000;
+                            var x = window.matchMedia("(max-width: 420px)")
+
+                            if (x.matches) { // If media query matches
+                              document.getElementById('chatB').style.width="86%";
+                              document.getElementById('chatB').style.marginTop="145%";
+                            } else {
+                              document.getElementById('chatB').style.width="25%";
+                            }
+
+                            document.getElementById('textBot').innerHTML="Aquí aparece el objeto encontrado con todos sus datos";
+                            $.ajax({
+                                type: 'POST',
+                                url: '/OnBoard',
+                                headers:{
+                                  'Content-Type':'application/json'
+                                },
+                                data: JSON.stringify({"estado":"3"}),
+                                dataType:"json",
+                                success: function(res) {
+                                  console.log('cambio!');                      
+                                },
+                                error: function() {
+                                  console.log("No se cambio el usuario");
+                                }
+                            });
+                            document.getElementById("btnFot").style.display='none';
+                            var btF=document.createElement('a');
+                            btF.href="/perfil";
+                            btF.style.color="white";
+                            btF.innerHTML="Entendido";
+                            var iF=document.createElement('i');
+                            iF.setAttribute("aria-hidden","true");
+                            iF.className="fa fa-check";
+                            iF.style.color="white";
+                            btF.appendChild(iF);
+                            document.getElementById("bubble").appendChild(btF)
+                          }
                         }
                         else{
-                          document.getElementById("noBas").style.display="block";
-                          document.getElementById("loader").style.display = 'none';
+                          var bip=document.getElementById("bipbop");
+                          if(bip){
+                            document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
+                            document.getElementById("loader").style.display = 'none';
+                          }
+                          else{
+                            document.getElementById("noBas").style.display="block";
+                            document.getElementById("loader").style.display = 'none';
+                          }
                         }
                     },
                     error: function() {
@@ -371,8 +475,15 @@ $(function() {
                  });
                 }
                 else{
+                  var bip=document.getElementById("bipbop");
+                  if(bip){
+                    document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
+                    document.getElementById("loader").style.display = 'none';
+                  }
+                  else{
                   document.getElementById("noVe").style.display="block";
                   document.getElementById("loader").style.display = 'none';
+                  }
                }
               },
               error: function() {
@@ -402,6 +513,14 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+$('#btnFot').click(function () {
+    document.getElementById('upload-file').style.zIndex=5000;
+    document.getElementById('textBot').innerHTML="Sube una foto";
+    //document.getElementById('btnFot').id="btnFin";
+  });
+
 </script>
 
 

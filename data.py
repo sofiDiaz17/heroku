@@ -233,6 +233,39 @@ def buscarObj(_nombre):
     cursor.close() 
     conn.close()
 
+def estadoOnboarding(user):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query="Select estadoCO from C_Users where correo = (%s)"
+    try:
+        cursor.execute(query, (user))
+        data = cursor.fetchall()
+        if data:
+            return data
+        else:
+            return False
+    except Exception as e:
+        print(str(e))
+        return False
+    cursor.close() 
+    conn.close()
+
+def setEstadoOnboarding(user,estado):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query="Update C_Users set estadoCO = %s where correo= %s"
+    try:
+        done=cursor.execute(query, (estado, user))
+        if done:
+            return True
+        else:
+            return False
+    except Exception as e:
+        print(str(e))
+        return False
+    cursor.close() 
+    conn.close()
+
 def entities(user,stage,info):
     conn = mysql.connect()
     cursor = conn.cursor()

@@ -1,32 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Formulario</title>
+<title>Formulario</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="icon" type="image/png" href="static/img/icons/favicon.ico"/>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="icon" type="image/png" href="static/img/icons/favicon.ico"/>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    
-    <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
-    <link href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="static/css/util.css">
-    <link rel="stylesheet" type="text/css" href="static/css/login.css">
-</head>
- <style>
+<link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css">
+<link rel="stylesheet" type="text/css" href="static/css/util.css">
+<link rel="stylesheet" type="text/css" href="static/css/login.css">
+
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+
 
 input[type="file"] {
     display: none;
-}
-.custom-file-upload {
-    border: 1px solid rgb(129, 190, 248);
-    background-color:#7579ff;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 90px; 
 }
 
 .btn-circle.btn-xl { 
@@ -39,24 +33,22 @@ input[type="file"] {
             opacity: .8;
             font-size: 20px;
         }
-        
-    .back{
-     
-      background-color: rgba(255, 255, 255, 0.753);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-  .gradient {
+.gradient {
   background: #9152f8;
   background: -webkit-linear-gradient(top, #7579ff, #b224ef);
   background: -o-linear-gradient(top, #7579ff, #b224ef);
   background: -moz-linear-gradient(top, #7579ff, #b224ef);
   background: linear-gradient(top, #7579ff, #b224ef);
+}
+
+.gradientBox {
+  border-width: 3px;
+  border-color: #9152f8;
+  border-color: -webkit-linear-gradient(top, #7579ff, #b224ef);
+  border-color: -o-linear-gradient(top, #7579ff, #b224ef);
+  border-color: -moz-linear-gradient(top, #7579ff, #b224ef);
+  border-color: linear-gradient(top, #7579ff, #b224ef);
+  border-radius: 70%;
 }
 
 .loader {
@@ -83,10 +75,80 @@ input[type="file"] {
   100% { transform: rotate(360deg); }
 }
 
- </style>
-<body style="background-image: url('static/img/bg-01.jpg'); background-repeat: no-repeat; background-size: cover; margin-bottom: 0px; margin-top: 0px;">
+.imLis{
+  max-width: 30%;
+  max-height: 30%;
+}
+
+.bubble {
+ 
+ background: #00bfb6;
+ padding: 1.5em;
+ text-align: center;
+ font-weight: 900;
+ color: #fff;
+ font-family: arial;
+ position: relative;
+}
+
+.bubble:after { 
+ content: "";
+ width: 0px;
+ height: 0px;
+ position: absolute;
+ border-left: 10px solid #00bfb6;
+ border-right: 10px solid transparent;
+ border-top: 10px solid #00bfb6;
+ border-bottom: 10px solid transparent;
+ left: 39px;
+ bottom: -19px;
+}
+
+.circle {
+ width: 70px;
+ height: 70px;
+ position: relative;
+ left: 15px;
+ margin-top: 5%;
+}
+
+.chatB{
+  margin: auto; 
+  height: 40%;
+  width: 46%; 
+  margin-top: 27%;
+}
+
+@media(max-width:420px){
+  .chatB{
+  margin: auto; 
+  height: 40%;
+  width: 46%; 
+  margin-top: 47%;
+}
+}
+
+</style>
+<body style="background-image: url('static/img/bg-01.jpg'); padding: 0; margin: 0;">
+
+  {% if onboarding == 0 %}
+  <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+    <div class="chatB" id="chatB">
+      <div class="bubble" id="bubble">
+        <div id="textBot">
+          Esta es tu página de compras. 
+          <br>Aquí podras subir fotos de tus recibos y obtener puntos.
+          <br>¡Intentalo!.
+        </div>
+        <button id="btnAgrRes"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+      </div>
+      <img src="static/img/botHelp.png" id="bipbop" class="circle">
+    </div>
+  </div>
+  {% endif %}
+
   
-  <!-- Navbar -->
+<!-- Navbar -->
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
@@ -103,10 +165,11 @@ input[type="file"] {
     <a href="/historial" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
     <a href="/conversion" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
     <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Catalogo <i class="fa fa-caret-down"></i></button>     
+      <button class="w3-padding-large w3-button" title="More">Productos <i class="fa fa-caret-down"></i></button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="/catalogo" class="w3-bar-item w3-button">Productos</a>
+        <a href="/catalogo" class="w3-bar-item w3-button">Catalogo</a>
         <a href="/tester" class="w3-bar-item w3-button">Inspeccionar producto</a>
+
       </div>
     </div>
     <a href="/close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
@@ -118,78 +181,81 @@ input[type="file"] {
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
   <a href="/historial" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
   <a href="/conversion" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
-  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Productos</a>
-  <a href="/tester" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inspeccionar producto</a>
+  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
+  <a href="/close" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
 </div>
-  
-  <div class="w3-content" style="max-width:2000px; margin-top:46px ; background-color: rgba(255, 255, 255, 0.753);">
 
-        <a href="/perfil"><i class="fa fa-times" style="font-size: 17px;" aria-hidden="true"></i></a>
-        {% if errorLog %}
-        <div id="id01" class="w3-modal">
-          <div class="w3-modal-content w3-animate-zoom w3-card-4">
-            <header class="w3-container w3-pale-yellow"> 
-              <span onclick="document.getElementById('id01').style.display='none'" 
-              class="w3-button w3-display-topright">&times;</span>
-              <h4>Error</h4>
-            </header>
-            <div class="w3-container">
-              <p>{{ errorLog }}</p>
-            </div>
-          </div>
-        </div>
+<!-- Page content -->
+<div class="w3-content" style="max-width:2000px; ">
 
-        {% endif %}
-        
-        <div id="algoMal" class="w3-modal" style="display: none;">
-          <div class="w3-modal-content w3-animate-zoom w3-card-4">
-            <header class="w3-container w3-pale-yellow"> 
-              <span onclick="document.getElementById('algoMal').style.display='none'" 
-              class="w3-button w3-display-topright">&times;</span>
-              <h4>Error</h4>
-            </header>
-            <div class="w3-container">
-              <p>Lo sentimos, algo salio mal con su ticket, por favor complete la información manualmente.</p>
-            </div>
-          </div>
-        </div>
+  <a href="/perfil"><i class="fa fa-times" style="font-size: 17px;" aria-hidden="true"></i></a>
 
-
-      <div id="noFot" class="w3-modal" style="display: none;">
-        <div class="w3-modal-content w3-animate-zoom w3-card-4">
-          <header class="w3-container w3-pale-yellow"> 
-            <span onclick="document.getElementById('noFot').style.display='none'" 
-            class="w3-button w3-display-topright">&times;</span>
-            <h4>Error</h4>
-          </header>
-          <div class="w3-container">
-            <p> Por favor, suba una foto de su recibo.</p>
-          </div>
-        </div>
+  {% if errorLog %}
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+      <header class="w3-container w3-pale-yellow"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h4>Error</h4>
+      </header>
+      <div class="w3-container">
+        <p>{{ errorLog }}</p>
       </div>
+    </div>
+  </div>
 
-      
+  {% endif %}
+  
+  <div id="algoMal" class="w3-modal" style="display: none;">
+    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+      <header class="w3-container w3-pale-yellow"> 
+        <span onclick="document.getElementById('algoMal').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h4>Error</h4>
+      </header>
+      <div class="w3-container">
+        <p>Lo sentimos, algo salio mal con su ticket, por favor complete la información manualmente.</p>
+      </div>
+    </div>
+  </div>
 
-          
-        <h1 style="text-align: center; margin-bottom: 15px;">Añadir puntos</h1>
-        <!-- The Band Section -->
-      <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm">
-          <h3>Subir comprobante de compra</h3> <div class="loader" id="loader"></div>
-          <div>
-            <form id="upload-file" method="post" enctype="multipart/form-data">
-              <label for="file-upload" class="custom-file-upload" id="upbtn">
-                <i class="fa fa-cloud-upload"></i> Subir recibo
-            </label>
-            <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
-            <button type="button" id="upload-file-btn"  class="login100-form-btn">Analizar</button>
-          </form>
-          </div>
-        
-        </div>
-        <div class="col-sm">
-          <h2 class="text-muted" style="text-align: center;">Verifique sus datos antes de guardar</h2>
+ 
+
+<div id="noFot" class="w3-modal" style="display: none;">
+  <div class="w3-modal-content w3-animate-zoom w3-card-4">
+    <header class="w3-container w3-pale-yellow"> 
+      <span onclick="document.getElementById('noFot').style.display='none'" 
+      class="w3-button w3-display-topright">&times;</span>
+      <h4>Error</h4>
+    </header>
+    <div class="w3-container">
+      <p> Por favor, suba una foto de su recibo.</p>
+    </div>
+  </div>
+</div>
+
+ 
+
+
+
+  <!-- The Band Section -->
+<div class="row" style="margin-top: 40px;">
+  <div class="col-sm-1"></div>
+  <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
+    <h2>Subir comprobante de compra</h2> <div class="loader" id="loader"></div>
+    <div>
+      <form id="upload-file" method="post" enctype="multipart/form-data" style="position: absolute;">
+        <label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
+          <i class="fa fa-cloud-upload"></i> Subir recibo
+      </label>
+      <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
+    </form>
+    </div>
+    
+  </div>
+  <div class="col-sm-2" style="margin-top: 20%;"></div>
+  <div class="col-sm" style=" margin: auto; margin-left: 3%;margin-top: 4%;" id="verDatos" class="gradientBox">
+    <h2  style="text-align: center;">Verifique sus datos antes de guardar</h2>
           <div style="margin: auto; width: 100%; background-color: #f7f9fb; margin-top: 10%; margin-bottom: 5%;">
             <form method="POST" enctype="multipart/form-data" class="gradient" style="padding: 7%; color: white;">
               <div class="form-group">
@@ -220,18 +286,29 @@ input[type="file"] {
               <button type="submit" name="ingresar"  class="login100-form-btn">Guardar</button>
             </form>
           </div>
-        </div>
-        <div class="col-sm-1"></div>
-
-      </div>
   </div>
+  <div class="col-sm-1"></div>
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+</div>
+ 
+
+ 
+ 
+  
+<!-- End Page Content -->
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
+
+
 <script>
+
 $(document).ready(function(){ 
             $('input[type="file"]').change(function(e){ 
                 var flName = e.target.files[0].name;
@@ -243,7 +320,7 @@ $(document).ready(function(){
         }); 
 
         $(function() {
-    $('#upload-file-btn').click(function() {
+    $('input[type="file"]').change(function() {
         name=document.getElementById("upbtn").innerHTML;
         console.log(name);
         if(name.includes("Subir recibo", 0))
@@ -271,6 +348,38 @@ $(document).ready(function(){
                 document.getElementById("fechaCom").value=data[2];
                 document.getElementById("archivo").value=data[3];
                 document.getElementById("loader").style.display = 'none';
+
+                var bip=document.getElementById("bipbop");
+                if(bip){
+                  document.getElementById('verDatos').style.zIndex=2000;
+                  document.getElementById('upload-file').style.zIndex=800;
+                  var x = window.matchMedia("(max-width: 420px)")
+
+                  if (x.matches) { // If media query matches
+                    document.getElementById('chatB').style.width="56%";
+                    document.getElementById('chatB').style.marginTop="20%";
+                  } else {
+                    document.getElementById('chatB').style.width="25%";
+                  }
+
+                  document.getElementById('textBot').innerHTML="Aquí aparecen los datos de tu recibo";
+                  $.ajax({
+                    type: 'POST',
+                    url: '/OnBoard',
+                    headers:{
+                      'Content-Type':'application/json'
+                    },
+                    data: JSON.stringify({"estado":"1"}),
+                    dataType:"json",
+                    success: function(res) {
+                      console.log('cambio!');                      
+                    },
+                    error: function() {
+                      console.log("No se cambio el usuario");
+                    }
+                 });
+                 
+                }
               },
               error: function() {
                 //alert("Algo salio mal");
@@ -283,7 +392,17 @@ $(document).ready(function(){
 });
 
 
+$('#btnAgrRes').click(function () {
+    document.getElementById('upload-file').style.zIndex=2000;
+    document.getElementById('textBot').innerHTML="Sube tu primer recibo";
+    document.getElementById('btnAgrRes').style.display='none';
+    
+    textBot
+  });
 </script>
-</body>
 
+
+
+
+</body>
 </html>

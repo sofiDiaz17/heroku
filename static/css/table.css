@@ -120,6 +120,7 @@ iframe {
   justify-content: center;
   flex-wrap: wrap;
   padding: 33px 30px;
+  padding-top: 80px;
 }
 
 .wrap-table100 {
