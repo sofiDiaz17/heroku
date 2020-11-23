@@ -193,12 +193,12 @@ def rewards():
         else:
             Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-            return render_template('login.html',errorLog=errorLog)
+            return render_template('perfil.html',errorLog=errorLog)
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
         errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-        return render_template('login.html',errorLog=errorLog)
+        return render_template('perfil.html',errorLog=errorLog)
 
 
 @app.route('/historial')
