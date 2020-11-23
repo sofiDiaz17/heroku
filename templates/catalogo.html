@@ -13,8 +13,10 @@
 <link href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
 
 <style>
-body {font-family: "Lato", sans-serif}
+body {font-family: Poppins-Regular, sans-serif;}
 .mySlides {display: none}
+
+
 
 .gradient {
   background: #9152f8;
@@ -28,38 +30,35 @@ body {font-family: "Lato", sans-serif}
 <body>
 
 <!-- Navbar -->
-<div class="w3-top">
+<div class="w3-top" id="Nav">
   <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <div class="col" >
-    <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
-    </div>
-    <div class="col">
-    <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@</h5>
-    </div>
-    <div class="col">
-    <h6 class="card-title w3-bar-item w3-padding-large w3-hide-small">{{g.user}}</h6>
-    </div>
-    <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a>
-    <a href="/historial" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
-    <a href="/conversion" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
+    <a href="/historial" id="hist" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
+    <a href="/conversion" id="conv" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
     <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Productos <i class="fa fa-caret-down"></i></button>     
+      <button class="w3-padding-large w3-button" id="catG" title="More">Productos<i class="fa fa-caret-down"></i></button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="/tester" class="w3-bar-item w3-button">Inspeccionar producto</a>
+        <a href="/tester" id="test" class="w3-bar-item w3-button">Inspeccionar producto</a>
       </div>
     </div>
-    <a href="/close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <div class="col" style="margin-left: 70%;">
+      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+      </div>
+      <div class="col">
+      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+      </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
-  <a href="/historial" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
-  <a href="/conversion" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
-  <a href="/tester" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inspeccionar producto</a>
-  <a href="/close" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
+  <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
+  <a href="/conversion" id="convC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
+  <a href="/tester" id="testC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inspeccionar producto</a>
+  <a href="/close" id="closeC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
 </div>
 
 <!-- Page content -->
@@ -97,7 +96,7 @@ body {font-family: "Lato", sans-serif}
     </div>
     {% set dev.value = 0 %}
   {% endif %}
-  <div class="w3-third w3-container w3-margin-bottom" style="width:30%; height: 80%; margin: auto; text-align: center;">
+  <div class="w3-third w3-container w3-margin-bottom" style="width:30%; height: 100%; margin: auto; text-align: center; margin-bottom: 10%; margin-top: 10%;">
     <img src="static/img/catalogo/{{ob.4}}" alt="" style="width:40%; height: 60%; margin: auto;"class="w3-hover-opacity">
     <div class="w3-container w3-white">
       <p><b>{{ob.1}}</b></p>
@@ -115,9 +114,10 @@ body {font-family: "Lato", sans-serif}
  
 <!-- End Page Content -->
 </div>
+<script src="https://unpkg.com/scrollreveal"></script>
 
 <script>
-// Automatic Slideshow - change image every 4 seconds
+  ScrollReveal().reveal('.w3-third');
 
 
 // Used to toggle the menu on small screens when clicking on the menu button

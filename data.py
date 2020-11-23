@@ -21,9 +21,18 @@ def crearUsr(_correo, _contraseña,_salt,_nombre,_img):
         if _correo and _contraseña and _nombre:
             conn = mysql.connect()
             cursor = conn.cursor()
-            query="INSERT INTO C_Users (email, password, salt, name, picture, onBoardState) VALUES (%s, %s, %s, %s, %s,0);"
+            query="INSERT INTO C_Users (email, password, salt, name, picture, onBoardState, BipTips) VALUES (%s, %s, %s, %s, %s,0,0);"
             try:
                 cursor.execute(query, (_correo,_contraseña,_salt,_nombre,_img))
+                today=datetime.datetime.now()
+                d1 = today.strftime("%Y-%m-%d")
+                ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+                expR=ddd+relativedelta(years=+1)
+                id="regalo300"+_correo
+                points=300
+                doc="regalo300"
+                queryRegalo="Insert into T_Purchas (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,_correo,d1,points,expR,doc))
                 return True
             except Exception as e:
                 print(str(e))

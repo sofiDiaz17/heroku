@@ -118,7 +118,12 @@ def perfil():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
+            print(userOnBoard)
+            #print(bips) 
+            if bips==0:
+                bips=1
             r=Modelo.rewardsUsr(bips)
+            #print(r)
             try:
                 date_= maxExp[0][0].strftime("%d/%m/%Y")
             except:
@@ -161,6 +166,8 @@ def rewards():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
+            if bips==0:
+                bips=1
             r=Modelo.rewardsUsr(bips)
             nextLvl=Modelo.nextLvl(r[0][0])
             bipsPer=(int(bips)*100)/int(nextLvl[0][6])

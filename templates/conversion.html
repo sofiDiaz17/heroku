@@ -26,44 +26,70 @@
 	<link rel="stylesheet" type="text/css" href="static/css/tableC.css">
 
 <style>
-body {font-family: "Lato", sans-serif}
+body {font-family: Poppins-Regular, sans-serif;}
 .mySlides {display: none}
+
+body {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+#container {
+  width: 100%;  
+}
+
+.hidden {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
 </style>
 <body>
 
 <!-- Navbar -->
-<div class="w3-top">
+<div class="w3-top" id="Nav">
   <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <div class="col" >
-    <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
-    </div>
-    <div class="col">
-    <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@</h5>
-    </div>
-    <div class="col">
-    <h6 class="card-title w3-bar-item w3-padding-large w3-hide-small">{{g.user}}</h6>
-    </div>
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
-    <a href="/historial" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
+    <a href="/historial" id="hist" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
     <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Productos <i class="fa fa-caret-down"></i></button>     
+      <button class="w3-padding-large w3-button" id="catG" title="More">Productos<i class="fa fa-caret-down"></i></button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="/catalogo" class="w3-bar-item w3-button">Catalogo</a>
-        <a href="/tester" class="w3-bar-item w3-button">Inspeccionar producto</a>
+        <a href="/catalogo" id="cat" class="w3-bar-item w3-button">Catalogo</a>
+        <a href="/tester" id="test" class="w3-bar-item w3-button">Inspeccionar producto</a>
       </div>
     </div>
-    <a href="/close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <div class="col" style="margin-left: 70%;">
+      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+      </div>
+      <div class="col">
+      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+      </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
-  <a href="/historial" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
-  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
-  <a href="/tester" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inspeccionar producto</a>
-  <a href="/close" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
+  <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
+  <a href="/catalogo" id="catC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
+  <a href="/tester" id="testC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inspeccionar producto</a>
+  <a href="/close" id="closeC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
 </div>
 
 <!-- Page content -->
@@ -89,7 +115,8 @@ body {font-family: "Lato", sans-serif}
 
   
 
- 
+    <div id="container"></div>
+
   <div class="limiter">
 		<div class="container-table100">
 			<div class="wrap-table100">
@@ -132,10 +159,8 @@ body {font-family: "Lato", sans-serif}
 
 
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
-  
-  <p class="w3-medium">Todos los derechos reservados 2020 &copy </p>
-</footer>
+
+<script src="https://rawcdn.githack.com/akzhy/Vara/02d135d2864a976f6c70464aebee0f81647695c8/src/vara.min.js"></script>
 
 <script>
 // Automatic Slideshow - change image every 4 seconds
@@ -158,6 +183,32 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+
+
+var fontSize = 52;
+if(window.screen.width < 700) 
+  fontSize = 32;
+else if(window.screen.width < 1200)
+  fontSize= 36;
+var vara = new Vara(
+  "#container",
+  "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json",
+  [
+    {
+      text: "Conversion",
+      y: 30,
+      fromCurrentPosition: { y: false },
+      duration: 3000
+    }
+  ],
+  {
+    strokeWidth: 1,
+    color:"black",
+    fontSize: fontSize,
+    textAlign: "center"
+  }
+);
 </script>
 
 <script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>

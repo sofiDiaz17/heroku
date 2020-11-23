@@ -15,7 +15,8 @@
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
 
 <style>
-body {font-family: "Lato", sans-serif}
+body {font-family: Poppins-Regular, sans-serif;}
+
 .mySlides {display: none}
 
 
@@ -118,8 +119,19 @@ input[type="file"] {
   margin-top: 59%;
 }
 }
+
+
+#container {
+  width: 100%;  
+}
+
+.hidden {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
 </style>
-<body style="background-image: url('static/img/bg-01.jpg'); padding: 0; margin: 0;">
+<body style=" padding: 0; margin: 0;">
   {% if onboarding == 2 %}
   <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
     <div  class="chatB" id="chatB">
@@ -137,38 +149,35 @@ input[type="file"] {
   {% endif %}
 
 <!-- Navbar -->
-<div class="w3-top">
+<div class="w3-top" id="Nav">
   <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <div class="col" >
-    <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
-    </div>
-    <div class="col">
-    <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@</h5>
-    </div>
-    <div class="col">
-    <h6 class="card-title w3-bar-item w3-padding-large w3-hide-small">{{g.user}}</h6>
-    </div>
-    <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a>
-    <a href="/historial" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
-    <a href="/conversion" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
+    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
+    <a href="/historial" id="hist" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Historial</a>
+    <a href="/conversion" id="conv" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Conversion</a> 
     <div class="w3-dropdown-hover w3-hide-small">
-      <button class="w3-padding-large w3-button" title="More">Productos <i class="fa fa-caret-down"></i></button>     
+      <button class="w3-padding-large w3-button" id="catG" title="More">Productos<i class="fa fa-caret-down"></i></button>     
       <div class="w3-dropdown-content w3-bar-block w3-card-4">
-        <a href="/catalogo" class="w3-bar-item w3-button">Catalogo</a>
+        <a href="/catalogo" id="cat" class="w3-bar-item w3-button">Catalogo</a>
       </div>
     </div>
-    <a href="/close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
+    <div class="col" style="margin-left: 70%;">
+      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+      </div>
+      <div class="col">
+      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+      </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
 <div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
-  <a href="/historial" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
-  <a href="/conversion" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
-  <a href="/catalogo" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
-  <a href="/close" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
+  <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
+  <a href="/conversion" id="convC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
+  <a href="/catalogo" id="catC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Catalogo</a>
+  <a href="/close" id="closeC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Cerrar sesion</a>
 </div>
 
 <!-- Page content -->
@@ -259,12 +268,14 @@ input[type="file"] {
 
 
 
-<div style="text-align: center; margin-bottom: 15px;color: white; " class="gradient">Mis puntos: <h4 id="puntos">{{puntos}}</h4></div> <h1 style="text-align: center; margin-bottom: 15px;">Simulador de compras</h1>
-  <!-- The Band Section -->
+<div style="text-align: center; margin-bottom: 15px;color: white; " class="gradient">Mis puntos: <h4 id="puntos">{{puntos}}</h4></div> 
+<div id="container"></div>
+
+<!-- The Band Section -->
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-    <h2>Buscar objeto</h2> <div class="loader" id="loader"></div>
+   <div class="loader" id="loader"></div>
     <div id="formFot">
       <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
         <label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
@@ -305,6 +316,7 @@ input[type="file"] {
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://rawcdn.githack.com/akzhy/Vara/02d135d2864a976f6c70464aebee0f81647695c8/src/vara.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 
@@ -550,6 +562,34 @@ $('#btnFot').click(function () {
     document.getElementById('textBot').innerHTML="Sube una foto";
     //document.getElementById('btnFot').id="btnFin";
   });
+
+
+
+
+  
+  var fontSize = 52;
+if(window.screen.width < 700) 
+  fontSize = 32;
+else if(window.screen.width < 1200)
+  fontSize= 36;
+var vara = new Vara(
+  "#container",
+  "https://rawcdn.githack.com/akzhy/Vara/ed6ab92fdf196596266ae76867c415fa659eb348/fonts/Satisfy/SatisfySL.json",
+  [
+    {
+      text: "Simulador de compras",
+      y: 30,
+      fromCurrentPosition: { y: false },
+      duration: 3000
+    }
+  ],
+  {
+    strokeWidth: 1,
+    color:"black",
+    fontSize: fontSize,
+    textAlign: "center"
+  }
+);
 
 </script>
 
