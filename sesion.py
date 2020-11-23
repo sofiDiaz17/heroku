@@ -19,6 +19,8 @@ import re
 from decimal import Decimal
 import requests, uuid
 import json
+import hashlib
+
 
 
 
@@ -59,16 +61,26 @@ def registro():
         nombre=request.form['name']
         corre=request.form['email']
         contra=request.form['password']
+        contra2=request.form['re_password']
         img=request.form['img']
-        if nombre and corre and contra:
-            crear=Modelo.crearUsr(corre,contra,nombre,img)
-            if crear:
-                Modelo.entities(corre,'Registro','Se creo usuario')
-                errorLog="Se creo el usuario, inicia sesion"
-                return redirect(url_for('login',errorLog=errorLog))
+
+        if contra == contra2:
+            salt = uuid.uuid4().hex
+            sPass=hashlib.sha512(contra.encode('utf-8')  + salt.encode('utf-8')).hexdigest()
+            print(salt)
+            print(sPass)
+            if nombre and corre and contra:
+                crear=Modelo.crearUsr(corre,sPass,salt,nombre,img)
+                if crear:
+                    Modelo.entities(corre,'Registro','Se creo usuario')
+                    errorLog="Se creo el usuario, inicia sesion"
+                    return redirect(url_for('login'))
+            else:
+                Modelo.entities(corre,'Registro.Fail','No se pudo crear usuario')
+                return render_template('registro.html')
         else:
-            Modelo.entities(corre,'Registro.Fail','No se pudo crear usuario')
-            return render_template('registro.html')
+            errorLog="Las contraseñas no concuerdan"
+            return render_template('registro.html',errorLog=errorLog)
     return render_template('registro.html')
 
 @app.route('/login',methods=['GET','POST'])
@@ -104,6 +116,9 @@ def perfil():
             maxExp= Modelo.expDate(session['user'])
             dataP= Modelo.puntosUsuario(session['user'])
             acumP=Modelo.puntfal(session['user'])
+            b=Modelo.bitsUser(session['user'])
+            bips=b[0][0]
+            r=Modelo.rewardsUsr(bips)
             try:
                 date_= maxExp[0][0].strftime("%d/%m/%Y")
             except:
@@ -121,7 +136,7 @@ def perfil():
             except:
                 puntosF = 0 
             Modelo.entities(session['user'],'ProfileLoad','Se cargo el perfil del usuario')
-            return render_template('perfil.html',onboarding=userOnBoard,puntos=puntos, expiracion=date_,puntosF=puntosF )
+            return render_template('perfil.html',onboarding=userOnBoard,puntos=puntos, expiracion=date_,puntosF=puntosF,nivel=r[0][0] )
         else:
             Modelo.entities(session['user'],'UserOnBoarding.Fail','Ocurrio un error con el proceso de OnBoarding del usuario')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
@@ -130,6 +145,49 @@ def perfil():
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'ProfileLoad.Fail.NotFound','Error al cargar el perfil del usuario')
+        errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
+        return render_template('login.html',errorLog=errorLog)
+
+
+@app.route('/rewards',methods=['GET','POST'])
+def rewards():
+    if not g.user:
+        return redirect(url_for('login'))
+    try:
+        estado=Modelo.estadoOnboarding(session['user'])
+        if estado:
+            userOnBoard=estado[0][0]
+            dataP= Modelo.puntosUsuario(session['user'])
+            acumP=Modelo.puntfal(session['user'])
+            b=Modelo.bitsUser(session['user'])
+            bips=b[0][0]
+            r=Modelo.rewardsUsr(bips)
+            nextLvl=Modelo.nextLvl(r[0][0])
+            bipsPer=(int(bips)*100)/int(nextLvl[0][6])
+            faltan=int(nextLvl[0][6])-int(bips)
+            puntos = 0
+            puntosF = 0 
+            try:
+                for data in dataP:
+                    puntos = puntos + data[0]
+            except:
+                puntos = 0
+            try:
+                for dataf in acumP:
+                    puntosF = puntosF + dataf[0]
+            except:
+                puntosF = 0 
+            Modelo.entities(session['user'],'RewardsLoad','Se cargo el perfil de rewards')
+            return render_template('rewards.html',onboarding=userOnBoard,puntos=puntos,puntosF=puntosF,
+            nivel=r[0][0],nivelN=r[0][1],r1=r[0][2],r2=r[0][3],r3=r[0][4],r4=r[0][5],bips=bips,bipsPer=bipsPer,
+            faltan=faltan,nlvl=nextLvl[0][1],rNL1=nextLvl[0][2],rNL2=nextLvl[0][3])
+        else:
+            Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
+            errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
+            return render_template('login.html',errorLog=errorLog)
+    except Exception as e:
+        print(str(e))
+        Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
         errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
         return render_template('login.html',errorLog=errorLog)
 
@@ -174,7 +232,19 @@ def catalogo():
     if not g.user:
         return redirect(url_for('login'))
     try:
-        data=Modelo.catalogo()
+        b=Modelo.bitsUser(session['user'])
+        bips=b[0][0]
+        if int(bips) < 1000:
+            data=Modelo.catalogo(7)
+        elif int(bips) > 999 and int(bips) < 2000:
+            data=Modelo.catalogo(10)
+        elif int(bips) > 1999 and int(bips) < 3000:
+            data=Modelo.catalogo(13)
+        elif int(bips) > 2999 and int(bips) < 4000:
+            data=Modelo.catalogo(20)
+        elif int(bips) >= 4000:
+            data=Modelo.catalogo(25)
+        
         Modelo.entities(session['user'],'CatalogLoad','Se cargo la pagina de catalogo')
         return render_template('catalogo.html',data=data)
     except Exception as e:
@@ -321,7 +391,9 @@ def recibos():
                 return render_template('uploadAn.html',errorLog=errorLog)
             else:
                 if folio and monto and fecha and rubro and archivo:
-                    guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo)
+                    b=Modelo.bitsUser(session['user'])
+                    bips=b[0][0]
+                    guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo,bips)
                     if guardar:
                         Modelo.entities(session['user'],'SavePurchaseInDB','Se guardo una compra en la base de datos')
                         print('se subio la data')

@@ -76,27 +76,29 @@ body {font-family: "Lato", sans-serif}
 
 	{% endif %}
 
-	<h1><b>My Portfolio</b></h1>
+	<h1><b>Catalogo</b></h1>
     <div class="w3-section w3-bottombar w3-padding-16">
-      <span class="w3-margin-right">Filter:</span> 
-      <button class="w3-button w3-black gradient">ALL</button>
+      <span class="w3-margin-right">Filtrar:</span> 
+      <button class="w3-button w3-black gradient">TODO </button>
       <button disabled class="w3-button w3-white gradient"><i class="fa fa-bath w3-margin-right"></i>Muebles</button>
-      <button disabled class="w3-button w3-white w3-hide-small gradient"><i class="fa fa-tree w3-margin-right"></i>Otros</button>
+      <button disabled class="w3-button w3-white w3-hide-small gradient"><i class="fa fa-tree w3-margin-right"></i>Decoracion</button>
+      <button disabled class="w3-button w3-white w3-hide-small gradient"><i class="fa fa-desktop w3-margin-right"></i>Electronicos</button>
+      <button disabled class="w3-button w3-white w3-hide-small gradient"><i class="fa fa-diamond w3-margin-right"></i>Otros</button>
     </div>
     </div>
   </header>
   
   <!-- First Photo Grid-->
-  <div class="w3-row-padding">
+  <div class="w3-row-padding" style="margin:auto; width: 99%;">
     {% set dev = namespace(value=0)  %}
   {% for ob in data %}
   {% if dev.value | int == 3 %}
-    <div class="w3-row-padding">
+    <div class="w3-row-padding" style="margin:auto;  width: 95%">
     </div>
     {% set dev.value = 0 %}
   {% endif %}
-  <div class="w3-third w3-container w3-margin-bottom">
-    <img src="static/img/catalogo/{{ob.4}}" alt="" style="width:190px; height: 280px; margin: auto;" class="w3-hover-opacity">
+  <div class="w3-third w3-container w3-margin-bottom" style="width:30%; height: 80%; margin: auto; text-align: center;">
+    <img src="static/img/catalogo/{{ob.4}}" alt="" style="width:40%; height: 60%; margin: auto;"class="w3-hover-opacity">
     <div class="w3-container w3-white">
       <p><b>{{ob.1}}</b></p>
       <p>${{ob.3}}</p>

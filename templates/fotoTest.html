@@ -264,7 +264,7 @@ input[type="file"] {
 <div class="row">
   <div class="col-sm-1"></div>
   <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-    <h3>Buscar objeto</h3> <div class="loader" id="loader"></div>
+    <h2>Buscar objeto</h2> <div class="loader" id="loader"></div>
     <div id="formFot">
       <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
         <label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
@@ -283,8 +283,8 @@ input[type="file"] {
     </div>
   </div>
   <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-    <h3>Objetos en el carro: <label id="cant" style="display: inline;">0</label></h3>
-    <h4>Total: $ <label id="prec" style="display: inline;">0</label></h4>
+    <h2>Objetos en el carro: <label id="cant" style="display: inline;">0</label></h2>
+    <h3>Total: $ <label id="prec" style="display: inline;">0</label></h3>
     <p class="alert alert-danger" style="display: none;" id="alP">Atención, no posees suficientes puntos para estos productos, si deseas añadir más da click <a href="/recibos" class="alert-link">aquí</a></p>
     <ul class="list-unstyled" id="compList">
     </ul>
@@ -352,22 +352,52 @@ $(document).ready(function(){
     img.src=document.getElementById("imOb").src;
     var div = document.createElement("div"); 
     div.className="media-body";
-    var h5 = document.createElement("h5"); 
+    var h5 = document.createElement("h3"); 
     h5.className="mt-0 mb-1";
     h5.innerHTML=nom;
-    var p = document.createElement("p"); 
+    var p = document.createElement("h5"); 
     p.className="mt-0 mb-1";
     p.innerHTML=prec;
-
-
+    p.style.color="black"
+    borrar=document.createElement("button");
+    borrar.setAttribute('type', 'button');
+    borrar.innerHTML = '<i class="fa fa-trash" aria-hidden="true" style="font-size:27px"></i>';
+    borrar.className="eliminar"
     div.appendChild(h5);
     div.appendChild(p);
+  
     elem.appendChild(img);
     elem.appendChild(div);
+    elem.appendChild(borrar);
+
     lista.appendChild(elem);
 
   }
   })
+  
+  
+  $('#compList').on('click', '.eliminar', function() {
+    var list=$(this).closest('li');
+    var precio=list.find("h5").text();
+    var obejtInt = parseInt(precio, 10);
+    console.log(obejtInt);
+
+    var total = document.getElementById("prec").innerHTML;
+    var totalInt = parseInt(total, 10);
+    var rest=totalInt-obejtInt;
+    console.log(rest);
+
+    var cant = document.getElementById("cant").innerHTML;
+    var cantInt = parseInt(cant, 10);
+    var cantFin=cantInt-1;
+    console.log(cantFin);
+
+    document.getElementById("prec").innerHTML=rest;
+    document.getElementById("cant").innerHTML=cantFin;
+    list.remove();
+});
+
+
 
 
 $(function() {
