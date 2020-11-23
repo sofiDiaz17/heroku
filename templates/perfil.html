@@ -624,7 +624,7 @@ window.onclick = function(event) {
       }
     });
   });
-
+  
   $('#btnHist').click(function () {
     document.getElementById('Nav').style.zIndex=2000;
     document.getElementById('navDemo').style.zIndex=2000;
@@ -660,5 +660,25 @@ window.onclick = function(event) {
 
   });
 </script>
+	<!-- Scripts -->
+  <script src="../static/js/jquery.min.js"></script>
+  <script src="../static/js/jquery.scrolly.min.js"></script>
+  <script src="../static/js/skel.min.js"></script>
+  <script src="../static/js/util.js"></script>
+  <script src="../static/js/main.js"></script>
+  <script>
+    $(document).ready(function(){
+    $(".chat_on").click(function(){
+      $(".Layout").toggle();
+      $(".chat_on").hide(300);
+    });
+    
+    $(".chat_close_icon").click(function(){
+      $(".Layout").hide();
+      $(".chat_on").show(300);
+    });
+    
+    });
+  </script>
 </body>
 </html>
