@@ -122,6 +122,8 @@ def perfil():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
+            if bips==0:
+                bips=1
             r=Modelo.rewardsUsr(bips)
             try:
                 date_= maxExp[0][0].strftime("%d/%m/%Y")
