@@ -46,6 +46,10 @@ subscription_key="4d0c7d3a1a4c4aebabb6df39c33dd9eb"
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
 
+@app.route('/index')
+def landing():
+    return render_template ("index.html")
+
 
 @app.before_request
 def before_request():
@@ -118,8 +122,6 @@ def perfil():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
-            print(userOnBoard)
-            #print(bips) 
             if bips==0:
                 bips=1
             r=Modelo.rewardsUsr(bips)

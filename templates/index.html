@@ -1,0 +1,665 @@
+<!DOCTYPE HTML>
+<html>
+	
+	<head>
+		<title>Cuponera</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet"  type="text/css" href="../static/css/main.css" />
+		<script src="https://kit.fontawesome.com/18e40e3396.js" crossorigin="anonymous"></script>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		
+	</head>
+	<!--
+	Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<style>
+/* Button */
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button,
+.button {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	-moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+	-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+	-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+	background-color: #faf8f8;
+	border-radius: 4px;
+	border: 0;
+	color: black;
+	cursor: pointer;
+	display: inline-block;
+	font-family: "Montserrat", sans-serif;
+	height: 3.5em;
+	line-height: 3.5em;
+	padding: 0 3.5em;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+	text-transform: uppercase;
+	}
+
+		input[type="submit"]:hover,
+		input[type="reset"]:hover,
+		input[type="button"]:hover,
+		button:hover,
+		.button:hover {
+			background: #9152f8;
+			background: -webkit-linear-gradient(top, #7579ff, #b224ef);
+			background: -o-linear-gradient(top, #7579ff, #b224ef);
+			background: -moz-linear-gradient(top, #7579ff, #b224ef);
+			background: linear-gradient(top, #7579ff, #b224ef);
+		}
+
+		input[type="submit"]:active,
+		input[type="reset"]:active,
+		input[type="button"]:active,
+		button:active,
+		.button:active {
+			background-color: #fffbfa;
+		}
+
+		input[type="submit"].icon,
+		input[type="reset"].icon,
+		input[type="button"].icon,
+		button.icon,
+		.button.icon {
+			padding-left: 1.35em;
+		}
+
+			input[type="submit"].icon:before,
+			input[type="reset"].icon:before,
+			input[type="button"].icon:before,
+			button.icon:before,
+			.button.icon:before {
+				margin-right: 0.5em;
+			}
+
+		input[type="submit"].fit,
+		input[type="reset"].fit,
+		input[type="button"].fit,
+		button.fit,
+		.button.fit {
+			display: block;
+			margin: 0 0 1em 0;
+			width: 100%;
+		}
+
+		input[type="submit"].small,
+		input[type="reset"].small,
+		input[type="button"].small,
+		button.small,
+		.button.small {
+			font-size: 0.8em;
+		}
+
+		input[type="submit"].big,
+		input[type="reset"].big,
+		input[type="button"].big,
+		button.big,
+		.button.big {
+			font-size: 1.35em;
+		}
+
+		input[type="submit"].alt,
+		input[type="reset"].alt,
+		input[type="button"].alt,
+		button.alt,
+		.button.alt {
+			background-color: transparent;
+			box-shadow: inset 0 0 0 1px #dee1e3;
+			color: #727a82 !important;
+		}
+
+			input[type="submit"].alt:hover,
+			input[type="reset"].alt:hover,
+			input[type="button"].alt:hover,
+			button.alt:hover,
+			.button.alt:hover {
+				background-color: rgba(144, 144, 144, 0.075);
+			}
+
+			input[type="submit"].alt:active,
+			input[type="reset"].alt:active,
+			input[type="button"].alt:active,
+			button.alt:active,
+			.button.alt:active {
+				background-color: rgba(144, 144, 144, 0.2);
+			}
+
+			input[type="submit"].alt.icon:before,
+			input[type="reset"].alt.icon:before,
+			input[type="button"].alt.icon:before,
+			button.alt.icon:before,
+			.button.alt.icon:before {
+				color: #bbb;
+			}
+
+		input[type="submit"].special,
+		input[type="reset"].special,
+		input[type="button"].special,
+		button.special,
+		.button.special {
+			background-color: #25a2c3;
+			color: #ffffff !important;
+		}
+
+			input[type="submit"].special:hover,
+			input[type="reset"].special:hover,
+			input[type="button"].special:hover,
+			button.special:hover,
+			.button.special:hover {
+				background-color: #2bb3d7;
+			}
+
+			input[type="submit"].special:active,
+			input[type="reset"].special:active,
+			input[type="button"].special:active,
+			button.special:active,
+			.button.special:active {
+				background-color: #2190ae;
+			}
+
+		input[type="submit"].disabled, input[type="submit"]:disabled,
+		input[type="reset"].disabled,
+		input[type="reset"]:disabled,
+		input[type="button"].disabled,
+		input[type="button"]:disabled,
+		button.disabled,
+		button:disabled,
+		.button.disabled,
+		.button:disabled {
+			background-color: #767d85 !important;
+			box-shadow: inset 0 -0.15em 0 0 rgba(0, 0, 0, 0.15);
+			color: #fff !important;
+			cursor: default;
+			opacity: 0.25;
+		}
+
+		@media screen and (max-width: 480px) {
+
+			input[type="submit"],
+			input[type="reset"],
+			input[type="button"],
+			button,
+			.button {
+				padding: 0;
+			}
+
+		}
+	#Smallchat .Messages, #Smallchat .Messages_list {
+    -webkit-box-flex: 3;
+    -webkit-flex-grow: 3;
+    -ms-flex-positive: 3;
+    flex-grow: 3;
+}
+.chat_close_icon {
+   cursor:pointer;
+    color: #fff;
+    font-size:16px;
+    position: absolute;
+    right: 12px;
+    z-index: 9;
+}
+.chat_on {
+    position: fixed;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    right: 60px;
+    bottom:40px;
+    background-color: transparent;
+    
+    text-align: center;
+    padding: 9px;
+    
+    cursor: pointer;
+    display: block;
+}
+.chat_on_icon{
+    color:transparent;
+    font-size:25px;
+    text-align:center;
+}
+/*
+#Smallchat,#Smallchat * {
+ box-sizing:border-box; 
+ -webkit-font-smoothing:antialiased;
+ -moz-osx-font-smoothing:grayscale;
+ -webkit-tap-highlight-color:transparent
+}
+*/
+#Smallchat .Layout { 
+ 
+ pointer-events:auto;
+ box-sizing:content-box!important;
+ z-index:999999999;
+ position:fixed;
+ bottom:20px;
+ min-width:50px;
+ max-width:300px;
+ max-height:30px;
+ display:-webkit-box;
+ display:-webkit-flex;
+ display:-ms-flexbox;
+ display:flex;
+ -webkit-box-orient:vertical;
+ -webkit-box-direction:normal;
+ -webkit-flex-direction:column;
+ -ms-flex-direction:column;
+ flex-direction:column;
+ -webkit-box-pack:end;
+ -webkit-justify-content:flex-end;
+ -ms-flex-pack:end;
+ justify-content:flex-end;
+ border-radius:50px;
+ box-shadow:5px 0 20px 5px rgba(0,0,0,.1);
+ -webkit-animation:appear .15s cubic-bezier(.25,.25,.5,1.1);
+ animation:appear .15s cubic-bezier(.25,.25,.5,1.1);
+ -webkit-animation-fill-mode:forwards;
+ animation-fill-mode:forwards;
+ opacity:0;
+ -webkit-transition:right .1s cubic-bezier(.25,.25,.5,1),bottom .1s cubic-bezier(.25,.25,.5,1),min-width .2s cubic-bezier(.25,.25,.5,1),max-width .2s cubic-bezier(.25,.25,.5,1),min-height .2s cubic-bezier(.25,.25,.5,1),max-height .2s cubic-bezier(.25,.25,.5,1),border-radius 50ms cubic-bezier(.25,.25,.5,1) .15s,background-color 50ms cubic-bezier(.25,.25,.5,1) .15s,color 50ms cubic-bezier(.25,.25,.5,1) .15s;
+ transition:right .1s cubic-bezier(.25,.25,.5,1),bottom .1s cubic-bezier(.25,.25,.5,1),min-width .2s cubic-bezier(.25,.25,.5,1),max-width .2s cubic-bezier(.25,.25,.5,1),min-height .2s cubic-bezier(.25,.25,.5,1),max-height .2s cubic-bezier(.25,.25,.5,1),border-radius 50ms cubic-bezier(.25,.25,.5,1) .15s,background-color 50ms cubic-bezier(.25,.25,.5,1) .15s,color 50ms cubic-bezier(.25,.25,.5,1) .15s
+     
+}
+
+#Smallchat .Layout-right {
+ right:20px
+}
+
+#Smallchat .Layout-open {
+ overflow:hidden;
+ min-width:400px;
+ max-width:400px;
+ height:700px;
+ max-height:700px;
+ border-radius:18px;
+ color:#fff;
+ -webkit-transition:right .1s cubic-bezier(.25,.25,.5,1),bottom .1s cubic-bezier(.25,.25,.5,1.1),min-width .2s cubic-bezier(.25,.25,.5,1.1),max-width .2s cubic-bezier(.25,.25,.5,1.1),max-height .2s cubic-bezier(.25,.25,.5,1.1),min-height .2s cubic-bezier(.25,.25,.5,1.1),border-radius 0ms cubic-bezier(.25,.25,.5,1.1),background-color 0ms cubic-bezier(.25,.25,.5,1.1),color 0ms cubic-bezier(.25,.25,.5,1.1);
+ transition:right .1s cubic-bezier(.25,.25,.5,1),bottom .1s cubic-bezier(.25,.25,.5,1.1),min-width .2s cubic-bezier(.25,.25,.5,1.1),max-width .2s cubic-bezier(.25,.25,.5,1.1),max-height .2s cubic-bezier(.25,.25,.5,1.1),min-height .2s cubic-bezier(.25,.25,.5,1.1),border-radius 0ms cubic-bezier(.25,.25,.5,1.1),background-color 0ms cubic-bezier(.25,.25,.5,1.1),color 0ms cubic-bezier(.25,.25,.5,1.1);
+}
+
+#Smallchat .Layout-expand {
+ height:500px;
+ min-height:500px;
+      display:none;
+}
+#Smallchat .Layout-mobile {
+ bottom:10px
+}
+#Smallchat .Layout-mobile.Layout-open {
+ width:calc(100% - 20px);
+ min-width:calc(100% - 20px)
+}
+#Smallchat .Layout-mobile.Layout-expand {
+ bottom:0;
+ height:100%;
+ min-height:100%;
+ width:100%;
+ min-width:100%;
+ border-radius:0!important
+}
+@-webkit-keyframes appear {
+ 0% {
+  opacity:0;
+  -webkit-transform:scale(0);
+  transform:scale(0)
+ }
+ to {
+  opacity:1;
+  -webkit-transform:scale(1);
+  transform:scale(1)
+ }
+}
+@keyframes appear {
+ 0% {
+  opacity:0;
+  -webkit-transform:scale(0);
+  transform:scale(0)
+ }
+ to {
+  opacity:1;
+  -webkit-transform:scale(1);
+  transform:scale(1)
+ }
+}
+#Smallchat .Messenger_messenger {
+ position:relative;
+ height:100%;
+ width:100%;
+ min-width:300px;
+ -webkit-box-orient:vertical;
+ -webkit-box-direction:normal;
+ -webkit-flex-direction:column;
+ -ms-flex-direction:column;
+ flex-direction:column
+}
+#Smallchat .Messenger_header,#Smallchat .Messenger_messenger {
+ display:-webkit-box;
+ display:-webkit-flex;
+ display:-ms-flexbox;
+ display:flex
+}
+#Smallchat .Messenger_header {
+ -webkit-box-align:center;
+ -webkit-align-items:center;
+ -ms-flex-align:center;
+ align-items:center;
+ padding-left:10px;
+ padding-right:40px;
+ height:40px;
+ -webkit-flex-shrink:0;
+ -ms-flex-negative:0;
+ flex-shrink:0
+}
+
+
+#Smallchat .Messenger_header h4 {
+ opacity:0;
+ font-size:16px;
+ -webkit-animation:slidein .15s .3s;
+ animation:slidein .15s .3s;
+ -webkit-animation-fill-mode:forwards;
+ animation-fill-mode:forwards
+}
+
+#Smallchat .Messenger_prompt {
+ margin:0;
+ font-size:16px;
+ line-height:18px;
+ font-weight:400;
+ overflow:hidden;
+ white-space:nowrap;
+ text-overflow:ellipsis
+ 
+}
+
+@-webkit-keyframes slidein {
+ 0% {
+  opacity:0;
+  -webkit-transform:translateX(10px);
+  transform:translateX(10px)
+ }
+ to {
+  opacity:1;
+  -webkit-transform:translateX(0);
+  transform:translateX(0)
+ }
+}
+@keyframes slidein {
+ 0% {
+  opacity:0;
+  -webkit-transform:translateX(10px);
+  transform:translateX(10px)
+ }
+ to {
+  opacity:1;
+  -webkit-transform:translateX(0);
+  transform:translateX(0)
+ }
+}
+#Smallchat .Messenger_content {
+    height: 450px;
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    background-color: #fff;
+}
+#Smallchat .Messages {
+    position: relative;
+    -webkit-flex-shrink: 1;
+    -ms-flex-negative: 1;
+    flex-shrink: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #fff;
+    -webkit-overflow-scrolling: touch;
+}
+
+.circle {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  left: 15px;
+  margin-top: 5%;
+}
+
+
+
+#Smallchat .Input {
+    position: relative;
+    width: 100%;
+    -webkit-box-flex: 0;
+    -webkit-flex-grow: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    padding-top: 17px;
+    padding-bottom: 15px;
+    color: #96aab4;
+    background-color: #fff;
+    border-top: 1px solid #e6ebea;
+}
+#Smallchat .Input-blank .Input_field {
+    max-height: 30px;
+}
+#Smallchat .Input_field {
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 0;
+        padding-right: 0px;
+        padding-left: 0px;
+    padding-left: 20px;
+    padding-right: 75px;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 20px;
+    min-height: 20px !important;
+}
+
+
+</style>
+	<body>
+		
+		
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<a href="index.html" class="logo" style="color: #a74c65;">Cuponera</a>
+				<nav class="right">
+					<a href="#" class="button alt">Log in</a>
+				</nav>
+			</header>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/catalogo">Catálogo</a></li>
+					<li><a href="generic.html"></a></li>
+					<li><a href="elements.html">Elements</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="/login" class="button fit">Login</a></li>
+				</ul>
+			</nav>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="content">
+					<h1 style="color: #303956;">Acumulas puntos por cada compra que realizas</h1>
+					
+				</div>
+			</section>
+				<!-- 2-->
+				<section id="Two" class="wrapper style1" style="background-color:#757081;">
+					<div class="inner flex  ">
+						<figure>
+							<div>
+								<div class="content">
+									<h3>Inicia sesion</h3>
+									<p style="color: floralwhite;">Si ya tienes cuenta, <br /> ¡inicia sesión, sube tus tickets, alcanza nuevo nivel y disfruta de Cuponera! </p>
+									<ul class="actions">
+										<li><a href="/login" class="button scrolly" style="color: black;">Log in</a></li>
+									</ul>
+								</div>
+							</div>
+							</figure>
+						<figure>
+							<div>
+								<div class="content">
+									<h3>Regístrate</h3>
+									<p style="color: floralwhite;">¡Regístrate, disfruta de descuentos <br />en tus tiendas favoritas y  sube de nivel para mayores beneficios!</p>
+									<ul class="actions">
+										<li><a href="/registro" class="button scrolly " style="color: black;">Sign up</a></li>
+									</ul>
+								</div>
+							</div>
+						</figure>
+						
+					</div>
+				</section>
+			
+
+
+		<!-- BOT -->
+		<div class="container">
+			<div class="row">
+			 <div id="Smallchat">
+			<div class="Layout Layout-open Layout-expand Layout-right" style="background-color: #ececec;color: rgb(255, 255, 255);opacity: 5;border-radius: 10px;">
+			  <div class="Messenger_messenger">
+				<div class="Messenger_header" style="background-color:#757081; color: rgb(255, 255, 255);">
+				  <h4 class="Messenger_prompt" style="color: #ececec;">¿En qué te puedo ayudar?</h4> <span class="chat_close_icon" ><i class="fa fa-window-close" aria-hidden="true"></i></span> </div>
+				<div class="Messenger_content">
+				  <div class="Messages">
+					<iframe src='https://webchat.botframework.com/embed/dscbotl-bot?s=iJdEUwsQxcU.DEjWfT4dYQMneiuOAhXR51Aw3wuWSOn8_SlUKgU9ltc'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+					<div class="Messages_list"></div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+			<!--===============CHAT ON BUTTON STRART===============-->
+			<div class="chat_on"> <span class="chat_on_icon" ><img src= "../static/img/botHelp.png " class="circle "><i class="fa fa-comments" aria-hidden="true"></i></span> </div>
+			<!--===============CHAT ON BUTTON END===============-->
+		  </div>
+			</div>
+		</div>
+			<section id="one" class="wrapper">
+				<div class="inner flex flex-3">
+					<div class="flex-item left">
+						<div>
+							
+						</div>
+						<div>
+							<h3>Ipsum adipiscing lorem</h3>
+							<p>Tristique yonve cursus jam nulla quam<br /> loreipsu gravida adipiscing lorem</p>
+						</div>
+					</div>
+					<div class="flex-item image fit round">
+						<img src="images/pic01.jpg" alt="" />
+					</div>
+					<div class="flex-item right">
+						<div>
+							<h3>Tempus nullam</h3>
+							<p>Sed adipiscing ornare risus. Morbi estes<br /> blandit sit et amet, sagittis magna.</p>
+						</div>
+						<div>
+							<h3>Suscipit nibh dolore</h3>
+							<p>Pellentesque egestas sem. Suspendisse<br /> modo ullamcorper feugiat lorem.</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Two -->
+			<section id="two" class="wrapper style1 special">
+				<div class="inner">
+					<h2>Feugiat lorem</h2>
+					<figure>
+					    <blockquote>
+					        "Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra<br /> magna etiam lorem ultricies in diam. Sed arcu cras consequat."
+					    </blockquote>
+					    <footer>
+					        <cite class="author">Jane Anderson</cite>
+					        <cite class="company">CEO, Untitled</cite>
+					    </footer>
+					</figure>
+				</div>
+			</section>
+
+	
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<h2>Get In Touch</h2>
+					<ul class="actions">
+						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Untitled. Design <a href="https://templated.co">TEMPLATED</a>. Images <a href="https://unsplash.com">Unsplash</a>.
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../static/js/jquery.min.js"></script>
+			<script src="../static/js/jquery.scrolly.min.js"></script>
+			<script src="../static/js/skel.min.js"></script>
+			<script src="../static/js/util.js"></script>
+			<script src="../static/js/main.js"></script>
+			<script>
+				$(document).ready(function(){
+				$(".chat_on").click(function(){
+					$(".Layout").toggle();
+					$(".chat_on").hide(300);
+				});
+				
+				$(".chat_close_icon").click(function(){
+					$(".Layout").hide();
+					$(".chat_on").show(300);
+				});
+				
+				});
+			</script>
+
+	</body>
+</html>
