@@ -46,6 +46,10 @@ subscription_key="4d0c7d3a1a4c4aebabb6df39c33dd9eb"
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
 
+@app.route('/index')
+def landing():
+    return render_template ("index.html")
+
 
 @app.before_request
 def before_request():
