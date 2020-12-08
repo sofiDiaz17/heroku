@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css">
 <link rel="stylesheet" type="text/css" href="static/css/util.css">
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
+<link rel="stylesheet" type="text/css" href="static/css/navbar.css">
 
 <style>
 
@@ -165,7 +166,7 @@ input[type="file"] {
 
   
 <!-- Navbar -->
-<div class="w3-top" id="Nav">
+<div class="w3-top naav" id="Nav" > 
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
@@ -179,17 +180,19 @@ input[type="file"] {
       </div>
     </div>
     <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
-    <div class="col" style="margin-left: 70%;">
-      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+    <div class="w3-right row">
+      <div class="col-sm-2">
+        <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="">
       </div>
       <div class="col">
-      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+        <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
       </div>
+    </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top naav" style="margin-top:46px;">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
   <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
   <a href="/conversion" id="convC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
@@ -326,6 +329,17 @@ input[type="file"] {
 
 
 <script>
+
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+
 
 $(document).ready(function(){ 
             $('input[type="file"]').change(function(e){ 

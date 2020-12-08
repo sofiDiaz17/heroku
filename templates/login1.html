@@ -1,0 +1,99 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{url_for('static',filename='project.css')}}">
+        
+	     
+    </head>
+    
+    <header>
+      <nav>
+          <nav role="navigation">
+              <div id="menuToggle">
+           
+                <input type="checkbox" />
+                
+            
+                <span></span>
+                <span></span>
+                <span></span>
+                
+                <ul id="menu">
+                  <a href="/"><li>Inicio</li></a>
+                  <a href="/registro"><li>Registrarse</li></a>
+                
+                  
+                 
+                </ul>
+              </div>
+            </nav>
+      </nav>
+ 
+    
+    
+   
+    <div class="container-fluid">
+        <div class="row no-gutter">
+          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+          <div class="col-md-8 col-lg-6">
+            <div class="login d-flex align-items-center py-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-9 col-lg-8 mx-auto">
+                    <h3 class="login-heading mb-4">Bienvenido de vuelta</h3>
+                    <form action="" method="POST">
+                      <div class="form-group">
+                        <label for="inputEmail">Correo Electronico</label>
+                        <input type="email" name="LEmail"  class="form-control" id="inputEmail" aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="LPassword" class="form-control" id="inputPassword">
+                      </div>
+                   
+      
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Recordar Contraseña</label>
+                      </div>
+                      <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit"href="logeado">Ingresar</button>
+                      
+                      <div class="text-center">
+                      <btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2 href="#" id="abrir">Olvido su contraseña?</a></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
+      <div id="miModal" class="modal">
+        <div class="flex" id="flex">
+          <div class="contenido-modal">
+            <div class="modal-header flex">
+              <h2>Ingrese su Correo</h2>
+              <form action="">
+              <div class="contenedor-inputs">             
+                <input type="email" placeholder="Correo">
+              </div>
+              <input type="submit" class="btn-submit" value="Enviar">
+            </form>
+              <span class="close" id="close">&times;</span>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+      <script src="../static/log.js"></script>
+      
+   
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tus Documentos</title>
+    <link rel="shortcut icon" href="../static/ekko.jpg" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='misdatos.css')}}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <body>
+        <header>
+          
+          <nav>
+            <ul>
+              <li>
+                <a href="/profile">Mi Perfil</a>
+              </li>
+              <li>
+                <a href="/logeado">Mi contrato</a>
+              </li>
+              <li>
+                <a href="/didocumentos">Mis Documentos</a>
+                
+              </li>
+              <li>
+                <a href="/cerrar">Cerrar sesión</a>
+              </li>
+            </ul>
+          </nav>
+                
+          
+    
+        <section class="textos-header">
+            
+       </section>
+       </header>
+       <section class="about-services">
+        <div class="contedor">
+                <h2 class="titulo">Visualiza tus datos</h2>
+                
+        <div id="demo">             
+            
+            <table id="table" class="table table-hover table-mc-light-blue">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Dirección</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>CURP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-title="ID">{{nombre}}</td>
+                    <td data-title="Name">{{email}}</td>
+                    <td data-title="Link"> {{direccion}} </td>
+                     
+                  
+                    <td data-title="Status">{{fechanaci}}</td>
+                    <td data-title="CURP">{{curp}}</td>
+                  </tr>
+                  <tr>           
+              
+                
+                
+            
+    </section>
+<section>
+    <div class="abajod">
+             
+      <ul class="pagination">
+        
+        <li class="page-item"><a class="page-link" href="/logeado">Siguiente</a></li>
+      </ul>
+   
+  </div>
+  
+  
+  <div class="abajoi">
+ 
+    <ul class="pagination">
+      
+      <li class="page-item"><a class="page-link" href="/didocumentos">Anterior</a></li>
+    </ul>
+ 
+</div>  
+</section>
+      
+    </body>
+    </html>    
+
+
+
+</html> 

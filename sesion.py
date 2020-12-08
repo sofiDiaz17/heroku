@@ -8,7 +8,7 @@ from azure.cognitiveservices.vision.computervision.models import VisualFeatureTy
 from msrest.authentication import CognitiveServicesCredentials
 from datetime import date, timedelta
 import datetime
-from dateutil.relativedelta import relativedelta
+#  from dateutil.relativedelta import relativedelta
 import pytesseract
 from PIL import Image
 #from cv2 import cv2
@@ -45,24 +45,29 @@ endpoint="https://cuponeravision.cognitiveservices.azure.com/"
 subscription_key="4d0c7d3a1a4c4aebabb6df39c33dd9eb"
 computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
-
 @app.route('/index')
 def landing():
     return render_template ("index.html")
-
 
 @app.before_request
 def before_request():
     g.user = None
     if 'user' in session:
-        g.user = Modelo.buscarUser(session['user'])
+        userF = Modelo.buscarUser(session['user'])
+        if userF:
+            g.user=userF
+        else:
+            g.user=" "
         fotoB = Modelo.fotoUser(session['user'])
-        g.foto =fotoB[0][0]
+        if fotoB:
+            g.foto =fotoB[0][0]
+        else:
+            g.foto=" "
         
 @app.route('/registro',methods=['GET','POST'])
 def registro():
     if request.method=='POST':
-        nombre=request.form['name']
+        phone=request.form['phone']
         corre=request.form['email']
         contra=request.form['password']
         contra2=request.form['re_password']
@@ -73,8 +78,8 @@ def registro():
             sPass=hashlib.sha512(contra.encode('utf-8')  + salt.encode('utf-8')).hexdigest()
             print(salt)
             print(sPass)
-            if nombre and corre and contra:
-                crear=Modelo.crearUsr(corre,sPass,salt,nombre,img)
+            if phone and corre and contra:
+                crear=Modelo.crearUsr(corre,sPass,salt,phone,img)
                 if crear:
                     Modelo.entities(corre,'Registro','Se creo usuario')
                     errorLog="Se creo el usuario, inicia sesion"
@@ -96,7 +101,7 @@ def login():
         user=request.form['correo']
         password=request.form['contraseña']
         if(user and password):
-            usuario=Modelo.loginUser(user,password)
+            usuario=Modelo.validarUsuario(user,password)
             if usuario:
                 session['user']=user
                 Modelo.entities(user,'Login','El usuario hace login')
@@ -122,6 +127,8 @@ def perfil():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
+            print(userOnBoard)
+            #print(bips) 
             if bips==0:
                 bips=1
             r=Modelo.rewardsUsr(bips)
@@ -193,12 +200,12 @@ def rewards():
         else:
             Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-            return render_template('login.html',errorLog=errorLog)
+            return render_template('perfil.html',errorLog=errorLog)
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
         errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-        return render_template('login.html',errorLog=errorLog)
+        return render_template('perfil.html',errorLog=errorLog)
 
 
 @app.route('/historial')
@@ -507,7 +514,12 @@ def OnBoard():
         try:
             data=Modelo.setEstadoOnboarding(session['user'],estado)
             if data:
-                Modelo.entities(session['user'],'ChangeState','El usuario completo una fase del OnBoarding')
+                if estado==4:
+                    Modelo.entities(session['user'],'OnBoardingEnd','El usuario completo el OnBoarding')
+                elif estado==5:
+                    Modelo.entities(session['user'],'OnBoardingReward','El usuario vio el OnBoard de reward')
+                else:
+                    Modelo.entities(session['user'],'ChangeState','El usuario completo una fase del OnBoarding')
                 return json.dumps(data,ensure_ascii=False)
             else:
                 Modelo.entities(session['user'],'ChangeState.Fail','No se pudo cambiar el estado del OnBoarding')

@@ -111,10 +111,41 @@ img {
 figure {
   margin: 0; }
 
+/*---------------------------------------------*/
+a {
+	font-family: Poppins-Regular;
+	font-size: 14px;
+	line-height: 1.7;
+	color: white;
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+  color: rgb(250, 250, 250);
+  font-weight: bold;
+}
+
+/*---------------------------------------------*/
+h1,h2,h3,h4,h5,h6 {
+	margin: 0px;
+}
+
 p {
-  margin-bottom: 0px;
-  font-size: 15px;
-  color: #777; }
+	font-family: Poppins-Regular;
+	font-size: 14px;
+	line-height: 1.7;
+	color: white;
+	margin: 0px;
+}
 
 h2 {
   line-height: 1.66;
@@ -136,8 +167,6 @@ body {
   line-height: 1.8;
   color: #222;
   font-weight: 400;
-  font-family: 'Montserrat';
-  background-image: url("../images/signup-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   -moz-background-size: cover;
@@ -146,7 +175,10 @@ body {
   -ms-background-size: cover;
   background-position: center center;
  }
-
+ body, html {
+	height: 100%;
+	font-family: Poppins-Regular, sans-serif;
+}
 .container {
   width: 660px;
   position: relative;
@@ -330,8 +362,6 @@ input[type=checkbox]:not(old):checked + label > span:before {
   font-weight: 600;
   color: rgb(255, 255, 255); }
 
-.term-service {
-  color: rgb(201, 191, 191); }
 
 .loginhere {
   color: rgb(255, 255, 255);
@@ -342,7 +372,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
 
 .loginhere-link {
   font-weight: 700;
-  color: rgb(201, 191, 191); }
+   }
 
 .field-icon {
   float: right;

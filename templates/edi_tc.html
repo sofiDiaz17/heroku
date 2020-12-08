@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> 
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
+              <div class="menu">
+                <a href="/call_center" class="d-block text-light p-3"><i class="icon ion-md-paper mr-2 lead"></i>Tickets por usuario</a>
+                <a href="/call_sc" class="d-block text-light p-3"><i class="icon ion-md-call mr-2 lead"></i>Llamadas</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+              
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
+                        {{nomre}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="#">Mi Perfil</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+
+              <div id="content">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1 class="font-weight-bold mb-0">Edición de Tickets </h1>
+                                <p class="lead text-muted">Revisa y actualiza los tickets de los clientes</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                  
+
+                  <section>
+                    <div class="container py-2">
+                      <div class="card">
+                        <div class="card-header">
+                          <div class="row">
+                            <h5 class="font-weight-bold mb-0">Resumen del Tikect |</h5>
+                            
+                          <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" ><i class="icon ion-md-create" style="color: snow;"></i></button>
+                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Edición de Tikect</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form action="">
+                                    <div class="form-row">
+                                      <div class="form-group col-md-3" style="display: none;">
+                                        
+                                        <input  type="text" class="form-control" id="editicket" value="{{SERCHTIK}}" name="" >
+                                      </div>
+                                      <div class="form-group col-md-3" style="display: none;">
+                                        
+                                        <input type="text" class="form-control" id="ediestado" value="{{SERCHTIK5}}" name="" >
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Producto</label>
+                                        <input type="text" class="form-control" id="ediproducto" value="{{SERCHTIK2}}" name="" >
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="inputAddress">Dirección</label>
+                                      <input type="text" class="form-control" id="edidireccion" placeholder="{{DU[0][6]}}" value="{{SERCHTIK4}}" name="">
+                                    </div>          
+                                      <div class="mb-12">
+        
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Razon de la devolución</label>
+                                            <input class="form-control" id="edirazon" rows="3" value="{{SERCHTIK3}}" name=""></input>
+                                          </div>
+                                      </div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button id="btn_edi" type="submit" class="btn btn-primary">Guardar cambios</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2" data-whatever="@mdo"><i class="icon ion-md-trash" style="color: snow"></i></button>
+                          <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Borrar Ticket</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="/borrar" method="POST">
+                                <div class="modal-body">
+                                  
+                                    <div class="form-group">
+                                      <label for="recipient-name" class="col-form-label">¿Estas seguro que quieres detener el proceso del Ticket?</label>
+                                      <p></p>
+                                      <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                          <span for="inputEmail4">Ticket: </span>
+                                          <input type="text" class="form-control" value="{{SERCHTIK}}" id="borrid" style="display: none;">
+                                          <input type="text" class="form-control" id="inputEmail4" value="{{SERCHTIK}}" disabled>
+                                        </div>
+                                        <div class="form-group col-md-6" style="float:left">
+                                          <span for="inputPassword4">Producto: </span>
+                                          <input type="text" class="form-control" id="inputPassword4" value="{{SERCHTIK2}}" disabled>
+                                        </div>
+                                      </div>
+                                    </div> 
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button id="btn_bor" type="button" class="btn btn-primary">Borrar Ticket</button>
+                                </form>
+                                </div>
+                              </div>
+                          </div>
+
+                          </div>                       
+                          
+                        </div>
+                                             
+                        </div>
+                        <div class="card-body">
+                            <form>
+                              <div class="form-row">
+                                <div class="form-group col-md-3">
+                                  <label for="inputEmail4">Ticket</label>
+                                  <input disabled type="text" class="form-control" id="inputEmail4" value="CLAV0T{{SERCHTIK}}">
+                                </div>
+                                <div class="form-group col-md-3">
+                                  <label for="inputEmail4">Estado</label>
+                                  {% if SERCHTIK5 == 1 %}
+                                  <input disabled type="text" class="form-control" id="inputEmail4" value="En espera">
+                                  {% endif %}
+                                  {% if SERCHTIK5 == 2 %}
+                                  <input disabled type="text" class="form-control" id="inputEmail4" value="En curso">
+                                  {% endif %}
+                                </div>
+                                <div class="form-group col-md-6">
+                                  <label for="inputPassword4">Producto</label>
+                                  
+                                  <input disabled type="text" class="form-control" id="inputPassword4" value="{{SERCHTIK2}}" name="producto">
+                            
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label for="inputAddress">Dirección</label>
+                                <input disabled type="text" class="form-control" id="inputAddress" placeholder="{{DU[0][6]}}" value="{{SERCHTIK4}}" name="direccion">
+                              </div>          
+                                <div class="mb-12">
+  
+                                  <div class="form-group">
+                                      <label for="exampleFormControlTextarea1">Razon de la devolución</label>
+                                      <textarea disabled class="form-control" id="exampleFormControlTextarea1" rows="3"  name="razon">{{SERCHTIK3}}</textarea>
+                                    </div>
+                                </div>
+                            </form>      
+                      </div>
+  
+                      </div>
+                
+                    </div>
+                    
+                  </section>
+              </div>
+          </div>
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('#btn_edi').click(function(){
+        var editicket = document.getElementById('editicket').value;
+        var ediestado = document.getElementById('ediestado').value;
+        var ediproducto = document.getElementById('ediproducto').value;
+        var edidireccion = document.getElementById('edidireccion').value;
+        var edirazon = document.getElementById('edirazon').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/editar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"editicket":editicket, 
+                                "ediestado":ediestado, 
+                                "ediproducto":ediproducto, 
+                                "edidireccion":edidireccion, 
+                                "edirazon":edirazon }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha editado exitosamente el ticket");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+
+      $('#btn_bor').click(function(){
+        
+        var borrid = document.getElementById('borrid').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/borrar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"borrid":borrid }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha borrado exitosamente el ticket");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+    </script>
+  
+
+
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi perfil</title>
+    <link rel="shortcut icon" href="../static/ekko.jpg" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='profile.css')}}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <body>
+        <header>
+          <nav>
+            <ul>
+             
+              <li>
+                <a href="/logeado">Mi Contrato</a>
+              </li>
+              <li>
+                <a href="/didocumentos">Mis Documentos</a>
+                
+              </li>
+              <li>
+                <a href="/misdatos">Mis Datos</a>
+              </li>
+              <li>
+                <a href="/cerrar">Cerrar sesión</a>
+              </li>
+
+
+            </ul>
+          </nav>
+                
+          
+    
+        <section class="textos-header">
+           
+       </section>
+       </header>
+       <section class="about-services">
+        <div class="contedor">
+                <h2 class="titulo">Medallas de  {{user}}</h2>
+                
+     
+       
+       <tbody>
+            
+        </div> 
+        
+      <div class="galeria-port">
+        {%if meda1 > 0%}
+          <div class="imagen-port">
+              <div class="hover-galeria">
+                <a href="https://www.logrosxbox.com/creador_logros/"><img border="0" src="https://www.logrosxbox.com/logrodesbloqueado/onerosa/1000/Terminaste+la+gu%C3%ADa.gif" alt="Generador de logros" /></a>
+                 
+              </div>
+          </div>
+        {%endif%}
+
+        {%if meda2 >= 100%} 
+           <div class="imagen-port">
+            <div class="hover-galeria">
+              <a href="https://www.logrosxbox.com/creador_logros/"><img border="0" src="https://www.logrosxbox.com/logrodesbloqueado/onerosa/1000/Subiste+tus+documentos.gif" alt="Generador de logros" /></a> 
+            </div>
+          </div>
+        {%endif%}
+        {%if meda3 == 1%}   
+          <div class="imagen-port">
+            <div class="hover-galeria">
+              <a href="https://www.logrosxbox.com/creador_logros/"><img border="0" src="https://www.logrosxbox.com/logrodesbloqueado/onerosa/10000/Cargaste+tu+contrato.gif" alt="Generador de logros" /></a> 
+          
+            </div>
+          </div>
+        {%endif%}  
+      </div>
+        
+    </section>
+      <section>
+        <h2 class="titulo">Chatea con nosotros</h2>
+        <div>
+          <iframe src='https://webchat.botframework.com/embed/chuckekkobot-botqna?s=Ux2DPbN4Shg.A9xFzU-D2aBZg2y9IRj3Y4Paa0nipAnDmIZa11Ad4C0'  style='min-width: 200px; width: 70%; min-height: 400px; margin-left: 15%;'></iframe>
+        </div> 
+      </section>
+    </body>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script>
+
+      var inp = document.getElementsByClassName("webchat__send-box-text-box__input");
+      inp.value = "hola";
+      
+      jQuery(".webchat__send-box-text-box__input").val("hola");
+      jQuery(".webchat__send-box-text-box__input").text("hola");      
+      jQuery("css-1ueqw9g webchat__icon-button").click();
+      console.log("done");
+    </script>
+
+
+
+</html> 

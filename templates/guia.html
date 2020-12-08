@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="shortcut icon" href="../static/ekko.jpg" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='onbo.css')}}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <body>
+        <button class="open-walkthrough">Ver de nuevo</button>
+        <form action="/profile" method="POST" id="enviar">
+        <button class="open-walkthrough2" type="submit" id="medallona">Comenzar</button>
+        </form>
+        <div class="walkthrough show reveal">
+          <div class="walkthrough-pagination">
+            <a class="dot active"></a>
+            <a class="dot"></a>
+            <a class="dot"></a>
+            <a class="dot"></a>
+            <a class="dot"></a>
+          </div>
+          <div class="walkthrough-body">
+            <ul class="screens animate">
+              <li class="screen active">
+                <div class="media logo">
+                  <img src="../static/subidocumentos.gif" class="logo" /></div>
+                <h3>
+                    Bienvenido a tú
+                  <br />Sistema de Puntos</h3>
+                <p>Lo primero que debes hacer es ir al apartado “mis documentos” y subir los documentos solicitados, recuerda que una vez que los subes debes confirmarlos.
+                  Para continuar  puedes apoyarte con el botón “Siguiente”. </p>
+              </li>
+              <li class="screen">
+                <div class="media books">
+                  <img src="../static/misdatos.gif" class="icon" /></div>
+                <h3>
+                  Verifica 
+                  <br />tus datos</h3>
+                <p>Verifica que los datos capturados sean los correctos, no te preocupes si alguno no aparece, podrás modificarlo en caso de que sea necesario. </p>
+              </li>
+             
+              <li class="screen">
+                <div class="media files">
+                  <img src="../static/contrato.gif" class="icon" /></div>
+                <h3>
+                  Solicita tu 
+                  <br />contrato</h3>
+                <p>Una vez que verificaste tus datos, presiona el botón solicitar contrato, este llegará a tu correo electrónico, realiza su correspondiente firma y subelo en este mismo apartado, confirma que el documento sea el correcto y presiona el botón</p>
+              </li>
+              <li class="screen">
+                <div class="media comm">
+                  <img src="../static/profileokey.gif" class="icon" /></div>
+                <h3>
+                  Felicitaciones
+                  <br />terminaste</h3>
+                <p>Al terminar tu proceso, podrás visualizar tus medallas en tu perfil, lo cual te servira para reconocerte como un miembro importante para está comunidad de puntos</p>
+              </li>
+            </ul>
+            <button class="prev-screen">
+              <i class="icon-angle-left"></i>
+            </button>
+            <button class="next-screen">
+              <i class="icon-angle-right"></i>
+            </button>
+          </div>
+          <div class="walkthrough-footer">
+            <button class="button next-screen">Siguiente</button>
+            <button class="button finish close">Entendido!</button>
+          </div>
+        </div> 
+    </body>
+
+
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../static/onboa.js"></script>            
+
+</html>

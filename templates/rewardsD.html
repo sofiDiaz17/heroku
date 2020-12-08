@@ -1,0 +1,513 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="static/rodaja-de-naranja.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> 
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="icon" type="image/png" href="static/img/icons/favicon.ico"/>
+    <title>Recompensas</title>
+    <style>
+      .up:hover {
+        transform: translate(0, -15px);
+      }
+      .wrapper {
+  position:relative;
+  display: flex;
+  width: 100%;
+  height: 1vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.bell .material-icons { 
+  /* font-size:12rem !important; */
+  /* font-size:36px !important; */
+  font-size:1.3rem !important;
+}
+
+.bell {
+  position:relative;
+  display:inline-block;  
+  /* border:dashed 1px rgba(0,0,0,.25); */
+  margin:0;
+  padding:0;  
+}
+
+.bell .anchor {
+  transform-origin:center top;
+  display:inline-block;
+  margin:0;
+  padding:0;       
+}
+
+.bell .layer-1 {
+  color:#ffffff;
+  z-index:9;
+  animation: animation-layer-1 5000ms infinite;      
+  opacity:0;  
+}
+
+.bell .layer-2 {
+  color:#ffffff;
+  z-index:8;
+  position:absolute;top:0;left:0;   
+  animation: animation-layer-2 5000ms infinite;    
+}
+
+.bell .layer-3 {
+  color:#cfcfcf;
+  z-index:7;
+  position:absolute;top:0;left:0; 
+  animation: animation-layer-3 5000ms infinite;    
+}
+
+@keyframes animation-layer-1 {
+  0% { transform: rotate(0deg);opacity:0; }
+  8.0% { transform: rotate(0deg);opacity:0; }
+  12.0% { transform: rotate(42deg);opacity:.5; }
+  16.0% { transform: rotate(-35deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:.1; }
+  23.0% { transform: rotate(28deg);opacity:.3; }
+  26.0% { transform: rotate(-20deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:.1; }
+  31.0% { transform: rotate(16deg);opacity:0; }
+  33.0% { transform: rotate(-12deg);opacity:0; }
+  35.0% { transform: rotate(0deg);opacity:0; }	
+  37.0% { transform: rotate(-6deg);opacity:0; }
+  39.0% { transform: rotate(0deg);opacity:0; }
+}
+
+@keyframes animation-layer-2 {
+  0% { transform: rotate(0deg); }
+  8.0% { transform: rotate(0deg); }
+  12.0% { transform: rotate(42deg); }
+  16.0% { transform: rotate(-35deg); }
+  20.0% { transform: rotate(0deg); }
+  23.0% { transform: rotate(28deg); }
+  26.0% { transform: rotate(-20deg); }
+  29.0% { transform: rotate(0deg); }
+  31.0% { transform: rotate(16deg); }
+  33.0% { transform: rotate(-12deg); }
+  35.0% { transform: rotate(0deg); }	
+  37.0% { transform: rotate(-6deg); }
+  39.0% { transform: rotate(0deg); }
+  40.0% { transform: rotate(6deg); }
+  44.0% { transform: rotate(-3deg); }
+  49.0% { transform: rotate(2deg);}
+  55.0% { transform: rotate(0deg); }
+  62.0% { transform: rotate(1deg); }
+  70.0% { transform: rotate(0deg); }  
+}
+
+@keyframes animation-layer-3 {
+  0% { transform: rotate(0deg);opacity:1; }
+  8.0% { transform: rotate(0deg);opacity:1; }
+  12.0% { transform: rotate(52deg);opacity:.5; }
+  16.0% { transform: rotate(-48deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:1; }
+  23.0% { transform: rotate(42deg);opacity:.3; }
+  26.0% { transform: rotate(-30deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:1; }
+  31.0% { transform: rotate(26deg);opacity:.15; }
+  33.0% { transform: rotate(-18deg);opacity:.1; }
+  35.0% { transform: rotate(0deg);opacity:1; }	
+  37.0% { transform: rotate(-12deg);opacity:.8; }
+  40.0% { transform: rotate(6deg);opacity:1; }
+  44.0% { transform: rotate(-3deg);opacity:.8; }
+  49.0% { transform: rotate(2deg);opacity:1; }
+  55.0% { transform: rotate(0deg);opacity:1; }
+  62.0% { transform: rotate(1deg);opacity:1; }
+  70.0% { transform: rotate(0deg);opacity:1; }
+}
+
+    </style>
+    <style>
+        .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+    </style>
+  </head>
+  <body>
+    <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
+    <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h6 class="card-title">¿Te puedo ayudar?</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
+              <div class="menu">
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Inspeccionar Prouctos</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+              
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      {% if num_calificar[0][0] ==0%}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                        {%else%}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
+
+                          <div class="wrapper">
+                          
+                            <div class="bell" id="bell-1">
+                              <div class="anchor material-icons layer-1">notifications_active</div>
+                              <div class="anchor material-icons layer-2">notifications</div>
+                              <div class="anchor material-icons layer-3">notifications</div>
+                            </div>
+                          
+                          </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                      {%endif%}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
+                            {{nomre}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
+                            <a class="dropdown-item" href="/onboarding">Onboarding</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+
+              <div id="content">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1 class="font-weight-bold mb-0">Mi Actividad</h1>
+                                <p class="lead text-muted">Selecciona los productos y dejanos un comentario.</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                  <section>
+                    <div class="w3-row-padding w3-margin-bottom">
+                        <div class="w3-quarter">
+                          <div class="w3-container w3-text-white w3-padding-16" style="background-color:rgb(119, 118, 255);">
+                            <div class="w3-left"><i class="fa fa-arrow-circle-up w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                              <h3>{Ahorrador Principiante</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4>1</h4>
+                          </div>
+                        </div>
+                        <div class="w3-quarter">
+                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(148, 79, 247);">
+                            <div class="w3-left"><i class="fa fa-money w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                              <h3>{0</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4>Puntos Activos</h4>
+                          </div>
+                        </div>
+                        <div class="w3-quarter">
+                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(160, 61, 244);">
+                            <div class="w3-left"><i class="fa fa-calendar w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                              <h3>{530</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4>Puntos en Espera</h4>
+                          </div>
+                        </div>
+                        <div class="w3-quarter">
+                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
+                            <div class="w3-left"><i class="fa fa-pie-chart w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                              <h3>{300</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4>BipTips</h4>
+                        </div>
+                    </div>
+                  </div>
+
+                  </section>
+                  <section>
+                    <div class="w3-container" style="color: black;">
+                        <h3> <b>BipTips para el siguiente nivel</b></h3>
+                        <p style="color: black;">{Ahorrador conocedor</p>
+                        <div class="progress-wrap progress" data-progress-percent="{30.0">
+                          <div class="progress-bar progress">{700</div>
+                        </div>
+                    </div>
+                  </section>
+                  <section>
+                    <div class="w3-container" style="color: black;">
+                        <h3><b>Tus beneficios</b></h3>
+                        <hr>
+                        <div class="row">
+                        <div class="col-sm" style="align-content: center;">
+                          <div style="margin:auto; ">
+                          <img src="static/abrir-caja.png" class="center">
+                         </div>
+                          <h5 style="text-align: center;">{300 Puntos de regalo</h5>
+                        </div>
+                    
+                        <div class="col-sm">
+                          <img src="static/carrito-de-compras.png" class="center">
+                          <h5 style="text-align: center;" >{7 Productos en el catalogo</h5>
+                        </div>
+                    
+                        <div class="col-sm">
+                          <img src="static/calendario.png" class="center">
+                          <h5 style="text-align: center;" >{Expiración de puntos en 7 días</h5>
+                        </div>
+                    
+                        <div class="col-sm">
+                          <img src="static/etiqueta-de-precio.png" class="center">
+                          <h5 style="text-align: center;" >{7% de descuento extra en tu primera compra</h5>
+                        </div>
+                      </div>
+                        <br>
+                      </div>
+                  </section>
+                  <section>
+                    <div class="w3-container" style="color: black;">
+                        <h3><b>Proximos beneficios</b></h3>
+                        <div class="row">
+                          <div class="col-sm">
+                            <img src="static/abrir-caja.png" style="height: 80px; width: 80px;">
+                            <h5>{500 Puntos de regalo</h5>
+                          </div>
+                          <div class="col-sm">
+                            <img src="static/carrito-de-compras.png" style="height: 80px; width: 80px;">
+                            <h5>{10 Productos en el catalogo</h5>
+                          </div>
+                        </div>
+                        <br>
+                      </div>
+                  </section>
+                  <section>
+                    <div class="w3-container" style="color: black;">
+                        <h3><b>Niveles</b></h3>
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="w3-container w3-text-white w3-padding-16" style="background-color:rgb(119, 118, 255);">
+                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                              <div class="w3-right">
+                                <h3>1</h3>
+                              </div>
+                              <div class="w3-clear"></div>
+                              <h4>Ahorrador Principiante</h4>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(148, 79, 247);">
+                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                              <div class="w3-right">
+                                <h3>2</h3>
+                              </div>
+                              <div class="w3-clear"></div>
+                              <h4>Ahorrador Conocedor</h4>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(160, 61, 244);">
+                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                              <div class="w3-right">
+                                <h3>3</h3>
+                              </div>
+                              <div class="w3-clear"></div>
+                              <h4>Ahorrador Temerario</h4>
+                            </div>
+                          </div>
+                          <div class="col-sm">
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
+                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                              <div class="w3-right">
+                                <h3>4</h3>
+                              </div>
+                              <div class="w3-clear"></div>
+                              <h4>Ahorrador Experto</h4>
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
+                            <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-right">
+                                <h3>5</h3>
+                            </div>
+                            <div class="w3-clear"></div>
+                            <h4>Ahorrador Legendario</h4>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                  </section>
+              </div>
+
+          </div>
+      </div>
+      {%if calificar%}
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Calificación de servicio</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/calificar" method="POST">
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Califica a {{calificar[0][9] }} del 0 al 5:</label>
+                  <input id="id_call" type="text" value="{{calificar[0][0] }}" style="display: none;">
+                  <div class="input-group mb-3">
+                    <select class="custom-select" id="cali">
+                      <option selected>Choose...</option>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button id="calificar" type="button" class="btn btn-primary">Calilficar</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%endif%}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      function chat()
+      {
+          document.getElementById("bot").style.display="block";
+          document.getElementById("bit").style.display="none";
+      }
+      $('#calificar').click(function(){
+        var id_call = document.getElementById('id_call').value;
+        var cali = document.getElementById('cali').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/calificar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"id_call":id_call,
+                                "cali":cali}),
+          dataType: "json",
+          success: function(res){
+            alert("Hemos registrado exitosamente tu calificación");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+  </script>
+  <script>
+      ScrollReveal().reveal('.row');
+
+
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+
+// on page load...
+moveProgressBar();
+    // on browser resize...
+    $(window).resize(function() {
+        moveProgressBar();
+    });
+
+    // SIGNATURE PROGRESS
+    function moveProgressBar() {
+      console.log("moveProgressBar");
+        var getPercent = ($('.progress-wrap').data('progress-percent') / 100);
+        var getProgressWrapWidth = $('.progress-wrap').width();
+        var progressTotal = getPercent * getProgressWrapWidth;
+        var animationLength = 2500;
+        
+        // on page load, animate percentage bar to data percentage length
+        // .stop() used to prevent animation queueing
+        $('.progress-bar').stop().animate({
+            left: progressTotal
+        }, animationLength);
+    }
+    $('#gracias').click(function () {
+    document.getElementById('OnBoard').style.display="none";
+    $.ajax({
+      type: 'POST',
+      url: '/OnBoard',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      data: JSON.stringify({"estado":"5"}),
+      dataType:"json",
+      success: function(res) {
+        console.log('cambio!');                      
+      },
+      error: function() {
+       console.log("No se cambio el usuario");
+      }
+    });
+  });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="shortcut icon" href="../static/ekko.jpg" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='perfildi.css')}}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+   
+        <header>
+          <nav>
+            <ul>
+              <li>
+                <a href="/profile">Mi Perfil</a>
+              </li>
+              <li>
+                <a href="/didocumentos">Mis Documentos</a>
+              </li>
+              <li>
+                <a href="/misdatos">Mis datos</a>
+              </li>
+              <li>
+                <a href="/cerrar">Cerrar sesión</a>
+              </li>
+            </ul>
+          </nav>
+                
+          
+    
+           <section class="textos-header">
+                <h1> Recuerda revisar tu correo para descargar tu contrato</h1>
+                <h2>{{usuarioactual}}</h2>
+
+                
+               
+           </section>
+          
+    
+    
+
+        </header>
+        <main>
+            <section class="contenedor sobre-nosotros">
+                <h2 class="titulo">Tus puntos</h2>
+                <div class="contenedor-sobre-nosotros"> 
+                <img src="../static/nosotros.jpg" alt="" class="imagen-about-us">
+                <div class="contenido-textos">
+                    <h3>Solicita tu contrato</h3>  
+                    <form  id="enviar">
+                      <button  class="btn btn-success"  id="envcontrato">Mandame mi contrato</button>
+                    </form> 
+                    <h3>Sube tu contrato</h3>
+                    
+                    <input  type="file" name="archi" id="img-uploader" multiple="multiple">
+                    <div><button type="submit" class="btn btn-success" id="intento" >Confirmar documento</button></div>
+
+                 
+                  
+                </div>
+
+               
+               
+  
+            </div>
+
+           
+           
+            </section>
+            <section>
+            <div class="abajod">
+             
+              <ul class="pagination">
+                
+                <li class="page-item"><a class="page-link" href="/profile">Siguiente</a></li>
+              </ul>
+           
+          </div>
+          
+          
+          <div class="abajoi">
+         
+            <ul class="pagination">
+              
+              <li class="page-item"><a class="page-link" href="/misdatos">Anterior</a></li>
+            </ul>
+         
+        </div>  
+      </section>    
+            
+
+            <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+            <script src="../static/perfil.js"></script>            
+   
+</html>

@@ -15,6 +15,7 @@
 
 <link rel="stylesheet" type="text/css" href="static/css/util.css">
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
+<link rel="stylesheet" type="text/css" href="static/css/navbar.css">
 
 <style>
   
@@ -135,16 +136,17 @@ body {font-family: Poppins-Regular, sans-serif;}
 </style>
 <body style="padding: 0; margin: 0;">
 
-  {% if onboarding == 3 %}
-  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+  {% if onboarding == 4 %}
+  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute;z-index:1000;">
     <div  style="margin: auto; height: 40%;width: 46%; margin-top: 27%;">
       <div class="bubble" id="bubble">
         <div id="textBot">
-          ¡Excelente!
-          <br>Completaste tu tutorial.
-          <br>Pero no te preocupes, si me necesitas para otra cosa, aquí estare.
+          ¡Hola otra vez!
+          <br>Veo que encontraste tu página de actividad.
+          <br>Aquí encuentras tus BipTips (o Bips), estos son recompensas que recibes al canjear recibos.
+          <br>Los BipTips sirven para subir de nivel y poder desbloquer nuevos beneficios.
         </div>
-        <button id="gracias" style="color: white;">¡Gracias BipBop!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+        <button id="gracias" style="color: white;">¡Entendido!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
       </div>
       <img src="static/img/botHelp.png" id="bipbop" class="circle">
     </div>
@@ -152,7 +154,7 @@ body {font-family: Poppins-Regular, sans-serif;}
   {% endif %}
 
 <!-- Navbar -->
-<div class="w3-top" id="Nav">
+<div class="w3-top naav" id="Nav">
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
@@ -166,17 +168,19 @@ body {font-family: Poppins-Regular, sans-serif;}
       </div>
     </div>
     <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
-    <div class="col" style="margin-left: 70%;">
-      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+    <div class="w3-right row">
+      <div class="col-sm-2">
+        <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="">
       </div>
       <div class="col">
-      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+        <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
       </div>
+    </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top naav" style="margin-top:46px">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
   <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
   <a href="/conversion" id="convC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
@@ -404,6 +408,25 @@ moveProgressBar();
         }, animationLength);
     }
 
+
+    $('#gracias').click(function () {
+    document.getElementById('OnBoard').style.display="none";
+    $.ajax({
+      type: 'POST',
+      url: '/OnBoard',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      data: JSON.stringify({"estado":"5"}),
+      dataType:"json",
+      success: function(res) {
+        console.log('cambio!');                      
+      },
+      error: function() {
+       console.log("No se cambio el usuario");
+      }
+    });
+  });
 </script>
 
 </body>

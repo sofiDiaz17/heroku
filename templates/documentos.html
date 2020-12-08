@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tus Documentos</title>
+    <link rel="shortcut icon" href="../static/ekko.jpg" type ="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static',filename='didocumentos.css')}}" >
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    
+<body>
+    <header>
+        <nav>
+            <ul>
+              <li>
+                <a href="/profile">Mi Perfil</a>
+              </li>
+              <li>
+                <a href="/logeado">Mi contrato</a>
+              </li>
+              <li>
+                <a href="/misdatos">Mis datos</a>
+              </li>
+              <li>
+                <a href="/cerrar">Cerrar sesión</a>
+              </li>
+            </ul>
+          </nav>
+
+    <section class="textos-header">
+        <h1>  </h1>       
+   </section>
+   </header>
+   <section class="about-services">
+    <div class="contedor">
+            <h2 class="titulo">Documentos Personales</h2>
+            <div class="servicio-cont">
+                <div class="servicio-ind">
+                    <img src="../static/frente.jpeg" alt="">
+                    <h3>Identificación oficial Parte delantera</h3>
+                    <p>Sube la parte delantera de tu identificación oficial</p>
+                    
+                    <section>
+                        <input  type="file"  name="identfront" id="img-uploader" multiple="multiple">
+                        <div><button  class="btn btn-success" id="intento" >Confirmar documento</button></div>
+                    </section>   
+                    
+                    
+                </div>
+        
+                <div class="servicio-ind">
+                    <img src="../static/trasera.jpg" alt="">
+                    <h3>Identificación Oficial Parte Trasera </h3>
+                    <p>Sube la parte de atrás de tu identificación oficial</p>
+                    
+                       <section>
+                            <input type="file"  name="traser" id="img-traser" multiple="multiple">
+                            <div><button class="btn btn-success" type="submit" id="intentotraser">Confirmar documento</button></div>   
+                        </section> 
+                </div>
+            </form>
+                <div class="servicio-ind">
+                    <img src="../static/comprobante.jpg" alt="">
+                    <h3>Comprobante de domicilio</h3>
+                    <p>Sube un comprobante de domicilio </p>
+                    
+                      <section> 
+                        <input type="file" name="compd" id="img-compro" multiple="multiple">
+                        <div><button class="btn btn-success" type="submit" id="intentocompro">Confirmar documento</button></div>   
+                        </section> 
+                </div>
+            </form>
+                <div class="servicio-ind">
+                    <img src="../static/defi.jpg" alt="">
+                    <h3>Selfie</h3>
+                    <p>Sube una foto de tu cara</p>
+                   
+                        <section>
+                        <input type="file" name="selfi" id="img-selfi" multiple="multiple">
+                        <div><button class="btn btn-success" type="submit" id="intentoselfie">Confirmar documento</button></div>
+                    </section>
+                   
+                    
+                        
+                </div>
+                
+            </form>
+            
+            
+            </div>
+           
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>     
+                      </div>
+            <div class="abajod">
+             
+                <ul class="pagination">
+                  
+                  <li class="page-item"><a class="page-link" href="/misdatos">Siguiente</a></li>
+                </ul>
+             
+            </div>        
+           
+    </div>
+ 
+</section>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="../static/alertaine.js"></script>
+</body>
+</html>    

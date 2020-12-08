@@ -11,6 +11,8 @@
 
 <link rel="stylesheet" href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css">
 <link href="https://v4-alpha.getbootstrap.com/examples/narrow-jumbotron/narrow-jumbotron.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="static/css/navbar.css">
+
 
 <style>
 body {font-family: Poppins-Regular, sans-serif;}
@@ -30,7 +32,7 @@ body {font-family: Poppins-Regular, sans-serif;}
 <body>
 
 <!-- Navbar -->
-<div class="w3-top" id="Nav">
+<div class="w3-top naav" id="Nav">
   <div class="w3-bar w3-black w3-card">
     <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-left" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="/perfil" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Inicio</a> 
@@ -43,17 +45,19 @@ body {font-family: Poppins-Regular, sans-serif;}
       </div>
     </div>
     <a href="/close" id="close" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Cerrar Sesion</a>
-    <div class="col" style="margin-left: 70%;">
-      <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="" loading="lazy">
+    <div class="w3-right row">
+      <div class="col-sm-2">
+        <img src="static/img/imgPerfil/{{g.foto}}" class="w3-bar-item" style="height: 60px; width: 80px;" alt="">
       </div>
       <div class="col">
-      <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
+        <h5 class="card-title w3-bar-item w3-padding-large w3-hide-small">Bienvenid@ - {{g.user}}</h5>
       </div>
+    </div>
   </div>
 </div>
 
 <!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
+<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top naav" style="margin-top:46px">
   <a href="/perfil" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Inicio</a>
   <a href="/historial" id="histC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Historial</a>
   <a href="/conversion" id="convC" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">Conversion</a>
