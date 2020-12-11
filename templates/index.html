@@ -10,6 +10,8 @@
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link rel="icon" type="image/png" href="static/rodaja-de-naranja.ico">
+		
 		
 	</head>
 	<!--
@@ -55,10 +57,10 @@ button,
 		button:hover,
 		.button:hover {
 			background: #9152f8;
-			background: -webkit-linear-gradient(top, #7579ff, #b224ef);
-			background: -o-linear-gradient(top, #7579ff, #b224ef);
-			background: -moz-linear-gradient(top, #7579ff, #b224ef);
-			background: linear-gradient(top, #7579ff, #b224ef);
+			background: -webkit-linear-gradient(top, #fd8f52, #ffbd71);
+			background: -o-linear-gradient(top, #fd8f52, #ffbd71);
+			background: -moz-linear-gradient(top, #fd8f52, #ffbd71);
+			background: linear-gradient(top,  #fd8f52, #ffbd71);
 		}
 
 		input[type="submit"]:active,
@@ -448,11 +450,13 @@ button,
 }
 
 .circle {
-  width: 70px;
-  height: 70px;
+  width: 200%;
+  height: 210%;
   position: relative;
-  left: 15px;
-  margin-top: 5%;
+  left: 30px;
+  margin-top: -20%;
+  margin-left: -20%;
+  margin-bottom: 80%;
 }
 
 
@@ -502,9 +506,9 @@ button,
 				<nav class="left">
 					<a href="#menu"><span>Menu</span></a>
 				</nav>
-				<a href="index.html" class="logo" style="color: #a74c65;">Cuponera</a>
+				<a href="index.html" class="logo" style="color: #E67E22;">Orange juice</a>
 				<nav class="right">
-					<a href="#" class="button alt">Log in</a>
+					<a href="#" class="button alt btn btn-primary">Log in</a>
 				</nav>
 			</header>
 
@@ -528,12 +532,12 @@ button,
 				</div>
 			</section>
 				<!-- 2-->
-				<section id="Two" class="wrapper style1" style="background-color:#757081;">
+				<section id="Two" class="wrapper style1" style="background-color:#E67E22;">
 					<div class="inner flex  ">
 						<figure>
 							<div>
 								<div class="content">
-									<h3>Inicia sesion</h3>
+									<h3>Inicia sesión</h3>
 									<p style="color: floralwhite;">Si ya tienes cuenta, <br /> ¡inicia sesión, sube tus tickets, alcanza nuevo nivel y disfruta de Cuponera! </p>
 									<ul class="actions">
 										<li><a href="/login" class="button scrolly" style="color: black;">Log in</a></li>
@@ -556,28 +560,28 @@ button,
 					</div>
 				</section>
 			
-
-
+				
+			
 		<!-- BOT -->
 		<div class="container">
 			<div class="row">
 			 <div id="Smallchat">
-			<div class="Layout Layout-open Layout-expand Layout-right" style="background-color: #ececec;color: rgb(255, 255, 255);opacity: 5;border-radius: 10px;">
-			  <div class="Messenger_messenger">
-				<div class="Messenger_header" style="background-color:#757081; color: rgb(255, 255, 255);">
-				  <h4 class="Messenger_prompt" style="color: #ececec;">¿En qué te puedo ayudar?</h4> <span class="chat_close_icon" ><i class="fa fa-window-close" aria-hidden="true"></i></span> </div>
-				<div class="Messenger_content">
-				  <div class="Messages">
-					<iframe src='https://webchat.botframework.com/embed/dscbotl-bot?s=iJdEUwsQxcU.DEjWfT4dYQMneiuOAhXR51Aw3wuWSOn8_SlUKgU9ltc'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
-					<div class="Messages_list"></div>
-				  </div>
+				<div class="Layout Layout-open Layout-expand Layout-right" style="background-color: #ececec;color: rgb(255, 255, 255);opacity: 5;border-radius: 10px;">
+			  		<div class="Messenger_messenger">
+						<div class="Messenger_header" style="background-color:#E67E22; color: rgb(255, 255, 255);">
+				  			<h4 class="Messenger_prompt" style="color: #ececec;">¿En qué te puedo ayudar?</h4> <span class="chat_close_icon" ><i class="fa fa-window-close" aria-hidden="true"></i></span> </div>
+							<div class="Messenger_content">
+				 			 <div class="Messages">
+								<iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+									<div class="Messages_list"></div>
+				  			</div>
+						</div>
+			  		</div>
 				</div>
-			  </div>
-			</div>
 			<!--===============CHAT ON BUTTON STRART===============-->
-			<div class="chat_on"> <span class="chat_on_icon" ><img src= "../static/img/botHelp.png " class="circle "><i class="fa fa-comments" aria-hidden="true"></i></span> </div>
+			<div class="chat_on"> <span class="chat_on_icon" ><img src= "../static/miv.gif" class="circle card" ><i class="fa fa-comments" aria-hidden="true"></i></span> </div>
 			<!--===============CHAT ON BUTTON END===============-->
-		  </div>
+		  	</div>
 			</div>
 		</div>
 			<section id="one" class="wrapper">
@@ -647,6 +651,11 @@ button,
 			<script src="../static/js/util.js"></script>
 			<script src="../static/js/main.js"></script>
 			<script>
+				function chat()
+				{
+					document.getElementById("bot").style.display="block";
+					document.getElementById("bit").style.display="none";
+				}
 				$(document).ready(function(){
 				$(".chat_on").click(function(){
 					$(".Layout").toggle();

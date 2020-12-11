@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
-    <title>Catalogo</title>
+    <title>Perfil</title>
     <style>
     .zoom:hover {
         -ms-transform: scale(1.7); /* IE 9 */
@@ -21,6 +21,118 @@
       .up:hover {
         transform: translate(0, -15px); 
       }
+      .wrapper {
+          position:relative;
+          display: flex;
+          width: 100%;
+          height: 1vh;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin: 0;
+          padding: 0;
+        }
+
+.bell .material-icons { 
+  /* font-size:12rem !important; */
+  /* font-size:36px !important; */
+  font-size:1.3rem !important;
+}
+
+.bell {
+  position:relative;
+  display:inline-block;  
+  /* border:dashed 1px rgba(0,0,0,.25); */
+  margin:0;
+  padding:0;  
+}
+
+.bell .anchor {
+  transform-origin:center top;
+  display:inline-block;
+  margin:0;
+  padding:0;       
+}
+
+.bell .layer-1 {
+  color:#ffffff;
+  z-index:9;
+  animation: animation-layer-1 5000ms infinite;      
+  opacity:0;  
+}
+
+.bell .layer-2 {
+  color:#ffffff;
+  z-index:8;
+  position:absolute;top:0;left:0;   
+  animation: animation-layer-2 5000ms infinite;    
+}
+
+.bell .layer-3 {
+  color:#cfcfcf;
+  z-index:7;
+  position:absolute;top:0;left:0; 
+  animation: animation-layer-3 5000ms infinite;    
+}
+
+@keyframes animation-layer-1 {
+  0% { transform: rotate(0deg);opacity:0; }
+  8.0% { transform: rotate(0deg);opacity:0; }
+  12.0% { transform: rotate(42deg);opacity:.5; }
+  16.0% { transform: rotate(-35deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:.1; }
+  23.0% { transform: rotate(28deg);opacity:.3; }
+  26.0% { transform: rotate(-20deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:.1; }
+  31.0% { transform: rotate(16deg);opacity:0; }
+  33.0% { transform: rotate(-12deg);opacity:0; }
+  35.0% { transform: rotate(0deg);opacity:0; }	
+  37.0% { transform: rotate(-6deg);opacity:0; }
+  39.0% { transform: rotate(0deg);opacity:0; }
+}
+
+@keyframes animation-layer-2 {
+  0% { transform: rotate(0deg); }
+  8.0% { transform: rotate(0deg); }
+  12.0% { transform: rotate(42deg); }
+  16.0% { transform: rotate(-35deg); }
+  20.0% { transform: rotate(0deg); }
+  23.0% { transform: rotate(28deg); }
+  26.0% { transform: rotate(-20deg); }
+  29.0% { transform: rotate(0deg); }
+  31.0% { transform: rotate(16deg); }
+  33.0% { transform: rotate(-12deg); }
+  35.0% { transform: rotate(0deg); }	
+  37.0% { transform: rotate(-6deg); }
+  39.0% { transform: rotate(0deg); }
+  40.0% { transform: rotate(6deg); }
+  44.0% { transform: rotate(-3deg); }
+  49.0% { transform: rotate(2deg);}
+  55.0% { transform: rotate(0deg); }
+  62.0% { transform: rotate(1deg); }
+  70.0% { transform: rotate(0deg); }  
+}
+
+@keyframes animation-layer-3 {
+  0% { transform: rotate(0deg);opacity:1; }
+  8.0% { transform: rotate(0deg);opacity:1; }
+  12.0% { transform: rotate(52deg);opacity:.5; }
+  16.0% { transform: rotate(-48deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:1; }
+  23.0% { transform: rotate(42deg);opacity:.3; }
+  26.0% { transform: rotate(-30deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:1; }
+  31.0% { transform: rotate(26deg);opacity:.15; }
+  33.0% { transform: rotate(-18deg);opacity:.1; }
+  35.0% { transform: rotate(0deg);opacity:1; }	
+  37.0% { transform: rotate(-12deg);opacity:.8; }
+  40.0% { transform: rotate(6deg);opacity:1; }
+  44.0% { transform: rotate(-3deg);opacity:.8; }
+  49.0% { transform: rotate(2deg);opacity:1; }
+  55.0% { transform: rotate(0deg);opacity:1; }
+  62.0% { transform: rotate(1deg);opacity:1; }
+  70.0% { transform: rotate(0deg);opacity:1; }
+}
       </style>
   </head>
   <body>
@@ -42,38 +154,55 @@
           <div id="sidebar-container" class="bg-primary">
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
-                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Inspeccionar Prouctos</a>
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
                 <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
 
           <div class="w-100">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-              
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
-                        {{nomre}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
+              <div class="container">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    
+                  <span class="navbar-toggler-icon"></span>
+                  </button>
+            
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if num_calificar[0][0] ==0%}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                      {%else%}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
+
+                        <div class="wrapper">
+                        
+                          <div class="bell" id="bell-1">
+                            <div class="anchor material-icons layer-1">notifications_active</div>
+                            <div class="anchor material-icons layer-2">notifications</div>
+                            <div class="anchor material-icons layer-3">notifications</div>
+                          </div>
+                        
+                        </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                    {%endif%}
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                          {{g.user}}
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/perfil">Mi Perfil</a>
                           <a class="dropdown-item" href="/onboarding">Onboarding</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="/close">Cerrar sesión</a>
-                        </div>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-              </nav>
+                      </div>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+            </nav>
 
               <div id="content">
                   <section class="py-3">
@@ -92,12 +221,12 @@
                         <div class="row row-cols-1 row-cols-md-2">
                             <div class="col-lg-5 mb-4">
                               <div class="card">
-                                <center><img src="static/{{nomre}}.png" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px; "></center>
+                                <center><img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px; "></center>
                                 <div class="card-body">
-                                  <h3 class="card-title" style="text-align: center; top: -20px; ">{{DU[0][1]}} {{DU[0][2]}}</h3>
+                                  <h3 class="card-title" style="text-align: center; top: -20px; ">{{g.user}}</h3>
                                   <p class="card-title text-muted" style="text-align: center;">Cliente premier</p>
-                                  <p class="card-text text-muted">Dirección: {{DU[0][6]}} </p>
-                                  <p class="card-text text-muted">Teléfono: {{DU[0][7]}} </p>
+                                  <p class="card-text text-muted">Dirección:  </p>
+                                  <p class="card-text text-muted">Teléfono:  </p>
                                 </div>
                               </div>
                             </div>
@@ -109,19 +238,19 @@
                                           <div class="col-lg-4 stat d-flex my-3">
                                             <div class="mx-auto">
                                               <h6 class="text-muted">Mis Puntos</h6>
-                                              <h2 class="font-weight-blod">0</h2>
+                                              <h2 class="font-weight-blod">{{puntos}}</h2>
                                             </div>
                                           </div>
                                           <div class="col-lg-4 stat d-flex my-3">
                                             <div class="mx-auto">
                                               <h6 class="text-muted">Puntos en espera</h6>
-                                              <h2 class="font-weight-blod">500</h2>
+                                              <h2 class="font-weight-blod">{{puntosF}}</h2>
                                             </div>
                                           </div>
                                           <div class="col-lg-4 d-flex my-3">
                                             <div class="mx-auto">
                                               <h6 class="text-muted">Nivel</h6>
-                                              <button class="zoom" type="submit" style="background: none; color: orange; border:none"><h1 class="font-weight-blod">1</h1></button>
+                                              <button class="zoom" type="submit" style="background: none; color: orange; border:none"><h1 class="font-weight-blod">{{nivel}}</h1></button>
                                             </div>
                                           </div>
                                         </div>
@@ -147,16 +276,27 @@
                           <div class="card-body">
                             
                             <div class="container py-1">
-                              <table class="table table-borderless">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th class="column1">Folio</th>
+                                    <th class="column1">Monto de compra</th>
+                                    <th class="column1">Fecha de compra</th>
+                                    <th class="column1">Rubro</th>
+                                    <th class="column1">Puntos obtenidos</th>
+                                    <th class="column1">Expiración</th>
+                                    <th class="column1">Status</th>
+                                  </tr>
+                                </thead>
                                   <tbody>
-                                    {% for ticket in tickets %}
+                                    {% for row in tabla %}
                                     <tr>
-                                      <td class="font-weight-bold mb-0" style="color:sandybrown;">{{ticket.6}}</td>
-                                      <td>Devolución</td>
-  
-                                      
+                                        {% for cell in row %}
+                                          <td>{{cell}}</td>
+                                        {% endfor %}
                                     </tr>
                                     {% endfor %}
+                                  
                                   </tbody>
                                 </table>
                             </div>

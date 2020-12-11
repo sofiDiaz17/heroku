@@ -40,23 +40,18 @@ def Ttickets(correo):
     cur = mysql.get_db().cursor()
     cur.execute('SELECT COUNT(EMAIL_R) FROM S_C_REFUND1 WHERE STATUS_R = 2 and EMAIL_R = %s',correo)
     tta = cur.fetchall()
-    
-
     return tta
 
 def Ttickett(correo):
     cur = mysql.get_db().cursor()
     cur.execute('SELECT COUNT(EMAIL_R) FROM S_C_REFUND1 WHERE STATUS_R = 1 and  EMAIL_R = %s',correo)
-    ttt = cur.fetchall()
-  
-    
+    ttt = cur.fetchall() 
     return ttt
 
 def Tticketf(correo):
     cur = mysql.get_db().cursor()
     cur.execute('SELECT COUNT(EMAIL_R) FROM S_C_REFUND1 WHERE STATUS_R = 0 and EMAIL_R = %s',correo)
     ttf = cur.fetchall()
-
     return ttf
 
 def nomuser(user):

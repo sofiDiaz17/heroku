@@ -136,7 +136,7 @@ body {font-family: Poppins-Regular, sans-serif;}
 </style>
 <body style="padding: 0; margin: 0;">
 
- {% if onboarding == 4 %}
+  {% if onboarding == 4 %}
   <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute;z-index:1000;">
     <div  style="margin: auto; height: 40%;width: 46%; margin-top: 27%;">
       <div class="bubble" id="bubble">
@@ -408,9 +408,8 @@ moveProgressBar();
         }, animationLength);
     }
 
-	
-	
-$('#gracias').click(function () {
+
+    $('#gracias').click(function () {
     document.getElementById('OnBoard').style.display="none";
     $.ajax({
       type: 'POST',

@@ -270,11 +270,11 @@ def misdatos():
    #Modelo.CrearPDF(_name,_rfc,_email,_direccion,_fechanacimiento)
    #Modelo.EnviarCorreoContrato(_name,_email)
    try:
-      busquedaN= Modelo.SelectNombre(session['user'])
-      busquedaEm= Modelo.SelectCorreo(session['user'])
-      busquedaDI= Modelo.SelectDireccion(session['user'])
-      busquedaFe= Modelo.SelectFecha(session['user'])
-      busquedaCu= Modelo.SelectCurp(session['user'])
+      busquedaN= Modelo2.SelectNombre(session['user'])
+      busquedaEm= Modelo2.SelectCorreo(session['user'])
+      busquedaDI= Modelo2.SelectDireccion(session['user'])
+      busquedaFe= Modelo2.SelectFecha(session['user'])
+      busquedaCu= Modelo2.SelectCurp(session['user'])
 
       return render_template("./datos.html",nombre=busquedaN,email=busquedaEm,direccion=busquedaDI,fechanaci=busquedaFe,curp=busquedaCu) 
    except:

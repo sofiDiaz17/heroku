@@ -8,23 +8,55 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> 
-    <title>Catalogo</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Mis pedidos</title>
     <style>
+
+      .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
+
+    .zoom:hover {
+        -ms-transform: scale(1.7); /* IE 9 */
+        -webkit-transform: scale(1.7); /* Safari 3-8 */
+        transform: scale(1.1); 
+        background-color:  #E67E22;
+        
+      }
       .up:hover {
-        transform: translate(0, -15px);
+        transform: translate(0, -15px); 
       }
       .wrapper {
-  position:relative;
-  display: flex;
-  width: 100%;
-  height: 1vh;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-}
+          position:relative;
+          display: flex;
+          width: 100%;
+          height: 1vh;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin: 0;
+          padding: 0;
+        }
 
 .bell .material-icons { 
   /* font-size:12rem !important; */
@@ -126,8 +158,7 @@
   62.0% { transform: rotate(1deg);opacity:1; }
   70.0% { transform: rotate(0deg);opacity:1; }
 }
-
-    </style>
+      </style>
   </head>
   <body>
     <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
@@ -143,226 +174,182 @@
         </div>
       </div>
     </div>
-    
+
       <div class="d-flex">
           <div id="sidebar-container" class="bg-primary">
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
-                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Inspeccionar Prouctos</a>
-                  <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                  <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
-                  <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+                <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
 
           <div class="w-100">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                      
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
-              
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      {% if num_calificar[0][0] ==0%}
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                        {%else%}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
+              <div class="container">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    
+                  <span class="navbar-toggler-icon"></span>
+                  </button>
+            
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if num_calificar[0][0] ==0%}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                      {%else%}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
 
-                          <div class="wrapper">
-                          
-                            <div class="bell" id="bell-1">
-                              <div class="anchor material-icons layer-1">notifications_active</div>
-                              <div class="anchor material-icons layer-2">notifications</div>
-                              <div class="anchor material-icons layer-3">notifications</div>
-                            </div>
-                          
-                          </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                      {%endif%}
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
-                            {{nomre}}
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
-                            <a class="dropdown-item" href="/mis_pedidos">Mis Compras</a>
-                            <a class="dropdown-item" href="/onboarding">Onboarding</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/close">Cerrar sesión</a>
-                        </div>
-                        </li>
-                    </ul>
-                    </div>
-                </div>
-              </nav>
+                        <div class="wrapper">
+                        
+                          <div class="bell" id="bell-1">
+                            <div class="anchor material-icons layer-1">notifications_active</div>
+                            <div class="anchor material-icons layer-2">notifications</div>
+                            <div class="anchor material-icons layer-3">notifications</div>
+                          </div>
+                        
+                        </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                    {%endif%}
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                          {{g.user}}
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/perfil">Mi Perfil</a>
+                          <a class="dropdown-item" href="/onboarding">Onboarding</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                      </div>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+            </nav>
 
               <div id="content">
                   <section class="py-3">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h1 class="font-weight-bold mb-0">Catalogo</h1>
-                                <p class="lead text-muted">Ve los productos que puedes adquirir con tus puntos.</p>
+                                <h1 class="font-weight-bold mb-0">Mis pedidos</h1>
+                                <p class="lead text-muted">Aquí podras encontrar la información de tus pedidos</p>
                             </div>
                         </div>
                     </div>
                   </section>
+                  
+
                   <section>
-                      <div class="container">
-                        <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://www.gaiadesign.com.mx/media/catalog/product/cache/1/image/1200x/040ec09b1e35df139433887a97daa66f/m/u/mueble_paratv_kabeh_gris_still1_v1.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Mueble para tv kabeh gris</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-success"><i class="icon ion-md-checkmark" style="color:limegreen"></i>  Entregado</p>
+                    <div class="col mb-12">
+                        <div class="card">
+                          <div class="card-header" style="background-color: white;">
+                            <h5 class="font-weight-bold mb-0">Mis pedidos</h5>
+                          </div>
+                          <div class="card-body">
+                            
+                            <div class="container py-1">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th class="column1">Cantidad de compra</th>
+                                    <th class="column1">Fecha de compra</th>
+                                    <th class="column1">Objeto comprado</th>
+                
+                                  </tr>
+                                </thead>
+                                  <tbody>
+                                    {% for row in tabla %}
+                                    <tr>
+                                        {% for cell in row %}
+                                          <td>{{cell}}</td>
+                                        {% endfor %}
+                                        <td><button type="button" data-toggle="modal" name="devolver" class="btn btn-primary">Devolver</button></td>
+                                    </tr>
+                                    {% endfor %}
+                                  
+                                  </tbody>
+                                </table>
+
+                                <div class="modal" id="modalDev">
+                                <div class="modal-content" >
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Devovler Producto</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" name="cancelMod">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <form action="/borrar" method="POST">
+                                  <div class="modal-body">
+                                    
+                                      <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">¿Estas seguro que quieres Devolver este producto?</label>
+                                        <p></p>
+                                        <div class="form-row">
+                            
+                                          <div class="form-group col-md-6" style="float:left">
+                                            <span for="inputPassword4">Producto: </span>
+                                            <input type="text" class="form-control" id="ediproducto" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                            <span for="inputEmail4">Dirección: </span>
+                                            <input type="text" class="form-control" id="direccion" >
+                                          </div>
+                                          <div class="form-group col-md-3">
+                                            <span for="inputEmail4">Razón de la devolucón: </span>
+                                            <textarea  class="form-control" id="razon" ></textarea>
+                                          </div>
+                                        </div>
+                                      </div> 
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" id="cancel" name="cancelMod" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button id="btn_bor" type="button" class="btn btn-primary"> Devolver</button>
+                                  </form>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://www.perfect-home.mx/wp-content/uploads/32966-1.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Tapete para Baño Coral 40X60cm</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-primary"><i class="icon ion-md-bus" style="color:royalblue"></i>  En camino</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="data:image/jpeg;base64,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" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Echo Dot (3ra generación)</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                                  <p class="text-warning"><i class="icon ion-md-alert" style="color:yellow"></i>  Retrasado</p>
-                                </div>
-                              </div>
                             </div>
                           </div>
+                        </div>
                       </div>
-                      <div class="container">
-                        <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://resources.claroshop.com/medios-plazavip/mkt/5e4d19edae941_mipods-7jpg.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Audifonos Bluethooth A6S</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-primary"><i class="icon ion-md-bus" style="color:royalblue"></i>  En camino</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://www.priosa.com.mx/wp-content/uploads/2013/09/SRL_Naranja.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Chaleco ONG</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-success"><i class="icon ion-md-checkmark" style="color:limegreen"></i>  Entregado</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://resources.sears.com.mx/medios-plazavip/fotos/productos_sears1/original/3046472.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Nintendo Switch Animal Crossing New Horizon</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                                  <p class="text-primary"><i class="icon ion-md-bus" style="color:royalblue"></i>  En camino</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                      <div class="container">
-                        <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://www.sanborns.com.mx/imagenes-sanborns-ii/1200/745119366844.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Agenda 2020 Ofi-Pro Económica</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-warning"><i class="icon ion-md-alert" style="color:yellow"></i>  Retrasado</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://mobica.vteximg.com.br/arquivos/ids/169328-1000-1000/Librero-Allen-Vertical-MO24751_001.jpg?v=637078755869530000" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Librero Arellano 2.0 Vertical - mobica</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                  <p class="text-warning"><i class="icon ion-md-alert" style="color:yellow"></i>  Retrasado</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col mb-4">
-                              <div class="card">
-                                <img src="https://cdn.shopify.com/s/files/1/0020/7372/2946/products/RMool_Negro_1.1_2000x.jpg?v=1531429045" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Maceta Robert Mool - Negro</h5>
-                                  <p class="card-text text-muted">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                                  <p class="text-primary"><i class="icon ion-md-bus" style="color:royalblue"></i>  En camino</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-                      
+                    
                   </section>
               </div>
+          </div>
 
-          </div>
       </div>
-      {%if calificar%}
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Calificación de servicio</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="/calificar" method="POST">
-                <div class="form-group">
-                  <label for="recipient-name" class="col-form-label">Califica a {{calificar[0][9] }} del 0 al 5:</label>
-                  <input id="id_call" type="text" value="{{calificar[0][0] }}" style="display: none;">
-                  <div class="input-group mb-3">
-                    <select class="custom-select" id="cali">
-                      <option selected>Choose...</option>
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
-                  </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button id="calificar" type="button" class="btn btn-primary">Calilficar</button>
-            </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      {%endif%}
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
+
+
+        $('button[name ="cancelMod"]').click(function(){
+          document.getElementById("modalDev").style.display="none";
+
+        })
+
+      $('button[name ="devolver"]').click(function(){
+        //alert("lcick")
+        var dataDev=[]
+        var elems= $(this).closest("tr").children("td")
+        //console.log(elems)
+        elems.each(function () {
+          //console.log($(this).text());
+          dataDev.push($(this).text());
+
+        });
+
+        $('#ediproducto').val(dataDev[2])
+        document.getElementById("modalDev").style.display="block";
+
+      })
+
       function chat()
       {
           document.getElementById("bot").style.display="block";
@@ -389,6 +376,60 @@
           }
         })
       })
-  </script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('#btn_edi').click(function(){
+        var editicket = document.getElementById('editicket').value;
+        var ediestado = document.getElementById('ediestado').value;
+        var ediproducto = document.getElementById('ediproducto').value;
+        var edidireccion = document.getElementById('edidireccion').value;
+        var edirazon = document.getElementById('edirazon').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/editar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"editicket":editicket, 
+                                "ediestado":ediestado, 
+                                "ediproducto":ediproducto, 
+                                "edidireccion":edidireccion, 
+                                "edirazon":edirazon }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha editado exitosamente el ticket");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+
+      $('#btn_bor').click(function(){
+        
+        var borrid = document.getElementById('borrid').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/borrar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"borrid":borrid }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha borrado exitosamente el ticket");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+    </script>
+  
+
+
   </body>
 </html>

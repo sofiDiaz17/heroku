@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> 
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
     <title>Devoluciones</title>
     <style>
       .zoom:hover {
@@ -20,7 +20,7 @@
       .up:hover {
         transform: translate(0, -15px); 
       }
-      </style>
+    </style>
   </head>
   <body>
     <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
@@ -60,8 +60,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
-                        {{nomre}}
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>

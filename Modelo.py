@@ -545,10 +545,9 @@ def SelectNombre(busqueda):
                 return nombre
             else:
                 return False
+
         except Exception as e:
-            return e
-            cursor.close()
-            conn.close()
+            print(e)
     else: 
             return json.dumps ({'html': '<span> Te faltan datos </span>'})  
     

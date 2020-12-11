@@ -20,7 +20,7 @@ btn1.addEventListener("click",function (){
     for (var x = 0; x < ins; x++) {
         form_data.append("files[]", document.getElementById('img-uploader').files[x]);
     }
-
+    document.getElementById("loader").style.display = 'block';
     $.ajax({
         url: '/uploadContract',
         type: 'POST',
@@ -30,8 +30,16 @@ btn1.addEventListener("click",function (){
         showLoader: true,
         dataType: 'json',
         success: function (data) {
-          alert("Contrato subido exitosamente, ahora tienes la medalla de contrato")
+            document.getElementById("loader").style.display = 'none';
+          alert("Contrato subido exitosamente")
+          window.location.href = "/perfil";
+
+          
         },
+        error: function (){
+            document.getElementById("loader").style.display = 'none';
+            alert("No se pudo subir el contrato")
+        }
 
     });
         
@@ -43,7 +51,7 @@ btn1.addEventListener("click",function (){
     });
 
     function sendContract(){
-        console.log("llego  a mi funcion 2")
+        //console.log("llego  a mi funcion 2")
     
         $.ajax({
             url: '/sendContract',
@@ -54,8 +62,12 @@ btn1.addEventListener("click",function (){
             dataType: 'json',
             success: function (data) {
               console.log("success docuemtno arriba");
+              print(data)
               
             },
+            error: function (){
+                console.log("NO SE PUDO")
+            }
     
         });
     }

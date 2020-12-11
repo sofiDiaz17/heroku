@@ -7,11 +7,10 @@
     <link rel="icon" type="image/png" href="static/rodaja-de-naranja.ico">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"> 
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
     <title>Compras</title>
     <style>
       .up:hover {
@@ -367,8 +366,8 @@
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
-                            {{nomre}}
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
@@ -394,13 +393,13 @@
                     </div>
                   </section>
                   <section>
-                    <div class="row">
+                    <div class="row" style="margin-right: 0; margin-left: 0;">
                         <div class="col-sm-1"></div>
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
                          <div class="loader" id="loader"></div>
                           <div id="formFot">
                             <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
-                              <button class=" btn btn-primary"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
+                              <button class=" btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
                                 <i class="icon ion-md-cloud"></i> Subir foto de objeto
                             </label></button>
                             <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
@@ -418,10 +417,12 @@
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
                           <h2>Objetos en el carro: <label id="cant" style="display: inline;">0</label></h2>
                           <h3>Total: $ <label id="prec" style="display: inline;">0</label></h3>
-                            <p>Mis puntos {{puntos}}</p>
+                            <p id="puntos">Mis puntos {{puntos}}</p>
                           <p class="alert alert-danger" style="display: none;" id="alP">Atención, no posees suficientes puntos para estos productos, si deseas añadir más da click <a href="/recibos" class="alert-link">aquí</a></p>
                           <ul class="list-unstyled" id="compList">
                           </ul>
+                          <button id="comprar" type="button" class=" btn btn-primary">Comprar</button>
+
                         </div>
                         <div class="col-sm-1"></div>
                       
@@ -502,6 +503,302 @@
           }
         })
       })
+
+
+
+      $(document).ready(function(){ 
+            $('input[type="file"]').change(function(e){ 
+                var flName = e.target.files[0].name; 
+                document.getElementById("upbtn").innerHTML= flName
+            }); 
+        }); 
+
+
+  $('#add-to-cart').click(function () {
+    var nom=document.getElementById("nomOb").innerHTML;
+    if(nom=="Nombre")
+    {
+      document.getElementById("noProd").style.display = 'block';
+    }
+    else{
+    var cant = document.getElementById("cant").innerHTML;
+    var precT = document.getElementById("prec").innerHTML;
+    var prec = document.getElementById("puntOb").innerHTML;
+    var interC = parseInt(cant, 10);
+    var interP = parseInt(prec, 10);
+    var interPT = parseInt(precT, 10);
+    var totalC=interC+1;
+    var totalPT=interPT+interP;
+
+    puntos=document.getElementById("puntos").innerHTML;
+      if(parseInt(puntos)<totalPT)
+      {
+        document.getElementById("alP").style.display="block";
+      }
+
+    document.getElementById("cant").innerHTML=totalC;
+    document.getElementById("prec").innerHTML=totalPT;
+
+    var lista=document.getElementById("compList");
+    var elem = document.createElement("li"); 
+    elem.className="media";
+    var img = document.createElement("img"); 
+    img.className="mr-3 imLis";
+    img.src=document.getElementById("imOb").src;
+    var div = document.createElement("div"); 
+    div.className="media-body";
+    var h5 = document.createElement("h3"); 
+    h5.className="mt-0 mb-1";
+    h5.innerHTML=nom;
+    var p = document.createElement("h5"); 
+    p.className="mt-0 mb-1";
+    p.innerHTML=prec;
+    p.style.color="black"
+    borrar=document.createElement("button");
+    borrar.setAttribute('type', 'button');
+    borrar.innerHTML = '<i class="icon ion-md-trash" aria-hidden="true" style="font-size:27px"></i>';
+    borrar.className="eliminar"
+    div.appendChild(h5);
+    div.appendChild(p);
+  
+    elem.appendChild(img);
+    elem.appendChild(div);
+    elem.appendChild(borrar);
+
+    lista.appendChild(elem);
+
+  }
+  })
+  
+  
+  $('#compList').on('click', '.eliminar', function() {
+    var list=$(this).closest('li');
+    var precio=list.find("h5").text();
+    var obejtInt = parseInt(precio, 10);
+    //console.log(obejtInt);
+
+    var total = document.getElementById("prec").innerHTML;
+    var totalInt = parseInt(total, 10);
+    var rest=totalInt-obejtInt;
+    //console.log(rest);
+
+    var cant = document.getElementById("cant").innerHTML;
+    var cantInt = parseInt(cant, 10);
+    var cantFin=cantInt-1;
+    //console.log(cantFin);
+
+    document.getElementById("prec").innerHTML=rest;
+    document.getElementById("cant").innerHTML=cantFin;
+    list.remove();
+});
+
+$('#comprar').click(function () {
+  var cant = document.getElementById("cant").innerHTML;
+  if(cant=="0"){
+    alert("No hay objetos")
+  }
+  else{
+    var precT = document.getElementById("prec").innerHTML;
+    var interPT = parseInt(precT, 10);
+
+    puntos=document.getElementById("puntos").innerHTML;
+    console.log("Puntos")
+    console.log(puntos)
+    console.log("Total")
+    console.log(interPT)
+   
+    intPuntos=parseInt(puntos)
+      if(intPuntos<interPT)
+      {
+        alert("NO puedes comprar eso")
+      }
+      else
+      {
+        alert("SE compro")
+        
+        $.ajax({
+          type: 'POST',
+          url: '/comprar',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          data: JSON.stringify({"compra":interPT,
+                                "objeto":"mesa"}),
+          dataType:"json",
+          success: function(res) {
+            console.log('wujuuu!');    
+            nuevoTot=interPT-intPuntos;
+            console.log(nuevoTot)
+            document.getElementById("puntos").innerHTML=nuevoTot; 
+          },
+          error: function() {
+            console.log("No se pudo");
+          }
+        });
+      }
+  }
+  
+  })
+  
+
+
+$(function() {
+    $('input[type="file"]').change(function() {
+      name=document.getElementById("upbtn").innerHTML;
+        console.log(name);
+        if(name.includes("Subir foto de objeto", 0))
+        {
+          document.getElementById("noFot").style.display="block";
+        }
+        else{
+        document.getElementById("loader").style.display = 'block';
+        var form_data = new FormData($('#upload-file')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/getObj',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType:"json",
+            success: function(data) {
+                console.log('Success!');
+                console.log(data)
+                if(data)
+                {
+                  var obj = data[0].translations[0].text
+                    $.ajax({
+                    type: 'POST',
+                    url: '/getObjDB',
+                    headers:{
+                      'Content-Type':'application/json'
+                    },
+                    data: JSON.stringify({"nombre":obj}),
+                    dataType:"json",
+                    success: function(res) {
+                        console.log('Success!');
+                        console.log(res);
+                        if(res){
+                          n=res[0][1];
+                          p=res[0][3];
+                          i=res[0][4];
+                          document.getElementById("nomOb").innerHTML=n;
+                          document.getElementById("puntOb").innerHTML=p;
+                          document.getElementById("imOb").src="static/img/catalogo/"+i;
+                          document.getElementById("loader").style.display='none';
+
+                          var bip=document.getElementById("bipbop");
+                          if(bip){
+                            document.getElementById('cardObj').style.zIndex=2000;
+                            var x = window.matchMedia("(max-width: 420px)")
+
+                            if (x.matches) { // If media query matches
+                              document.getElementById('chatB').style.width="86%";
+                              document.getElementById('chatB').style.marginTop="145%";
+                            } else {
+                              document.getElementById('chatB').style.width="25%";
+                            }
+
+                            document.getElementById('textBot').innerHTML="Aquí aparece el objeto encontrado con todos sus datos";
+                            $.ajax({
+                                type: 'POST',
+                                url: '/OnBoard',
+                                headers:{
+                                  'Content-Type':'application/json'
+                                },
+                                data: JSON.stringify({"estado":"3"}),
+                                dataType:"json",
+                                success: function(res) {
+                                  console.log('cambio!');                      
+                                },
+                                error: function() {
+                                  console.log("No se cambio el usuario");
+                                }
+                            });
+                            document.getElementById("btnFot").style.display='none';
+                            var btF=document.createElement('a');
+                            btF.href="/perfil";
+                            btF.style.color="white";
+                            btF.innerHTML="Entendido";
+                            var iF=document.createElement('i');
+                            iF.setAttribute("aria-hidden","true");
+                            iF.className="fa fa-check";
+                            iF.style.color="white";
+                            btF.appendChild(iF);
+                            document.getElementById("bubble").appendChild(btF)
+                          }
+                        }
+                        else{
+                          var bip=document.getElementById("bipbop");
+                          if(bip){
+                            document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
+                            document.getElementById("loader").style.display = 'none';
+                          }
+                          else{
+                            document.getElementById("noBas").style.display="block";
+                            document.getElementById("loader").style.display = 'none';
+                          }
+                        }
+                    },
+                    error: function() {
+                      document.getElementById("algoMal").style.display="block";
+                      document.getElementById("loader").style.display = 'none';
+                    }
+                 });
+                }
+                else{
+                  var bip=document.getElementById("bipbop");
+                  if(bip){
+                    document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
+                    document.getElementById("loader").style.display = 'none';
+                  }
+                  else{
+                  document.getElementById("noVe").style.display="block";
+                  document.getElementById("loader").style.display = 'none';
+                  }
+               }
+              },
+              error: function() {
+                document.getElementById("algoMal").style.display="block";
+                document.getElementById("loader").style.display = 'none';
+              }
+        });
+      }
+    });
+});
+
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+// When the user clicks anywhere outside of the modal, close it
+var modal = document.getElementById('ticketModal');
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+$('#btnFot').click(function () {
+    document.getElementById('upload-file').style.zIndex=5000;
+    document.getElementById('textBot').innerHTML="Sube una foto";
+    //document.getElementById('btnFot').id="btnFin";
+  });
+
+
+
+
+  
+ 
+
   </script>
   </body>
 </html>

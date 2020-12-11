@@ -1,90 +1,75 @@
-import azure.cognitiveservices.speech as speechsdk
+from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+from azure.cognitiveservices.vision.computervision.models import OperationStatusCodes
+from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
+from msrest.authentication import CognitiveServicesCredentials
+
+from array import array
+from PIL import Image
+import sys
 import time
-# Creates an instance of a speech config with specified subscription key and service region.
-# Replace with your own subscription key and service region (e.g., "westus").
-speech_key, service_region = "e21c5662cc5c4e7aa983ba12c67f6a90", "eastus"
-speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
+import requests
+import json
+import os
 
-# Creates a recognizer with the given settings
-speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config,language="es-MX")
+# If you are using a Jupyter notebook, uncomment the following line.
+# %matplotlib inline
+import matplotlib.pyplot as plt
+from matplotlib.patches import Polygon
+from io import BytesIO
 
-print("Se ha iniciado la grabación de la llamada...")
+
+subscription_key = "7ee7446ab0c44ec9b79e2baaa14ba40b"
+endpoint = "https://ekkos02.cognitiveservices.azure.com/"
 
 
-# Starts speech recognition, and returns after a single utterance is recognized. The end of a
-# single utterance is determined by listening for silence at the end or until a maximum of 15
-# seconds of audio is processed.  The task returns the recognition text as result. 
-# Note: Since recognize_once() returns only a single utterance, it is suitable only for single
-# shot recognition like command or query. 
-# For long-running multi-utterance recognition, use start_continuous_recognition() instead.
-result = speech_recognizer.recognize_once()
+computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredentials(subscription_key))
 
-# Checks result.
-if result.reason == speechsdk.ResultReason.RecognizedSpeech:
-    print("Recognized: {}".format(result.text))
-elif result.reason == speechsdk.ResultReason.NoMatch:
-    print("No speech could be recognized: {}".format(result.no_match_details))
-elif result.reason == speechsdk.ResultReason.Canceled:
-    cancellation_details = result.cancellation_details
-    print("Speech Recognition canceled: {}".format(cancellation_details.reason))
-    if cancellation_details.reason == speechsdk.CancellationReason.Error:
-        print("Error details: {}".format(cancellation_details.error_details))
+print("===== Batch Read File - local =====")
+# Get image of handwriting
+localimg = "static\\INEDELANTE\\fotofiona.jpeg"
+# Open the image
+image = Image.open(localimg)
 
-key = "669021d295c9482e96114324804b22c8"
-endpoint = "https://text-a-powe-client.cognitiveservices.azure.com/"
 
-from azure.ai.textanalytics import TextAnalyticsClient
-from azure.core.credentials import AzureKeyCredential
+text_recognition_url = endpoint + "/vision/v3.1/read/analyze"
 
-def authenticate_client():
-    ta_credential = AzureKeyCredential(key)
-    text_analytics_client = TextAnalyticsClient(
-            endpoint=endpoint, credential=ta_credential)
-    return text_analytics_client
+# Set image_url to the URL of an image that you want to recognize.
+image_url = "https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/master/articles/cognitive-services/Computer-vision/Images/readsample.jpg"
 
-client = authenticate_client()
-print(result)
-document = result.text
-print(document)
-#input("Introduce una frase feliz:" )
+headers = {'Ocp-Apim-Subscription-Key': subscription_key,'Content-Type': 'application/octet-stream'}
+with open(localimg, 'rb') as f:
+    data = f.read()
+response = requests.post(
+    text_recognition_url, headers=headers, data=data)
 
-def sentiment_analysis_example(client):
+# Extracting text requires two API calls: One call to submit the
+# image for processing, the other to retrieve the text found in the image.
 
-    documents = [document]
-    response = client.analyze_sentiment(documents = documents)[0]
-    print("Document Sentiment: {}".format(response.sentiment))
-    print("Overall scores: positive={0:.2f}; neutral={1:.2f}; negative={2:.2f} \n".format(
-        response.confidence_scores.positive,
-        response.confidence_scores.neutral, 
-        response.confidence_scores.negative,
-    ))
-    for idx, sentence in enumerate(response.sentences):
-        print("Sentence: {}".format(sentence.text))
-        print("Sentence {} sentiment: {}".format(idx+1, sentence.sentiment))
-        print("Sentence score:\nPositive={0:.2f}\nNeutral={1:.2f}\nNegative={2:.2f}\n".format(
-            sentence.confidence_scores.positive,
-            sentence.confidence_scores.neutral,
-            sentence.confidence_scores.negative,
-        ))
-sentiment_analysis_example(client) 
+# Holds the URI used to retrieve the recognized text.
+operation_url = response.headers["Operation-Location"]
 
+# The recognized text isn't immediately available, so poll to wait for completion.
+analysis = {}
+poll = True
+while (poll):
+    response_final = requests.get(
+        response.headers["Operation-Location"], headers=headers)
+    analysis = response_final.json()
     
-def key_phrase_extraction_example(client):
+    #print(json.dumps(analysis))
 
-    try:
+    time.sleep(1)
+    if ("analyzeResult" in analysis):
+        poll = False
+    if ("status" in analysis and analysis['status'] == 'failed'):
+        poll = False
 
-        documents = [document]
+contador= ' '
+if analysis['status'] == "succeeded":
+    #print(analysis["analyzeResult"]["readResults"][0]["lines"])
+    for l in analysis["analyzeResult"]["readResults"][0]["lines"]:
+        #print(l["text"])
+        contador=contador+ '\n' + l["text"]
+    
 
-        response = client.extract_key_phrases(documents = documents)[0]
-
-        if not response.is_error:
-            print("\tKey Phrases:")
-            for phrase in response.key_phrases:
-                print("\t\t", phrase)
-        else:
-            print(response.id, response.error)
-
-    except Exception as err:
-        print("Encountered exception. {}".format(err))
-        
-key_phrase_extraction_example(client)
+print(contador)

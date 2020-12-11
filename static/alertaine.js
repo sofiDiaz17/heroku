@@ -20,6 +20,7 @@ function uploadFile(valor){
     for (var x = 0; x < ins; x++) {
         form_data.append("files[]", document.getElementById('img-uploader').files[x]);
     }
+    document.getElementById("loader").style.display = 'block';
 
     $.ajax({
         url: '/ID',
@@ -31,6 +32,7 @@ function uploadFile(valor){
         dataType: 'json',
         success: function (data) {
           console.log("success docuento arriba");
+          document.getElementById("loader").style.display = 'none';
           console.log(data.response);
           if(data.response=="No es una INE"){
             alert(data.response);
@@ -48,7 +50,11 @@ function uploadFile(valor){
           }
           
         },
+        error: function(){
+          alert("NO se puede leer su foto, intente con otra");
+          document.getElementById("loader").style.display = 'none';
 
+        }
     });
 }
 

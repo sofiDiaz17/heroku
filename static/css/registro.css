@@ -219,11 +219,11 @@ body {
   -ms-transform: translate(-50%, -50%); }
 
 .signup-content {
-  background: #9152f8;
-  background: -webkit-linear-gradient(top, #7579ff, #b224ef);
-  background: -o-linear-gradient(top, #7579ff, #b224ef);
-  background: -moz-linear-gradient(top, #7579ff, #b224ef);
-  background: linear-gradient(top, #7579ff, #b224ef);
+  background:  #e67d22de;
+  background: -webkit-linear-gradient(top, #e67d22de,  #ffc21bde);
+  background: -o-linear-gradient(top, #e67d22de, #ffc21bde);
+  background: -moz-linear-gradient(top, #e67d22de, #ffc21bde);
+  background: linear-gradient(top, #e67d22de, #ffc21bde);
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;

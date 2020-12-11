@@ -299,10 +299,10 @@ input[type="file"] {
   <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
     <h2>Objetos en el carro: <label id="cant" style="display: inline;">0</label></h2>
     <h3>Total: $ <label id="prec" style="display: inline;">0</label></h3>
-      <p>Mis puntos {{puntos}}</p>
     <p class="alert alert-danger" style="display: none;" id="alP">Atención, no posees suficientes puntos para estos productos, si deseas añadir más da click <a href="/recibos" class="alert-link">aquí</a></p>
     <ul class="list-unstyled" id="compList">
     </ul>
+    <button id="comprar" type="button">Comprar</button>
   </div>
   <div class="col-sm-1"></div>
 
@@ -396,24 +396,65 @@ $(document).ready(function(){
     var list=$(this).closest('li');
     var precio=list.find("h5").text();
     var obejtInt = parseInt(precio, 10);
-    console.log(obejtInt);
+    //console.log(obejtInt);
 
     var total = document.getElementById("prec").innerHTML;
     var totalInt = parseInt(total, 10);
     var rest=totalInt-obejtInt;
-    console.log(rest);
+    //console.log(rest);
 
     var cant = document.getElementById("cant").innerHTML;
     var cantInt = parseInt(cant, 10);
     var cantFin=cantInt-1;
-    console.log(cantFin);
+    //console.log(cantFin);
 
     document.getElementById("prec").innerHTML=rest;
     document.getElementById("cant").innerHTML=cantFin;
     list.remove();
 });
 
+$('#comprar').click(function () {
+  var cant = document.getElementById("cant").innerHTML;
+  if(cant=="0"){
+    alert("No hay objetos")
+  }
+  else{
+    var precT = document.getElementById("prec").innerHTML;
+    var interPT = parseInt(precT, 10);
 
+    puntos=document.getElementById("puntos").innerHTML;
+    console.log("Puntos")
+    console.log(puntos)
+    console.log("Total")
+    console.log(interPT)
+      if(parseInt(puntos)<interPT)
+      {
+        alert("NO puedes comprar eso")
+      }
+      else
+      {
+        alert("SE compro")
+        $.ajax({
+          type: 'POST',
+          url: '/comprar',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          data: JSON.stringify({"compra":"500",
+                                "objeto":"mesa"}),
+          dataType:"json",
+          success: function(res) {
+            console.log('wujuuu!');                      
+          },
+          error: function() {
+            console.log("No se pudo");
+          }
+        });
+      }
+  }
+  
+  })
+  
 
 
 $(function() {
