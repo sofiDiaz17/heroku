@@ -1436,3 +1436,100 @@ def CALIFICAR(user):
     CALIFICAR1 = cur.fetchall()
     return CALIFICAR1
 
+def CHECKFront(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        frontINE="SELECT IneFront FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(frontINE, (user))
+            data = cursor.fetchone()
+            if data:
+                if data[0] != '': 
+                  return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKFront, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+
+def CHECKBack(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        backINE="SELECT IneBack FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(backINE, (user))
+            data = cursor.fetchone()
+            if data[0] != '':
+               return True
+            else:
+                return False
+                             
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKBack, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+def CHECKDom(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        address="SELECT ProofAddress FROM `CUsers` WHERE Email = %s"
+        
+        try:
+            cursor.execute(address, (user))
+            data = cursor.fetchone()
+            if data[0] != '':
+               return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKDom, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+def CHECKSelf(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        selfieq="SELECT Selfie FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(selfieq, (user))
+            data = cursor.fetchone()
+            if data:
+                if data[0] != '': 
+                  return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKSelf, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
