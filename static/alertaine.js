@@ -11,7 +11,7 @@ function uploadFile(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-uploader').files.length;
-				
+		var palomita=document.getElementById('cargar')
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -44,6 +44,8 @@ function uploadFile(valor){
             $("#progress").css("width",progreso+"%");
             $("#progress").text(progreso+"%");
             alert(data.response);
+            palomita.style.visibility
+
           }
           else if(data.response=="Imgen no legible"){
             alert(data.response);
@@ -76,7 +78,7 @@ function uploadFile2(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-traser').files.length;
-				
+		var palomita=document.getElementById('cargar2')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -107,6 +109,7 @@ function uploadFile2(valor){
               $("#progress").css("width",progreso+"%");
               $("#progress").text(progreso+"%");
               alert(data.response);
+              palomita.style.visibility;
             }
             else if(data.response=="Imgen no legible"){
               alert(data.response);
@@ -134,7 +137,7 @@ function uploadFile3(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-compro').files.length;
-				
+		var palomita=document.getElementById('cargar3')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -165,6 +168,7 @@ function uploadFile3(valor){
               $("#progress").css("width",progreso+"%");
               $("#progress").text(progreso+"%");
               alert(data.response);
+              palomita.style.visibility;
             }
             
           },
@@ -189,7 +193,7 @@ function uploadFile4(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-selfi').files.length;
-				
+		var palomita=document.getElementById('cargar4')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -213,6 +217,7 @@ function uploadFile4(valor){
           progreso= progreso + 25;
           $("#progress").css("width",progreso+"%");
           $("#progress").text(progreso+"%");
+          palomita.style.visibility;
         },
 
     });
