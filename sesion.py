@@ -1007,8 +1007,18 @@ def misdatos():
 @app.route("/subdocumentos",methods=['GET', 'POST'] )
 def subdocumentos():
    #busqueda= Modelo.buscarU(session['user'])
+   
+   front = Modelo.CHECKFront(session['user'])
+   print(front)
+
+   back=Modelo.CHECKBack(session['user'])
+   print(back)
+   imgdom=Modelo.CHECKDom(session['user'])  
+   print(imgdom)
+   selfie=Modelo.CHECKSelf(session['user'])
+   print(selfie)
    Modelo.entities(session['user'],'documentos','Entro a mis documentos')
-   return render_template("documentosdb.html") 
+   return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie) 
 
 
 @app.route("/sendContract",methods=['GET', 'POST'] )
