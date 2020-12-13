@@ -396,7 +396,7 @@
                     <div class="row" style="margin-right: 0; margin-left: 0;">
                         <div class="col-sm-1"></div>
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-                         <div class="loader" id="loader"></div>
+                       
                           <div id="formFot">
                             <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
                               <button class=" btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
@@ -428,6 +428,11 @@
                       
                       </div>
                   </section>
+                 <section>
+                          <div>
+                          <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                         </div> 
+                 </section>
               </div>
 
           </div>
@@ -651,7 +656,7 @@ $(function() {
           document.getElementById("noFot").style.display="block";
         }
         else{
-        document.getElementById("loader").style.display = 'block';
+        document.getElementById("llamda").style.display = 'block';
         var form_data = new FormData($('#upload-file')[0]);
         $.ajax({
             type: 'POST',
@@ -685,7 +690,7 @@ $(function() {
                           document.getElementById("nomOb").innerHTML=n;
                           document.getElementById("puntOb").innerHTML=p;
                           document.getElementById("imOb").src="static/img/catalogo/"+i;
-                          document.getElementById("loader").style.display='none';
+                          document.getElementById("llamda").style.display='none';
 
                           var bip=document.getElementById("bipbop");
                           if(bip){
@@ -732,17 +737,17 @@ $(function() {
                           var bip=document.getElementById("bipbop");
                           if(bip){
                             document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
-                            document.getElementById("loader").style.display = 'none';
+                            document.getElementById("llamda").style.display = 'none';
                           }
                           else{
                             document.getElementById("noBas").style.display="block";
-                            document.getElementById("loader").style.display = 'none';
+                            document.getElementById("llamda").style.display = 'none';
                           }
                         }
                     },
                     error: function() {
                       document.getElementById("algoMal").style.display="block";
-                      document.getElementById("loader").style.display = 'none';
+                      document.getElementById("llamda").style.display = 'none';
                     }
                  });
                 }
@@ -750,17 +755,17 @@ $(function() {
                   var bip=document.getElementById("bipbop");
                   if(bip){
                     document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
-                    document.getElementById("loader").style.display = 'none';
+                    document.getElementById("llamda").style.display = 'none';
                   }
                   else{
                   document.getElementById("noVe").style.display="block";
-                  document.getElementById("loader").style.display = 'none';
+                  document.getElementById("llamda").style.display = 'none';
                   }
                }
               },
               error: function() {
                 document.getElementById("algoMal").style.display="block";
-                document.getElementById("loader").style.display = 'none';
+                document.getElementById("llamda").style.display = 'none';
               }
         });
       }
