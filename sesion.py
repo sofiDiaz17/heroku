@@ -400,6 +400,8 @@ def form():
 
 @app.route('/recibos',methods=['GET','POST'])
 def recibos():
+    num_calificar=Modelo.Num_CALIFICAR(session['user'])
+    return render_template ("uploadT.html", num_calificar=num_calificar)
     if not g.user:
         return redirect(url_for('login'))
     if request.method=='POST':
@@ -417,7 +419,7 @@ def recibos():
             #print(d2)
             if fecha > d1 or fecha < d2:
                 errorLog="La fecha no es valida. (Recuerde que los recibos tienen solo una semana de validez)"
-                return render_template('uploadAn.html',errorLog=errorLog)
+                return render_template('uploadT.html',errorLog=errorLog)
             else:
                 if folio and monto and fecha and rubro and archivo:
                     b=Modelo.bitsUser(session['user'])
@@ -430,10 +432,10 @@ def recibos():
                     else:
                         Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
                         errorLog="Revise los datos"
-                        return render_template('uploadAn.html',errorLog=errorLog)
+                        return render_template('uploadT.html',errorLog=errorLog)
     estado=Modelo.estadoOnboarding(session['user'])
     userOnBoard=estado[0][0]
-    return render_template('uploadAn.html',onboarding=userOnBoard)
+    return render_template('uploadT.html',onboarding=userOnBoard)
 
 
 
