@@ -270,6 +270,11 @@
                         <div class="col-sm-2" ></div>
                   </section>
               </div>
+                 <section>
+                <div>
+                  <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                 </div>  
+                </section>
           </div>
 
       </div>
@@ -330,6 +335,7 @@
         var ediproducto = document.getElementById('ediproducto').value;
         var edidireccion = document.getElementById('edidireccion').value;
         var edirazon = document.getElementById('edirazon').value;
+        document.getElementById("llamda").style.display='block';
         
         $.ajax({
           type: 'POST',
@@ -345,9 +351,11 @@
           dataType: "json",
           success: function(res){
             alert("Se ha editado exitosamente el ticket");
+            document.getElementById("llamda").style.display = 'none';
           },
           error: function(res){
             alert("algo salio mal")
+            document.getElementById("llamda").style.display = 'none';
           }
         })
       })
@@ -355,6 +363,7 @@
       $('#btn_bor').click(function(){
         
         var borrid = document.getElementById('borrid').value;
+        document.getElementById("llamda").style.display='block';
         
         $.ajax({
           type: 'POST',
@@ -366,9 +375,11 @@
           dataType: "json",
           success: function(res){
             alert("Se ha borrado exitosamente el ticket");
+            document.getElementById("llamda").style.display = 'none';
           },
           error: function(res){
             alert("algo salio mal")
+            document.getElementById("llamda").style.display = 'none';
           }
         })
       })
@@ -380,6 +391,7 @@
                 i.className="fa fa-cloud-upload";
                 document.getElementById("upbtn").appendChild(i);
                 document.getElementById("upbtn").innerHTML= flName;
+                document.getElementById("llamda").style.display='block';
             }); 
         }); 
 
@@ -436,10 +448,12 @@
                     data: JSON.stringify({"estado":"1"}),
                     dataType:"json",
                     success: function(res) {
-                      console.log('cambio!');                      
+                      console.log('cambio!');
+                      document.getElementById("llamda").style.display = 'none';  
                     },
                     error: function() {
                       console.log("No se cambio el usuario");
+                      document.getElementById("llamda").style.display = 'none';  
                     }
                  });
                  
@@ -449,6 +463,7 @@
                 //alert("Algo salio mal");
                 document.getElementById("algoMal").style.display="block";
                 document.getElementById("loader").style.display = 'none';
+                document.getElementById("llamda").style.display = 'none';
               }
         });
       }
