@@ -197,7 +197,7 @@
       </style>
   </head>
   <body>
-    {% if onboarding == 0 %}
+     {% if onboarding == 0 %}
     <div id="OnBoard"  style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 150%; overflow: auto; position:absolute;z-index:1000;">
       <div  style="margin: auto; height: 60%;width: 60%; margin-top: 20%;">
         <div class="bubble" id="bubble">
@@ -224,7 +224,7 @@
             <br>¡Vamos a verlo!.
           </div>
           <button id="btnHist" style="background: #a9461d;"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true">Entendido</i></button>
-          <button id="skip2"  style="color: white; background: #a9461d;"><i class="fa fa-power-off" style="text-align: left;color: white;" aria-hidden="true"></i>Siguiente Paso  </button>
+          <button id="skip2"  style="color: white; background: #a9461d;"><i class="fa fa-power-off" style="text-align: left;color: white;" aria-hidden="true"></i>Siguiente </button>
         </div>
         <img src="../static/miv2.gif" class="circle"id="bipbop">
       </div>
@@ -1018,10 +1018,11 @@
   
       document.getElementById('textBot').innerHTML="Puedes hacerlo dando click en la opción en el menú";
       document.getElementById('deb').style.visibility="hidden";
-      document.getElementById('ped').style.visibility="hidden";
+      document.getElementById('btnProd').style.visibility="hidden";
       document.getElementById('cat').style.visibility="hidden";
-      document.getElementById('prod').style.visibility="hidden";
+      document.getElementById('ped').style.visibility="hidden";
       document.getElementById('rewards').style.visibility="hidden";
+     
      
       
       
