@@ -165,35 +165,36 @@
 
 .bubble {
  
- background: #00bfb6;
+ background: #E67E22;
  padding: 1.5em;
  text-align: center;
  font-weight: 900;
  color: #fff;
  font-family: arial;
  position: relative;
-}
-.bubble:after { 
+ }
+
+ .bubble:after { 
  content: "";
  width: 0px;
  height: 0px;
  position: absolute;
- border-left: 10px solid #00bfb6;
+ border-left: 10px solid #E67E22;
  border-right: 10px solid transparent;
- border-top: 10px solid #00bfb6;
+ border-top: 10px solid #E67E22;
  border-bottom: 10px solid transparent;
  left: 39px;
  bottom: -19px;
-}
+ border-radius: 5px;
+ }
 
-.circle {
- width: 70px;
- height: 70px;
+ .circle {
+ width: 20%;
+ height: 20%;
  position: relative;
  left: 15px;
  margin-top: 5%;
-
-}
+ }
 .chatB{
   margin: auto; 
   height: 40%;
@@ -221,9 +222,9 @@
       <!-- Chofos -->
       {% if onboarding == 2 %}
   <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
-    <div  class="chatB" id="chatB">
-      <div class="bubble" id="bubble">
-        <div id="textBot">
+          <div  class="chatB" id="chatB">
+            <div class="bubble" id="bubble">
+              <div id="textBot">
           Bienvenido al tester
           <br>Aquí podras subir fotos de objetos que te interesen y ver su disponibilidad.
           <br>Intentalo!.
@@ -397,7 +398,7 @@
                     <div class="row" style="margin-right: 0; margin-left: 0;">
                         <div class="col-sm-1"></div>
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-                         <div class="loader" id="loader"></div>
+                       
                           <div id="formFot">
                             <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
                               <button class=" btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
@@ -429,6 +430,11 @@
                       
                       </div>
                   </section>
+                 <section>
+                          <div>
+                          <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                         </div> 
+                 </section>
               </div>
 
           </div>
@@ -653,7 +659,7 @@ $(function() {
           document.getElementById("noFot").style.display="block";
         }
         else{
-        document.getElementById("loader").style.display = 'block';
+        document.getElementById("llamda").style.display = 'block';
         var form_data = new FormData($('#upload-file')[0]);
         $.ajax({
             type: 'POST',
@@ -687,7 +693,7 @@ $(function() {
                           document.getElementById("nomOb").innerHTML=n;
                           document.getElementById("puntOb").innerHTML=p;
                           document.getElementById("imOb").src="static/img/catalogo/"+i;
-                          document.getElementById("loader").style.display='none';
+                          document.getElementById("llamda").style.display='none';
 
                           var bip=document.getElementById("bipbop");
                           if(bip){
@@ -734,17 +740,17 @@ $(function() {
                           var bip=document.getElementById("bipbop");
                           if(bip){
                             document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
-                            document.getElementById("loader").style.display = 'none';
+                            document.getElementById("llamda").style.display = 'none';
                           }
                           else{
                             document.getElementById("noBas").style.display="block";
-                            document.getElementById("loader").style.display = 'none';
+                            document.getElementById("llamda").style.display = 'none';
                           }
                         }
                     },
                     error: function() {
                       document.getElementById("algoMal").style.display="block";
-                      document.getElementById("loader").style.display = 'none';
+                      document.getElementById("llamda").style.display = 'none';
                     }
                  });
                 }
@@ -752,17 +758,17 @@ $(function() {
                   var bip=document.getElementById("bipbop");
                   if(bip){
                     document.getElementById('textBot').innerHTML="¡Oops!. Parece que no pude reconocer tu foto, por favor intenta con otra";
-                    document.getElementById("loader").style.display = 'none';
+                    document.getElementById("llamda").style.display = 'none';
                   }
                   else{
                   document.getElementById("noVe").style.display="block";
-                  document.getElementById("loader").style.display = 'none';
+                  document.getElementById("llamda").style.display = 'none';
                   }
                }
               },
               error: function() {
                 document.getElementById("algoMal").style.display="block";
-                document.getElementById("loader").style.display = 'none';
+                document.getElementById("llamda").style.display = 'none';
               }
         });
       }

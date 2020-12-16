@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="static/rodaja-de-naranja.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Perfil</title>
+    <style>
+      .bubble {
+ 
+      background: #E67E22;
+      padding: 1.5em;
+      text-align: center;
+      font-weight: 900;
+      color: #fff;
+      font-family: arial;
+      position: relative;
+      }
+
+      .bubble:after { 
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 10px solid #E67E22;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #E67E22;
+      border-bottom: 10px solid transparent;
+      left: 39px;
+      bottom: -19px;
+      border-radius: 5px;
+      }
+
+      .circle {
+      width: 20%;
+      height: 20%;
+      position: relative;
+      left: 15px;
+      margin-top: 5%;
+      }
+    .zoom:hover {
+        -ms-transform: scale(1.7); /* IE 9 */
+        -webkit-transform: scale(1.7); /* Safari 3-8 */
+        transform: scale(1.1); 
+        background-color:  #E67E22;
+        
+      }
+      .up:hover {
+        transform: translate(0, -15px); 
+      }
+      .wrapper {
+          position:relative;
+          display: flex;
+          width: 100%;
+          height: 1vh;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          margin: 0;
+          padding: 0;
+        }
+
+.bell .material-icons { 
+  /* font-size:12rem !important; */
+  /* font-size:36px !important; */
+  font-size:1.3rem !important;
+}
+
+.bell {
+  position:relative;
+  display:inline-block;  
+  /* border:dashed 1px rgba(0,0,0,.25); */
+  margin:0;
+  padding:0;  
+}
+
+.bell .anchor {
+  transform-origin:center top;
+  display:inline-block;
+  margin:0;
+  padding:0;       
+}
+
+.bell .layer-1 {
+  color:#ffffff;
+  z-index:9;
+  animation: animation-layer-1 5000ms infinite;      
+  opacity:0;  
+}
+
+.bell .layer-2 {
+  color:#ffffff;
+  z-index:8;
+  position:absolute;top:0;left:0;   
+  animation: animation-layer-2 5000ms infinite;    
+}
+
+.bell .layer-3 {
+  color:#cfcfcf;
+  z-index:7;
+  position:absolute;top:0;left:0; 
+  animation: animation-layer-3 5000ms infinite;    
+}
+
+@keyframes animation-layer-1 {
+  0% { transform: rotate(0deg);opacity:0; }
+  8.0% { transform: rotate(0deg);opacity:0; }
+  12.0% { transform: rotate(42deg);opacity:.5; }
+  16.0% { transform: rotate(-35deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:.1; }
+  23.0% { transform: rotate(28deg);opacity:.3; }
+  26.0% { transform: rotate(-20deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:.1; }
+  31.0% { transform: rotate(16deg);opacity:0; }
+  33.0% { transform: rotate(-12deg);opacity:0; }
+  35.0% { transform: rotate(0deg);opacity:0; }	
+  37.0% { transform: rotate(-6deg);opacity:0; }
+  39.0% { transform: rotate(0deg);opacity:0; }
+}
+
+@keyframes animation-layer-2 {
+  0% { transform: rotate(0deg); }
+  8.0% { transform: rotate(0deg); }
+  12.0% { transform: rotate(42deg); }
+  16.0% { transform: rotate(-35deg); }
+  20.0% { transform: rotate(0deg); }
+  23.0% { transform: rotate(28deg); }
+  26.0% { transform: rotate(-20deg); }
+  29.0% { transform: rotate(0deg); }
+  31.0% { transform: rotate(16deg); }
+  33.0% { transform: rotate(-12deg); }
+  35.0% { transform: rotate(0deg); }	
+  37.0% { transform: rotate(-6deg); }
+  39.0% { transform: rotate(0deg); }
+  40.0% { transform: rotate(6deg); }
+  44.0% { transform: rotate(-3deg); }
+  49.0% { transform: rotate(2deg);}
+  55.0% { transform: rotate(0deg); }
+  62.0% { transform: rotate(1deg); }
+  70.0% { transform: rotate(0deg); }  
+}
+
+@keyframes animation-layer-3 {
+  0% { transform: rotate(0deg);opacity:1; }
+  8.0% { transform: rotate(0deg);opacity:1; }
+  12.0% { transform: rotate(52deg);opacity:.5; }
+  16.0% { transform: rotate(-48deg);opacity:.4; }
+  20.0% { transform: rotate(0deg);opacity:1; }
+  23.0% { transform: rotate(42deg);opacity:.3; }
+  26.0% { transform: rotate(-30deg);opacity:.2; }
+  29.0% { transform: rotate(0deg);opacity:1; }
+  31.0% { transform: rotate(26deg);opacity:.15; }
+  33.0% { transform: rotate(-18deg);opacity:.1; }
+  35.0% { transform: rotate(0deg);opacity:1; }	
+  37.0% { transform: rotate(-12deg);opacity:.8; }
+  40.0% { transform: rotate(6deg);opacity:1; }
+  44.0% { transform: rotate(-3deg);opacity:.8; }
+  49.0% { transform: rotate(2deg);opacity:1; }
+  55.0% { transform: rotate(0deg);opacity:1; }
+  62.0% { transform: rotate(1deg);opacity:1; }
+  70.0% { transform: rotate(0deg);opacity:1; }
+}
+      </style>
+  </head>
+  <body>
+     {% if onboarding == 0 %}
+      <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+        <div style="margin: auto; height: 60%;width: 60%; margin-top: 20%;" id="chatB">
+          <div class="bubble" id="bubble">
+            <div id="textBot">
+              Esta es tu página de compras. 
+              <br>Aquí podras subir fotos de tus recibos y obtener puntos.
+              <br>¡Intentalo!.
+            </div>
+            <button id="btnAgrRes" style=" background: #a9461d;"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+          </div>
+          <img src="../static/miv2.gif" class="circle" id="bipbop">
+        </div>
+      </div>
+      {% endif %}
+    <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
+    <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h6 class="card-title">¿Te puedo ayudar?</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
+              <div class="menu">
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+                <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+              <div class="container">
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    
+                  <span class="navbar-toggler-icon"></span>
+                  </button>
+            
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if num_calificar[0][0] ==0%}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                      {%else%}
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
+
+                        <div class="wrapper">
+                        
+                          <div class="bell" id="bell-1">
+                            <div class="anchor material-icons layer-1">notifications_active</div>
+                            <div class="anchor material-icons layer-2">notifications</div>
+                            <div class="anchor material-icons layer-3">notifications</div>
+                          </div>
+                        
+                        </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
+                    {%endif%}
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                          {{g.user}}
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/perfil">Mi Perfil</a>
+                          <a class="dropdown-item" href="/onboarding">Onboarding</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                      </div>
+                      </li>
+                  </ul>
+                  </div>
+              </div>
+            </nav>
+
+              <div id="content">
+                  
+                 
+                  <section>
+                                        <!-- The Band Section -->
+                    <div class="row" style="margin-top: 40px;">
+
+                        <div id="container"></div>
+                    
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm" style=" margin: auto;" class="gradient">
+                        <div class="row" style="padding: 3px;">
+                        <div class="loader" id="loader"></div>
+                        <div>
+                            <div>
+                                <h1>Sube tus recibos y obtén puntos</h1>
+                            </div>
+                            <div class="center" style="display:inline-block;">
+                                <form id="upload-file" method="post" enctype="multipart/form-data" style="vertical-align: middle;position: absolute;">
+                                <label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn" style="vertical-align:text-top;">
+                                    <i class="fa fa-cloud-upload"> </i> Subir recibo
+                                </label> 
+                                <div >
+                                    <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                        <div class="row" style="margin-top: 15%; padding: 3px; position: relative;" id="verDatos">
+                        <h2 style="margin-top: 1%; text-align: center; margin-left: 6%;">Verificar datos</h2>
+                        <div style="margin: auto; width: 100%; background-color: #f7f9fb; margin-top: 10%; margin-bottom: 5%;">
+                            <form method="POST" enctype="multipart/form-data" class="gradient" style="padding: 7%; color: white;">
+                                <div class="form-group">
+                                <label for="folio" style="color: #E67E22;">Folio o referencia</label>
+                                <input type="text" class="form-control" required value="{{folio}}" name="folio" id="folio">
+                                </div>
+                                <div class="form-group">
+                                <label for="monto" style="color: #E67E22;">Monto</label>
+                                <input type="number" class="form-control" required value="{{monto}}" name="monto" id="monto">
+                                </div>
+                                <div class="form-group">
+                                <label for="fechaCom" style="color: #E67E22;">Fecha de compra</label>
+                                <input type="text" class="form-control" required value="{{fecha}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="fechaCom" id="fechaCom" placeholder="YYYY-mm-dd">
+                                <small id="Helpdate" class="form-text" style="color: rgb(250, 250, 250);">Insertar fecha con formato: YYYY-mm-dd</small>
+                                </div>
+                                <div class="form-group">
+                                <label for="rubro" style="color: #E67E22;">Seleccione el rubro de su compra</label>
+                                <select class="form-control" id="rubro" name="rubro">
+                                    <option disabled selected>Rubros</option>
+                                    <option value="1">Comida/Restaurantes</option>
+                                    <option value="2">Tienda departamental</option>
+                                    <option value="3">Supermercado</option>
+                                    <option value="4">Muebles</option>
+                                    <option value="5">Gasolinera</option>
+                                </select>
+                                </div>
+                                <input type="text" value="{{archivo}}" name="archivo" id="archivo" style='display: none;'>
+                                <button type="submit" name="ingresar"  class="login100-form-btn">Guardar</button>
+                            </form>
+                            </div>
+                        </div>    
+                        </div>
+                        <div class="col-sm-2" ></div>
+                  </section>
+              </div>
+                 <section>
+                <div>
+                  <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                 </div>  
+                </section>
+          </div>
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://rawcdn.githack.com/akzhy/Vara/02d135d2864a976f6c70464aebee0f81647695c8/src/vara.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      function chat()
+      {
+          document.getElementById("bot").style.display="block";
+          document.getElementById("bit").style.display="none";
+      }
+      $('#calificar').click(function(){
+        var id_call = document.getElementById('id_call').value;
+        var cali = document.getElementById('cali').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/calificar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"id_call":id_call,
+                                "cali":cali}),
+          dataType: "json",
+          success: function(res){
+            alert("Hemos registrado exitosamente tu calificación");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+
+      function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else { 
+            x.className = x.className.replace(" w3-show", "");
+        }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('#btn_edi').click(function(){
+        var editicket = document.getElementById('editicket').value;
+        var ediestado = document.getElementById('ediestado').value;
+        var ediproducto = document.getElementById('ediproducto').value;
+        var edidireccion = document.getElementById('edidireccion').value;
+        var edirazon = document.getElementById('edirazon').value;
+        document.getElementById("llamda").style.display='block';
+        
+        $.ajax({
+          type: 'POST',
+          url: '/editar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"editicket":editicket, 
+                                "ediestado":ediestado, 
+                                "ediproducto":ediproducto, 
+                                "edidireccion":edidireccion, 
+                                "edirazon":edirazon }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha editado exitosamente el ticket");
+            document.getElementById("llamda").style.display = 'none';
+          },
+          error: function(res){
+            alert("algo salio mal")
+            document.getElementById("llamda").style.display = 'none';
+          }
+        })
+      })
+
+      $('#btn_bor').click(function(){
+        
+        var borrid = document.getElementById('borrid').value;
+        document.getElementById("llamda").style.display='block';
+        
+        $.ajax({
+          type: 'POST',
+          url: '/borrar',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"borrid":borrid }),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha borrado exitosamente el ticket");
+            document.getElementById("llamda").style.display = 'none';
+          },
+          error: function(res){
+            alert("algo salio mal")
+            document.getElementById("llamda").style.display = 'none';
+          }
+        })
+      })
+
+      $(document).ready(function(){ 
+            $('input[type="file"]').change(function(e){ 
+                var flName = e.target.files[0].name;
+                var i = document.createElement("i");
+                i.className="fa fa-cloud-upload";
+                document.getElementById("upbtn").appendChild(i);
+                document.getElementById("upbtn").innerHTML= flName;
+                document.getElementById("llamda").style.display='block';
+            }); 
+        }); 
+
+        $(function() {
+    $('input[type="file"]').change(function() {
+        name=document.getElementById("upbtn").innerHTML;
+        console.log(name);
+        if(name.includes("Subir recibo", 0))
+        {
+          document.getElementById("noFot").style.display="block";
+        }
+        else
+        {
+        document.getElementById("loader").style.display = 'block';
+        var form_data = new FormData($('#upload-file')[0]);
+        $.ajax({
+            type: 'POST',
+            url: '/form',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType:"json",
+            success: function(data) {
+                console.log('Success!');
+                console.log(data);
+                document.getElementById("folio").value=data[0];
+                //mont=data[1].replace(',','');
+                document.getElementById("monto").value=data[1];
+                document.getElementById("fechaCom").value=data[2];
+                document.getElementById("archivo").value=data[3];
+                document.getElementById("loader").style.display = 'none';
+
+                var bip=document.getElementById("bipbop");
+                if(bip){
+                  document.getElementById('verDatos').style.zIndex=2000;
+                  document.getElementById('upload-file').style.zIndex=800;
+                  var x = window.matchMedia("(max-width: 420px)")
+
+                  if (x.matches) { // If media query matches
+                    document.getElementById('chatB').style.width="56%";
+                    document.getElementById('chatB').style.marginTop="20%";
+                  } else {
+                    document.getElementById('chatB').style.width="25%";
+                  }
+
+                  document.getElementById('textBot').innerHTML="Aquí aparecen los datos de tu recibo";
+                  $.ajax({
+                    type: 'POST',
+                    url: '/OnBoard',
+                    headers:{
+                      'Content-Type':'application/json'
+                    },
+                    data: JSON.stringify({"estado":"1"}),
+                    dataType:"json",
+                    success: function(res) {
+                      console.log('cambio!');
+                      document.getElementById("llamda").style.display = 'none';  
+                    },
+                    error: function() {
+                      console.log("No se cambio el usuario");
+                      document.getElementById("llamda").style.display = 'none';  
+                    }
+                 });
+                 
+                }
+              },
+              error: function() {
+                //alert("Algo salio mal");
+                document.getElementById("algoMal").style.display="block";
+                document.getElementById("loader").style.display = 'none';
+                document.getElementById("llamda").style.display = 'none';
+              }
+        });
+      }
+    });
+});
+
+
+$('#btnAgrRes').click(function () {
+    document.getElementById('upload-file').style.zIndex=2000;
+    document.getElementById('textBot').innerHTML="Sube tu primer recibo";
+    document.getElementById('btnAgrRes').style.display='none';
+    
+    textBot
+  });
+
+
+
+
+
+</script>
+  
+
+
+  </body>
+</html>

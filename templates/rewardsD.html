@@ -293,7 +293,7 @@ color: whitesmoke;
     <style>
         .bubble {
  
- background: #00bfb6;
+ background: #E67E22;
  padding: 1.5em;
  text-align: center;
  font-weight: 900;
@@ -307,17 +307,18 @@ color: whitesmoke;
  width: 0px;
  height: 0px;
  position: absolute;
- border-left: 10px solid #00bfb6;
+ border-left: 10px solid #E67E22;
  border-right: 10px solid transparent;
- border-top: 10px solid #00bfb6;
+ border-top: 10px solid #E67E22;
  border-bottom: 10px solid transparent;
  left: 39px;
  bottom: -19px;
+ border-radius: 5px;
 }
 
 .circle {
- width: 70px;
- height: 70px;
+ width: 20%;
+ height: 20%;
  position: relative;
  left: 15px;
  margin-top: 5%;
@@ -367,8 +368,8 @@ color: whitesmoke;
   </head>
   <body>
     {% if onboarding == 4 %}
-  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute;z-index:1000;">
-    <div  style="margin: auto; height: 40%;width: 46%; margin-top: 27%;">
+  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute; z-index:1000 ; ">
+    <div  style="margin: auto; height: 40%;width: 46%; margin-top: 19%; ">
       <div class="bubble" id="bubble">
         <div id="textBot">
           ¡Hola otra vez!
@@ -376,9 +377,11 @@ color: whitesmoke;
           <br>Aquí encuentras tus BipTips (o Bips), estos son recompensas que recibes al canjear recibos.
           <br>Los BipTips sirven para subir de nivel y poder desbloquer nuevos beneficios.
         </div>
-        <button id="gracias" style="color: white;">¡Entendido!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+        
+        <button id="graciasb" style="color: white; background: #a9461d;">¡Entendido!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+        
       </div>
-      <img src="static/img/botHelp.png" id="bipbop" class="circle">
+      <img src="../static/miv2.gif" class="circle" id="bipbop">
     </div>
   </div>
   {% endif %}
@@ -676,6 +679,12 @@ color: whitesmoke;
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="static/js/login.js"></script>
+    
     <script>
       function chat()
       {
@@ -739,7 +748,10 @@ moveProgressBar();
             left: progressTotal
         }, animationLength);
     }
-    $('#gracias').click(function () {
+
+
+
+    $('#graciasb').click(function () {
     document.getElementById('OnBoard').style.display="none";
     $.ajax({
       type: 'POST',

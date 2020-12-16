@@ -18,7 +18,7 @@ function uploadFile(valor){
     document.getElementById("llamda").style.display='block';
     var form_data = new FormData();
     var ins = document.getElementById('img-uploader').files.length;
-				
+		var palomita=document.getElementById('cargar')
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -52,6 +52,8 @@ function uploadFile(valor){
             $("#progreso").text(progreso+"%");
             alert(data.response);
             document.getElementById("llamda").style.display = 'none';
+            palomita.style.visibility
+
           }
           else if(data.response=="Imgen no legible"){
             alert(data.response);
@@ -92,6 +94,7 @@ function uploadFile2(valor){
     var ins = document.getElementById('img-traser').files.length;
     document.getElementById("llamda").style.display='block';
 				
+		var palomita=document.getElementById('cargar2')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -126,6 +129,7 @@ function uploadFile2(valor){
               $("#progreso").text(progreso+"%");
               alert(data.response);
               document.getElementById("llamda").style.display = 'none';
+              palomita.style.visibility;
             }
             else if(data.response=="Imgen no legible"){
               alert(data.response);
@@ -162,6 +166,7 @@ function uploadFile3(valor){
     var ins = document.getElementById('img-compro').files.length;
     document.getElementById("llamda").style.display='block';
 				
+		var palomita=document.getElementById('cargar3')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -198,6 +203,7 @@ function uploadFile3(valor){
               document.getElementById("llamda").style.display = 'none';
               document.getElementById("cargar3").style.visibility="visible";
 
+              palomita.style.visibility;
             }
             
           },
@@ -228,6 +234,7 @@ function uploadFile4(valor){
     var ins = document.getElementById('img-selfi').files.length;
     document.getElementById("llamda").style.display='block';
 				
+		var palomita=document.getElementById('cargar4')		
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
         return;
@@ -260,6 +267,9 @@ function uploadFile4(valor){
          // $("#cargar4").show();
           //document.getElementById("cargar4").style.display = 'block';
           console.log("mostrar paloma")
+          $("#progress").css("width",progreso+"%");
+          $("#progress").text(progreso+"%");
+          palomita.style.visibility;
         },
 
     });

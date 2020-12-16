@@ -474,13 +474,48 @@ def form():
                 return json.dumps(False)
     
 
-@app.route('/recibos',methods=['GET','POST'])
+@app.route('/uploadT',methods=['GET','POST'])
 def recibos():
+    num_calificar=Modelo.Num_CALIFICAR(session['user'])
+     
     if not g.user:
         return redirect(url_for('login'))
     estado=Modelo.estadoOnboarding(session['user'])
     userOnBoard=estado[0][0]
     num_calificar=Modelo.Num_CALIFICAR(session['user'])
+    if request.method=='POST':
+            folio = request.form['folio']
+            monto = request.form['monto']
+            fecha = request.form['fechaCom']
+            rubro = request.form['rubro']
+            archivo = request.form['archivo']
+
+            today=datetime.datetime.now()
+            d1 = today.strftime("%Y-%m-%d")
+            ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+            #print(d1)
+            d2=(ddd-timedelta(days=7)).strftime("%Y-%m-%d")
+            #print(d2)
+            if fecha > d1 or fecha < d2:
+                errorLog="La fecha no es valida. (Recuerde que los recibos tienen solo una semana de validez)"
+                return render_template('uploadT.html',errorLog=errorLog)
+            else:
+                if folio and monto and fecha and rubro and archivo:
+                    b=Modelo.bitsUser(session['user'])
+                    bips=b[0][0]
+                    guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo,bips)
+                    if guardar:
+                        Modelo.entities(session['user'],'SavePurchaseInDB','Se guardo una compra en la base de datos')
+                        print('se subio la data')
+                        return redirect(url_for('perfil'))
+                    else:
+                        Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
+                        errorLog="Revise los datos"
+                        return render_template('uploadT.html',errorLog=errorLog)
+    estado=Modelo.estadoOnboarding(session['user'])
+    userOnBoard=estado[0][0]
+    return render_template('uploadT.html',onboarding=userOnBoard,num_calificar=num_calificar)
+
 
     return render_template('uploadAn.html',onboarding=userOnBoard,num_calificar=num_calificar)
 
@@ -1123,6 +1158,7 @@ def subdocumentos():
    
    front = Modelo.CHECKFront(session['user'])
    print(front)
+
    back=Modelo.CHECKBack(session['user'])
    print(back)
    imgdom=Modelo.CHECKDom(session['user'])  
@@ -1142,6 +1178,8 @@ def subdocumentos():
    llenadoB=(llenado*100)/4
    Modelo.entities(session['user'],'documentos','Entro a mis documentos')
    return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie,llenado=llenado,bar=llenadoB) 
+   Modelo.entities(session['user'],'documentos','Entro a mis documentos')
+   return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie) 
 
 
 @app.route("/sendContract",methods=['GET', 'POST'] )
