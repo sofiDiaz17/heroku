@@ -332,9 +332,10 @@
           <div id="sidebar-container" class="bg-primary">
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
-                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Inspeccionar Prouctos</a>
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
                 <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
@@ -370,7 +371,7 @@
                             {{g.user}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
+                            <a class="dropdown-item" href="/perfil">Mi Perfil</a>
                             <a class="dropdown-item" href="/onboarding">Onboarding</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/close">Cerrar sesión</a>
@@ -386,7 +387,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h1 class="font-weight-bold mb-0">Simulador de compras</h1>
+                                <h1 class="font-weight-bold mb-0">Realiza tus compras aquí</h1>
                                 <p class="lead text-muted">Sube o toma una foto</p>
                             </div>
                         </div>
@@ -496,7 +497,7 @@
                                 "cali":cali}),
           dataType: "json",
           success: function(res){
-            alert("Hemos registrado exitosamente tu calificación");
+            alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");
           },
           error: function(res){
             alert("algo salio mal")
@@ -614,8 +615,8 @@ $('#comprar').click(function () {
       }
       else
       {
-        alert("SE compro")
         
+        var obj=document.getElementById("nomOb").innerHTML;
         $.ajax({
           type: 'POST',
           url: '/comprar',
@@ -623,12 +624,13 @@ $('#comprar').click(function () {
             'Content-Type':'application/json'
           },
           data: JSON.stringify({"compra":interPT,
-                                "objeto":"mesa"}),
+                                "objeto":obj}),
           dataType:"json",
           success: function(res) {
             console.log('wujuuu!');    
             nuevoTot=interPT-intPuntos;
             console.log(nuevoTot)
+            alert("¡Excelente! Se realizo tu compra de forma exitosa, y has ganado 150 biptips")
             document.getElementById("puntos").innerHTML=nuevoTot; 
           },
           error: function() {

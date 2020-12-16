@@ -218,10 +218,7 @@ input[type="file"] {
                 
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="static/{{nomre}}.png" class="img-fluid rounded-circle avatar mr-2">
-                            {{nomre}}
-                        </a>
+                       
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
                             <a class="dropdown-item" href="/mis_pedidos">Mis Compras</a>
@@ -249,25 +246,55 @@ input[type="file"] {
                   <section>
                       <div class="container">
                         <div class="row row-cols-1 row-cols-md-3">
-                            <div class="col mb-4">
+                                                       <div class="col mb-4">
+                              
                               <div class="card">
-                                <img src="../static/frente.jpeg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                  <h5 class="card-title">Identificación Oficial Parte Delantera</h5>
+                                <div style="position: relative;">
+                                  <div style="position: absolute;  top: 3%; left: 89%;">
+                                  {%if frontINE == true %}      
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  {%endif%}
+                                  </div>
+                                  <div id="cargar" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                       
+                                      <img  src="../static/palomita.png" style="height: 50px;"/>
+                                    
+                                    </div>
+
+                                 <img src="../static/frente.jpeg" class="card-img-top" alt="...">
+                                
+                                  <div class="card-body" >
+                                  <h5 class="card-title" >Identificación Oficial Parte Delantera</h5>
                                   <p class="card-text text-muted">Sube la parte delantera de tu identificación oficial</p>
                                   <section>
-                                  <button class=" btn btn-primary" type="button"><label for="img-uploader" class="custom-file-upload login100-form-btn" id="upbtn">
-                                    <i class="icon ion-md-cloud"></i> Subir INE
-                                </label></button>
-                                    <input  type="file"  name="identfront" id="img-uploader" multiple="multiple">
-                                    <div><button  class="btn btn-success" id="intento" >Confirmar documento</button></div>
-                                </section>   
-                                
-                                </div>
+                                    <button class=" btn btn-primary" type="button"><label for="img-uploader" class="custom-file-upload login100-form-btn" id="upbtn">
+                                      <i class="icon ion-md-cloud"></i> Subir INE
+                                      </label></button>
+                                      <input  type="file"  name="identfront" id="img-uploader" multiple="multiple">
+                                      <div>
+                                        <button  class="btn btn-success" id="intento" >Confirmar documento</button>
+                                        
+                                      </div>
+                                    </section>   
+                                 </div>
+                               </div>
+                               
                               </div>
+                              
                             </div>
                             <div class="col mb-4">
                               <div class="card">
+                                 <div style="position: relative;">
+                                  <div style="position: absolute;  top: 3%; left: 89%;">
+                                  {%if backINE == True %}      
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  {%endif%}
+                                  </div>
+                                  <div id="cargar2" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                       
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  
+                                  </div>
                                 <img src="../static/trasera.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                   <h5 class="card-title">Identificación Oficial Parte Trasera </h5>
@@ -279,11 +306,23 @@ input[type="file"] {
                                     <input type="file"  name="traser" id="img-traser" multiple="multiple">
                                     <div><button class="btn btn-success" type="submit" id="intentotraser">Confirmar documento</button></div>   
                                 </section> 
+                                   </div>
                                 </div>
                               </div>
                             </div>
                             <div class="col mb-4">
                               <div class="card">
+                                <div style="position: relative;">
+                                   <div style="position: absolute;  top: 3%; left: 89%;">
+                                      {%if imgdom == true %}      
+                                      <img  src="../static/palomita.png" style="height: 50px;"/>
+                                      {%endif%}
+                                  </div>
+                                  <div id="cargar3" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                       
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  
+                                  </div>
                                 <img src="../static/comprobante.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                   <h5 class="card-title">Comprobante de domicilio</h5>
@@ -296,10 +335,22 @@ input[type="file"] {
                                     <div><button class="btn btn-success" type="submit" id="intentocompro">Confirmar documento</button></div>   
                                     </section> 
                                 </div>
+                                </div>
                               </div>
                             </div>
                             <div class="col mb-4">
                               <div class="card">
+                                <div style="position: relative;">
+                                  <div id="cargar4" style="position: absolute;  top: 3%; left: 89%;">
+                                  {%if selfie == True %}      
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  {%endif%}
+                                  </div>
+                                  <div id="cargar4" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                       
+                                    <img  src="../static/palomita.png" style="height: 50px;"/>
+                                  
+                                  </div>
                                 <img src="../static/defi.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                   <h5 class="card-title">Selfie</h5>
@@ -313,11 +364,18 @@ input[type="file"] {
                                 </section>
                                 </div>
 
-                                <div class="center"><div class="loader" id="loader"></div></div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="progress" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>     
+                          <div class="progress-container progress-primary">
+                            <div class="progress"> 
+                              <div class="progress-bar progress-bar-striped progress-bar-animated" data-aos="progress-full" data-aos-offset="10" data-aos-duration="2000" role= "progressbar" aria-valuenow="{{llenado}}" aria-valuemin="0" aria-valuemax="4" style="width: {{bar}}%;"></div>
+                            </div>
+                          </div>
+                         <div>
+                            <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                           </div>    
                       </div>
                      <div class="abajod">
            

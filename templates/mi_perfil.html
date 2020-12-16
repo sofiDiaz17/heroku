@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Hello, world!</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.skills {
+  width: auto;
+  height: auto;
+  margin: auto;
+  position: relative;
+}
+
+.lines {
+  height: 100%;
+  position: relative;
+}
+
+.line {
+  height: inherit;
+  width: 2px;
+  position: absolute;
+  background: rgba(238, 238, 238, 0);
+}
+.line.l--0 {
+  left: 0;
+}
+.line.l--25 {
+  left: 25%;
+}
+.line.l--50 {
+  left: 50%;
+}
+.line.l--75 {
+    left: 75%;
+}
+.line.l--100 {
+  left: calc(100% - 1px);
+}
+
+.line__label {
+  display: block;
+  width: 100px;
+  text-align: center;
+  position: absolute;
+  bottom: -20px;
+  right: -50px;
+}
+.line__label.title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.charts {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.chart:not(:first-child) {
+  margin-top: 10px;
+}
+
+.chart__title {
+  display: block;
+  margin: 0 0 10px;
+  font-weight: bold;
+  opacity: 0;
+  animation: 1s anim-lightspeed-in ease forwards;
+}
+.chart--prod .chart__title {
+  animation-delay: 3.3s;
+}
+.chart--design .chart__title {
+  animation-delay: 4.5s;
+}
+
+.chart--horiz {
+  overflow: hidden;
+}
+
+.chart__bar {
+  height: 30px;
+  margin-bottom: 10px;
+  background: linear-gradient(to left, #ff009585, #f78604d5 );
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  opacity: 0;
+  animation: 1s anim-lightspeed-in ease forwards;
+}
+.chart--dev .chart__bar:nth-of-type(11) {
+  animation-delay: 2.7s;
+}
+.chart--dev .chart__bar:nth-of-type(10) {
+  animation-delay: 2.5s;
+}
+.chart--dev .chart__bar:nth-of-type(9) {
+  animation-delay: 2.3s;
+}
+.chart--dev .chart__bar:nth-of-type(8) {
+  animation-delay: 2.1s;
+}
+.chart--dev .chart__bar:nth-of-type(7) {
+  animation-delay: 1.9s;
+}
+.chart--dev .chart__bar:nth-of-type(6) {
+  animation-delay: 1.7s;
+}
+.chart--dev .chart__bar:nth-of-type(5) {
+  animation-delay: 1.5s;
+}
+.chart--dev .chart__bar:nth-of-type(4) {
+  animation-delay: 1.3s;
+}
+.chart--dev .chart__bar:nth-of-type(3) {
+  animation-delay: 1.1s;
+}
+.chart--dev .chart__bar:nth-of-type(2) {
+  animation-delay: 0.9s;
+}
+.chart--dev .chart__bar:nth-of-type(1) {
+  animation-delay: 0.7s;
+}
+.chart--prod .chart__bar:nth-of-type(2) {
+  animation-delay: 4.2s;
+}
+.chart--prod .chart__bar:nth-of-type(1){
+animation-delay: 4s;
+}
+.chart--design .chart__bar:nth-of-type(4) {
+  animation-delay: 5.8s;
+}
+.chart--design .chart__bar:nth-of-type(3) {
+  animation-delay: 5.6s;
+}
+.chart--design .chart__bar:nth-of-type(2) {
+  animation-delay: 5.4s;
+}
+.chart--design .chart__bar:nth-of-type(1) {
+  animation-delay: 5.2s;
+}
+
+.chart__label {
+  padding-left: 10px;
+  line-height: 30px;
+  color: whitesmoke;
+}
+
+@keyframes anim-lightspeed-in {
+  0% {
+    transform: translateX(-200%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+    </style>
+    <style>
+        
+        .service-box{
+            position: relative;
+            overflow: hidden;
+            margin-bottom:5px;
+            perspective:1000px;
+            -webkit-perspective:1000px;
+            border-radius: 30%;
+        }
+        .service-icon{
+            width: 50%;
+            height: 80px;
+            padding: 10px;
+            text-align: center;
+            transition: all .2s ease;
+            border-radius: 30%;
+        }
+
+        .service-content{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            opacity: 0;
+            width: 50%;
+            height: 80px;
+            padding: 10px;
+            text-align: center;
+            transition: all .2s ease;
+            background-color: #474747;
+            backface-visibility:hidden;
+            transform-style: preserve-3d;
+            -webkit-transform: translateY(110px) rotateX(-90deg);
+            -moz-transform: translateY(110px) rotateX(-90deg);
+            -ms-transform: translateY(110px) rotateX(-90deg);
+            -o-transform: translateY(110px) rotateX(-90deg);
+            transform: translateY(110px) rotateX(-90deg);
+            border-radius: 30%;
+        }
+        .service-box .service-icon .front-content{
+            position: relative;
+            top:50px;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            border-radius: 30%;
+        }
+
+        .service-box .service-icon .front-content i {
+            font-size: 28px;
+            color: #fff;
+            font-weight: normal;
+        }
+
+        .service-box .service-icon .front-content h3 {
+            font-size: 13px;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1px;
+            text-transform: uppercase;
+        }
+        .service-box .service-content h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom:1px;
+            text-transform: uppercase;
+        }
+        .service-box .service-content p {
+            font-size: 10px;
+            color: #b1b1b1;
+            margin:0;
+        }
+        .yellow{background-color: #ffa600;}
+        .orange{background-color: #fc7f0c;}
+        .red{background-color: #bd5b00;}
+        .grey{background-color: #474747;}
+        .yellow1{background-color: #ffbf0049;}
+        .orange1{background-color: #fc800c49;}
+        .red321{background-color: #e84b3a49;}
+        .grey1{background-color: #47474749;}
+        .service-box:hover .service-icon{
+            opacity: 0;
+            -webkit-transform: translateY(-110px) rotateX(90deg);
+            -moz-transform: translateY(-110px) rotateX(90deg);
+            -ms-transform: translateY(-110px) rotateX(90deg);
+            -o-transform: translateY(-110px) rotateX(90deg);
+            transform: translateY(-110px) rotateX(90deg);
+        }
+        .service-box:hover .service-content {
+            opacity: 1;
+            -webkit-transform: rotateX(0);
+            -moz-transform: rotateX(0);
+            -ms-transform: rotateX(0);
+            -o-transform: rotateX(0);
+            transform: rotateX(0);
+        }
+    </style>
+    <style>
+  :root {
+    --star-size: 30px;
+    --star-color: rgb(231, 231, 231);
+    --star-background: #fc0;
+  }
+  
+  .Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: var(--star-size);
+    font-family: Times;
+    line-height: 1;
+  }
+  .Stars::before {
+    content: "★★★★★";
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+    </style>
+  </head>
+  <body>
+      <div></div>
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
+              <div class="menu">
+                <a href="/call_center" class="d-block text-light p-3"><i class="icon ion-md-paper mr-2 lead"></i>Tickets por usuario</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+              
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/mi_perfil">Ranking</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+              <section>
+              <div id="content">
+                                
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1 class="font-weight-bold mb-0">Ranking</h1>
+                                <p class="lead text-muted">Consigue todos los logros y se el mejor</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                  
+                  <section>
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="card" style="width: 18rem;">
+                                    <center><img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px; margin-top: 2.5%;"></center>
+                                    <div class="card-body">
+                                        <center><div class="Stars" style="--rating: {{_stars}};" aria-label="Rating of this product is 2.3 out of 5."></div></center>
+                                        <div style="margin-top: 3.2%;"><p class="card-text text-muted" style="font-size: 10px;">Logra tu bono con 4.5 estrellas</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="card">
+                                    <div class="card-body">
+                                    <h2 style="margin-left: 79%;">Mis logros</h2>
+                                      <div class="row" style="margin-top: 3%;">
+                                        <div class="col-md-3 col-sm-6 ">
+                                            <div class="service-box">
+                                                {%if _trofeos[0][2] == 1%}
+                                                <div class="service-icon yellow">
+                                                    <div class="front-content">
+                                                        <center><img src="static/puntual.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <i class="fa fa-trophy"></i>
+                                                        <p>Hola</p>                                 
+                                                    </div>
+                                                </div>
+                                                {%else%}
+                                                <div class="service-icon grey1">
+                                                    <div class="front-content">
+                                                        <center><img src="static/puntual.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <i class="fa fa-trophy"></i>   
+                                                        <p>Hola</p>                                 
+                                                    </div>
+                                                </div>
+                                                {%endif%}
+                                                <div class="service-content">
+                                                    
+                                                    <h9>Reloj<h9>
+                                                    <p>Llega temprano al trabajo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6 ">
+                                            <div class="service-box">
+                                                {%if _trofeos[0][3] == 1%}
+                                                <div class="service-icon orange">
+                                                    <div class="front-content">
+                                                        <center><img src="static/positive.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <i class="fa fa-anchor"></i>  
+                                                        <p>Hola</p>                                   
+                                                    </div>         
+                                                </div>
+                                                {%else%}
+                                                <div class="service-icon grey1">
+                                                    <div class="front-content">
+                                                        <center><img src="static/positive.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <i class="fa fa-anchor"></i> 
+                                                        <p>Hola</p>                                    
+                                                    </div>         
+                                                </div>
+                                                {%endif%}
+                                                <div class="service-content">
+                                                    <h7>Empatia<h7>
+                                                    <p>Al realizar llamadas genera empatia con los clientes</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="service-box ">
+                                                {%if _trofeos[0][0]== 1%}
+                                                <div class="service-icon red">
+                                                    <div class="front-content">
+                                                        <i class="fa fa-trophy"></i>
+                                                        <center><img src="static/fuego.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <p>Hola</p> 
+                                                    </div>
+                                                </div>
+                                                {%else%}
+                                                <div class="service-icon grey1">
+                                                    <div class="front-content">
+                                                        <i class="fa fa-trophy"></i>
+                                                        <center><img src="static/fuego.png" alt="" style="height: 80%; width: 80%;"></center>
+                                                        <p>Hola</p> 
+                                                    </div>
+                                                </div>
+                                                {%endif%}
+                                                <div class="service-content">
+                                                    <h7>Racha</h7>
+                                                    <p>Resuelve la mayor cantidad de tickets</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="mx-auto">
+                                                <img src="static/undraw_winners_ao2o.svg" style="width: 175px; height: auto; ">
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+              
+                                  </div>
+                            </div>
+
+                        </div>
+                      
+                    </div>
+                  </section>
+                  <section>
+                    <div class="container" style="margin-top: 2%;">
+                        <h2>Ranking semanal</h2>
+                        <p class="lead text-muted">Se el mejor y gana una recompensa a la semana</p>
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-6">
+                                <div class="skills">                           
+                                    <div class="charts">
+                                      <div class="chart chart--dev">
+                                        <h4>Meta de llamadas</h4>
+                                        {% for _ran_calls in _ran_call %}
+                                        <ul class="chart--horiz" style="margin-top: 2%;">
+                                          <li class="chart__bar" style="width: {{_ran_calls.1}}0%;">
+                                            <span class="chart__label">
+                                                {{_ran_calls.0}}
+                                            </span>
+                                          </li>
+                                        </ul>
+                                        {% endfor %}
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="skills">                           
+                                    <div class="charts">
+                                      <div class="chart chart--dev">
+                                        <h4>Tickets resueltos</h4>
+                                        {% for _ran_tickets in _ran_ticket %}
+                                        <ul class="chart--horiz" style="margin-top: 2%;">
+                                          <li class="chart__bar" style="width: {{_ran_tickets.1}}0%;">
+                                            <span class="chart__label">
+                                              {{_ran_tickets.0}}
+                                            </span>
+                                          </li>
+                                        </ul>
+                                        {% endfor %}
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                    
+                </section>
+              </div>
+              
+            </section>
+            
+          </div>
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>

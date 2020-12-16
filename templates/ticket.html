@@ -35,9 +35,10 @@
           <div id="sidebar-container" class="bg-primary">
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
               <div class="menu">
-                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Inspeccionar Prouctos</a>
+                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
                 <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
@@ -57,7 +58,7 @@
                             {{g.user}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/perfil_cliente">Mi Perfil</a>
+                          <a class="dropdown-item" href="/perfil">Mi Perfil</a>
                           <a class="dropdown-item" href="/onboarding">Onboarding</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="/close">Cerrar sesión</a>
@@ -85,7 +86,7 @@
                         <div class="row row-cols-1 row-cols-md-2">
                             <div class="col mb-4">
                               <div class="card">
-                                <center><img src="static/{{nomre}}.png" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px;"></center>
+                                <center><img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px;"></center>
                                 <div class="card-body">
                                   <h3 class="card-title" style="text-align: center; top: -20px; ">{{g.user}}</h3>
                                   <p class="card-title text-muted" style="text-align: center;">Cliente premier</p>
@@ -129,14 +130,14 @@
                       <div class="card">
                         <div class="card-header">
                           <div class="row">
-                            <h5 class="font-weight-bold mb-0" style="margin-left: 3%;">Resumen del Tikect</h5>
+                            <h5 class="font-weight-bold mb-0" style="margin-left: 3%;">Resumen del Ticket</h5>
                           <div style="margin-left: 71%;" ><button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" ><i class="icon ion-md-create" style="color: snow;"></i></button></div>
                           
                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Edición de Tikect</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Edición de Ticket</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>

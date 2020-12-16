@@ -1,5 +1,5 @@
 var boton = document.getElementById('intento');
-var progreso = 0;
+var progreso = document.getElementById("progreso").offsetWidth;
 
 jQuery('#intento').click(function(){
     let valor = $('#img-uploader').val();
@@ -7,8 +7,15 @@ jQuery('#intento').click(function(){
     uploadFile(valor);
 });
 
+
+$('#img-uploader').change(function(e){ 
+  let valor = $('#img-uploader').val();
+  console.log("se ejecuto mi jquery");
+  uploadFile(valor);
+}); 
 function uploadFile(valor){
     console.log("llego  a mi funcion")
+    document.getElementById("llamda").style.display='block';
     var form_data = new FormData();
     var ins = document.getElementById('img-uploader').files.length;
 				
@@ -20,7 +27,6 @@ function uploadFile(valor){
     for (var x = 0; x < ins; x++) {
         form_data.append("files[]", document.getElementById('img-uploader').files[x]);
     }
-    document.getElementById("loader").style.display = 'block';
 
     $.ajax({
         url: '/ID',
@@ -32,29 +38,30 @@ function uploadFile(valor){
         dataType: 'json',
         success: function (data) {
           console.log("success docuento arriba");
-          document.getElementById("loader").style.display = 'none';
           console.log(data.response);
           if(data.response=="No es una INE"){
             alert(data.response);
+            document.getElementById("llamda").style.display = 'none';
           }else if(data.response=="Esa INE ya esta registrada"){
             alert(data.response);
+            document.getElementById("llamda").style.display = 'none';
           }
           else if(data.response=="INE registrada exitosamente"){
             progreso= progreso + 25;
-            $("#progress").css("width",progreso+"%");
-            $("#progress").text(progreso+"%");
+            $("#progreso").css("width",progreso+"%");
+            $("#progreso").text(progreso+"%");
             alert(data.response);
+            document.getElementById("llamda").style.display = 'none';
           }
           else if(data.response=="Imgen no legible"){
             alert(data.response);
+            document.getElementById("llamda").style.display = 'none';
+            document.getElementById("cargar").style.visibility="visible";
+
           }
           
         },
-        error: function(){
-          alert("NO se puede leer su foto, intente con otra");
-          document.getElementById("loader").style.display = 'none';
 
-        }
     });
 }
 
@@ -72,10 +79,18 @@ jQuery('#intentotraser').click(function(){
     uploadFile2(valor);
 });
 
+
+
+$('#img-traser').change(function(e){ 
+  let valor = $('#img-traser').val();
+  console.log("se ejecuto mi jquery");
+  uploadFile2(valor);
+}); 
 function uploadFile2(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-traser').files.length;
+    document.getElementById("llamda").style.display='block';
 				
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
@@ -97,19 +112,26 @@ function uploadFile2(valor){
         success: function (data) {
             console.log("success documento arriba");
             console.log(data.response);
+            document.getElementById("llamda").style.display = 'none';
             if(data.response=="No es una INE"){
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
             }else if(data.response=="Esa INE ya esta registrada"){
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
             }
             else if(data.response=="INE registrada exitosamente"){
               progreso= progreso + 25;
-              $("#progress").css("width",progreso+"%");
-              $("#progress").text(progreso+"%");
+              $("#progreso").css("width",progreso+"%");
+              $("#progreso").text(progreso+"%");
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
             }
             else if(data.response=="Imgen no legible"){
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
+              document.getElementById("cargar2").style.visibility="visible";
+
             }
             
           },
@@ -120,7 +142,7 @@ function uploadFile2(valor){
 var boton3 = document.getElementById('intentocompro');
 boton3.addEventListener("click",function (){
 
-alert("Documento subido correctamente")
+//alert("Documento subido correctamente")
     
 });
 
@@ -129,11 +151,16 @@ jQuery('#intentocompro').click(function(){
     console.log("se ejecuto mi jquery");
     uploadFile3(valor);
 });
-
+$('#img-compro').change(function(e){ 
+  let valor = $('#img-compro').val();
+  console.log("se ejecuto mi jquery");
+  uploadFile3(valor);
+}); 
 function uploadFile3(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-compro').files.length;
+    document.getElementById("llamda").style.display='block';
 				
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
@@ -155,16 +182,22 @@ function uploadFile3(valor){
         success: function (data) {
             console.log("success documento arriba");
             console.log(data.response);
+            document.getElementById("llamda").style.display = 'none';
             if(data.response=="Documento invalido"){
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
             }else if(data.response=="Imgen no legible"){
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
             }
             else if(data.response=="Comprobante valido"){
               progreso= progreso + 25;
-              $("#progress").css("width",progreso+"%");
-              $("#progress").text(progreso+"%");
+              $("#progreso").css("width",progreso+"%");
+              $("#progreso").text(progreso+"%");
               alert(data.response);
+              document.getElementById("llamda").style.display = 'none';
+              document.getElementById("cargar3").style.visibility="visible";
+
             }
             
           },
@@ -184,11 +217,16 @@ jQuery('#intentoselfie').click(function(){
     console.log("se ejecuto mi jquery");
     uploadFile4(valor);
 });
-
+$('#img-selfi').change(function(e){ 
+  let valor = $('#img-selfi').val();
+  console.log("se ejecuto mi jquery");
+  uploadFile4(valor);
+}); 
 function uploadFile4(valor){
     console.log("llego  a mi funcion")
     var form_data = new FormData();
     var ins = document.getElementById('img-selfi').files.length;
+    document.getElementById("llamda").style.display='block';
 				
     if(ins == 0) {
         $('#msg').html('<span style="color:red">Select at least one file</span>');
@@ -210,9 +248,18 @@ function uploadFile4(valor){
         success: function (data) {
           console.log("success documento arriba");
           console.log(data);
+          console.log(progreso)
+
           progreso= progreso + 25;
-          $("#progress").css("width",progreso+"%");
-          $("#progress").text(progreso+"%");
+          $("#progreso").css("width",progreso+"%");
+          $("#progreso").text(progreso+"%");
+          console.log(progreso)
+
+          document.getElementById("llamda").style.display = 'none';
+          document.getElementById("cargar4").style.visibility="visible";
+         // $("#cargar4").show();
+          //document.getElementById("cargar4").style.display = 'block';
+          console.log("mostrar paloma")
         },
 
     });

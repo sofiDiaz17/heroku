@@ -13,6 +13,166 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Recompensas</title>
     <style>
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
+.skills {
+width: auto;
+height: auto;
+margin: auto;
+position: relative;
+}
+
+.lines {
+height: 100%;
+position: relative;
+}
+
+.line {
+height: inherit;
+width: 2px;
+position: absolute;
+background: rgba(238, 238, 238, 0);
+}
+.line.l--0 {
+left: 0;
+}
+.line.l--25 {
+left: 25%;
+}
+.line.l--50 {
+left: 50%;
+}
+.line.l--75 {
+  left: 75%;
+}
+.line.l--100 {
+left: calc(100% - 1px);
+}
+
+.line__label {
+display: block;
+width: 100px;
+text-align: center;
+position: absolute;
+bottom: -20px;
+right: -50px;
+}
+.line__label.title {
+text-transform: uppercase;
+font-weight: bold;
+}
+
+.charts {
+width: 100%;
+height: 100%;
+position: absolute;
+top: 0;
+left: 0;
+z-index: 10;
+}
+
+.chart:not(:first-child) {
+margin-top: 10px;
+}
+
+.chart__title {
+display: block;
+margin: 0 0 10px;
+font-weight: bold;
+opacity: 0;
+animation: 1s anim-lightspeed-in ease forwards;
+}
+.chart--prod .chart__title {
+animation-delay: 3.3s;
+}
+.chart--design .chart__title {
+animation-delay: 4.5s;
+}
+
+.chart--horiz {
+overflow: hidden;
+}
+
+.chart__bar {
+height: 30px;
+margin-bottom: 10px;
+background: linear-gradient(to left, #ff009585, #f78604d5 );
+border-top-right-radius: 4px;
+border-bottom-right-radius: 4px;
+opacity: 0;
+animation: 1s anim-lightspeed-in ease forwards;
+}
+.chart--dev .chart__bar:nth-of-type(11) {
+animation-delay: 2.7s;
+}
+.chart--dev .chart__bar:nth-of-type(10) {
+animation-delay: 2.5s;
+}
+.chart--dev .chart__bar:nth-of-type(9) {
+animation-delay: 2.3s;
+}
+.chart--dev .chart__bar:nth-of-type(8) {
+animation-delay: 2.1s;
+}
+.chart--dev .chart__bar:nth-of-type(7) {
+animation-delay: 1.9s;
+}
+.chart--dev .chart__bar:nth-of-type(6) {
+animation-delay: 1.7s;
+}
+.chart--dev .chart__bar:nth-of-type(5) {
+animation-delay: 1.5s;
+}
+.chart--dev .chart__bar:nth-of-type(4) {
+animation-delay: 1.3s;
+}
+.chart--dev .chart__bar:nth-of-type(3) {
+animation-delay: 1.1s;
+}
+.chart--dev .chart__bar:nth-of-type(2) {
+animation-delay: 0.9s;
+}
+.chart--dev .chart__bar:nth-of-type(1) {
+animation-delay: 0.7s;
+}
+.chart--prod .chart__bar:nth-of-type(2) {
+animation-delay: 4.2s;
+}
+.chart--prod .chart__bar:nth-of-type(1){
+animation-delay: 4s;
+}
+.chart--design .chart__bar:nth-of-type(4) {
+animation-delay: 5.8s;
+}
+.chart--design .chart__bar:nth-of-type(3) {
+animation-delay: 5.6s;
+}
+.chart--design .chart__bar:nth-of-type(2) {
+animation-delay: 5.4s;
+}
+.chart--design .chart__bar:nth-of-type(1) {
+animation-delay: 5.2s;
+}
+
+.chart__label {
+padding-left: 10px;
+line-height: 30px;
+color: whitesmoke;
+}
+
+@keyframes anim-lightspeed-in {
+0% {
+  transform: translateX(-200%);
+  opacity: 1;
+}
+100% {
+  transform: translateX(0);
+  opacity: 1;
+}
+}
+  </style>
+    <style>
       .up:hover {
         transform: translate(0, -15px);
       }
@@ -242,9 +402,9 @@
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
                 <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
-                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
                 <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
@@ -302,62 +462,66 @@
                         </div>
                     </div>
                   </section>
+
                   <section>
-                    <div class="w3-row-padding w3-margin-bottom">
-                        <div class="w3-quarter">
-                          <div class="w3-container w3-text-white w3-padding-16" style="background-color:rgb(119, 118, 255);">
-                            <div class="w3-left"><i class="fa fa-arrow-circle-up w3-xxxlarge"></i></div>
-                            <div class="w3-right">
-                              <h3>{{nivel}}</h3>
+                    <div class="container">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-lg-3 stat d-flex my-3">
+                              <div class="mx-auto">
+                                <!---<h6 class="text-muted">{{nivel}}</h6>-->
+                                <h2 class="text-muted">{{nivelN}}</h2>
+                              </div>
                             </div>
-                            <div class="w3-clear"></div>
-                            <h4>{{nivelN}}</h4>
+                            <div class="col-lg-3 stat d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Puntos Activos</h6>
+                                <h2 class="font-weight-blod">{{puntos}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 stat d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Puntos en Espera</h6>
+                                <h2 class="font-weight-blod">{{puntosF}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">BipTips</h6>
+                                <h2 class="font-weight-blod">{{bips}}</h2>
+                              </div>
+                            </div>
                           </div>
+  
                         </div>
-                        <div class="w3-quarter">
-                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(148, 79, 247);">
-                            <div class="w3-left"><i class="fa fa-money w3-xxxlarge"></i></div>
-                            <div class="w3-right">
-                              <h3>{{puntos}}</h3>
-                            </div>
-                            <div class="w3-clear"></div>
-                            <h4>Puntos Activos</h4>
-                          </div>
-                        </div>
-                        <div class="w3-quarter">
-                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(160, 61, 244);">
-                            <div class="w3-left"><i class="fa fa-calendar w3-xxxlarge"></i></div>
-                            <div class="w3-right">
-                              <h3>{{puntosF}}</h3>
-                            </div>
-                            <div class="w3-clear"></div>
-                            <h4>Puntos en Espera</h4>
-                          </div>
-                        </div>
-                        <div class="w3-quarter">
-                          <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
-                            <div class="w3-left"><i class="fa fa-pie-chart w3-xxxlarge"></i></div>
-                            <div class="w3-right">
-                              <h3>{{bips}}</h3>
-                            </div>
-                            <div class="w3-clear"></div>
-                            <h4>BipTips</h4>
-                        </div>
+  
+                      </div>
                     </div>
-                  </div>
 
                   </section>
-                  <section>
-                    <div class="w3-container" style="color: black;">
+
+                  <section class="py-3"> 
+                    <div class="container">
                         <h3> <b>BipTips para el siguiente nivel</b></h3>
-                        <p style="color: black;">{{nlvl}}</p>
+                        <h6 class="text-muted">{{nlvl}}</h6>
                         <div class="progress-wrap progress" data-progress-percent="{{bipsPer}}">
-                          <div class="progress-bar progress">{{faltan}}</div>
+                          <div class="progress-bar progress">Estas a {{faltan}} BipTips</div>
                         </div>
                     </div>
                   </section>
                   <section>
-                    <div class="w3-container" style="color: black;">
+                    <ul class="chart--horiz" style="margin-top: 2%;">
+                      <li class="chart__bar" style="width: {{bipsPer}};">
+                        <span class="chart__label">
+                          Estas a {{faltan}} BipTips
+                        </span>
+                      </li>
+                    </ul>
+                  </section>
+    
+                  <section class="py-3">
+                    <div class="container" >
                         <h3><b>Tus beneficios</b></h3>
                         <hr>
                         <div class="row">
@@ -365,95 +529,99 @@
                           <div style="margin:auto; ">
                           <img src="static/abrir-caja.png" class="center">
                          </div>
-                          <h5 style="text-align: center;">{{r1}}</h5>
+                          <h5 class="text-muted" style="text-align: center;">{{r1}}</h5>
                         </div>
                     
                         <div class="col-sm">
                           <img src="static/carrito-de-compras.png" class="center">
-                          <h5 style="text-align: center;" >{{r2}}</h5>
+                          <h5 class="text-muted py-1" style="text-align: center;" >{{r2}}</h5>
                         </div>
                     
                         <div class="col-sm">
                           <img src="static/calendario.png" class="center">
-                          <h5 style="text-align: center;" >{{r3}}</h5>
+                          <h5 class="text-muted py-1" style="text-align: center;" >{{r3}}</h5>
                         </div>
                     
                         <div class="col-sm">
                           <img src="static/etiqueta-de-precio.png" class="center">
-                          <h5 style="text-align: center;" >{{r4}}</h5>
+                          <h5 class="text-muted py-1" style="text-align: center;" >{{r4}}</h5>
                         </div>
                       </div>
                         <br>
                       </div>
                   </section>
-                  <section>
-                    <div class="w3-container" style="color: black;">
+                  <section class="py-3">
+                    <div class="container">
                         <h3><b>Proximos beneficios</b></h3>
-                        <div class="row">
+                        <div class="row py-1">
                           <div class="col-sm">
-                            <img src="static/abrir-caja.png" style="height: 80px; width: 80px;">
-                            <h5>{{rNL1}}</h5>
+                            <img src="static/abrir-caja.png" class="center" style="height: 80px; width: 80px;">
+                            <h5 class="text-muted center">{{rNL1}}</h5>
                           </div>
                           <div class="col-sm">
-                            <img src="static/carrito-de-compras.png" style="height: 80px; width: 80px;">
-                            <h5>{{rNL2}}</h5>
+                            <img src="static/carrito-de-compras.png" class="center" style="height: 80px; width: 80px;">
+                            <h5 class="text-muted center">{{rNL2}}</h5>
                           </div>
+                          
                         </div>
+                        <hr>
                         <br>
                       </div>
                   </section>
                   <section>
-                    <div class="w3-container" style="color: black;">
+                    <div class="container">
                         <h3><b>Niveles</b></h3>
                         <div class="row">
                           <div class="col-sm">
-                            <div class="w3-container w3-text-white w3-padding-16" style="background-color:rgb(119, 118, 255);">
-                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-container w3-text-white w3-padding-16" style="background-color:rgb(46, 52, 82);">
+                              
                               <div class="w3-right">
-                                <h3>1</h3>
+                                <h3 style="color: #fff;">1</h3>
                               </div>
                               <div class="w3-clear"></div>
-                              <h4>Ahorrador Principiante</h4>
+                              <h4 style="color: #fff;">Ahorrador Principiante</h4>
                             </div>
                           </div>
                           <div class="col-sm">
-                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(148, 79, 247);">
-                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgba(38, 47, 92);">
+                              
                               <div class="w3-right">
-                                <h3>2</h3>
+                                <h3 style="color: #fff;">2</h3>
                               </div>
                               <div class="w3-clear"></div>
-                              <h4>Ahorrador Conocedor</h4>
+                              <h4 style="color: #fff;">Ahorrador Conocedor</h4>
+                              
                             </div>
                           </div>
                           <div class="col-sm">
-                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(160, 61, 244);">
-                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgba(25, 34, 82);">
+                              
                               <div class="w3-right">
-                                <h3>3</h3>
+                                <h3 style="color: #fff;">3</h3>
                               </div>
                               <div class="w3-clear"></div>
-                              <h4>Ahorrador Temerario</h4>
+                              <h4 style="color: #fff;">Ahorrador Temerario</h4>
                             </div>
                           </div>
                           <div class="col-sm">
-                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
-                              <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgba(16, 25, 70);">
+                              
                               <div class="w3-right">
-                                <h3>4</h3>
+                                <h3 style="color: #fff;">4</h3>
                               </div>
                               <div class="w3-clear"></div>
-                              <h4>Ahorrador Experto</h4>
+                              <h4 style="color: #fff;">Ahorrador Experto</h4>
+                              
                             </div>
                         </div>
                         <div class="col-sm">
-                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgb(174, 41, 240);">
-                            <div class="w3-left"><i class="fa fa-star w3-xxxlarge"></i></div>
+                            <div class="w3-container w3-text-white w3-padding-16" style=" background-color:rgba(4, 17, 82, 0.65);">
+                            
                             <div class="w3-right">
-                                <h3>5</h3>
+                                <h3 style="color: #fff;">5</h3>
                             </div>
                             <div class="w3-clear"></div>
-                            <h4>Ahorrador Legendario</h4>
+                            <h4 style="color: #fff;">Ahorrador Legendario</h4>
                             </div>
                         </div>
                         </div>

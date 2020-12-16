@@ -18,7 +18,79 @@
 <link rel="stylesheet" type="text/css" href="static/css/perfil.css">
 <link rel="stylesheet" type="text/css" href="static/css/navbar.css">
 
+
+<style>
+      .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+</style>
+
+
 <body style=" padding: 0; margin: 0;">
+
+  {% if incompleto %}
+  <div class="modal" id="modalDev">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Devovler Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" name="cancelMod">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="/borrar" method="POST">
+      <div class="modal-body">
+        
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">¿Estas seguro que quieres Devolver este producto?</label>
+            <p></p>
+            <div class="form-row">
+
+              <div class="form-group" style="float:left">
+                <span for="inputPassword4">Producto: </span>
+                <label class="form-control" id="ediproducto" ></label>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <span for="inputEmail4">Dirección: </span>
+                <input type="text" class="form-control" id="direccion" >
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <span for="inputEmail4">Razón de la devolucón: </span>
+                <textarea  class="form-control" id="razon" ></textarea>
+              </div>
+            </div>
+          </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel" name="cancelMod" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="devolver2" type="button" class="btn btn-primary"> Devolver</button>
+      </form>
+      </div>
+    </div>
+  {% endif %}
+
 
 
   {% if onboarding == 0 %}
@@ -206,6 +278,57 @@ window.onclick = function(event) {
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
+
+$('button[name ="cancelMod"]').click(function(){
+          document.getElementById("modalDev").style.display="none";
+
+        })
+
+      $('button[name ="devolver"]').click(function(){
+        //alert("lcick")
+        var dataDev=[]
+        var elems= $(this).closest("tr").children("td")
+        //console.log(elems)
+        elems.each(function () {
+          //console.log($(this).text());
+          dataDev.push($(this).text());
+
+        });
+        console.log(dataDev)
+        $('#ediproducto').text(dataDev[0])
+        document.getElementById("modalDev").style.display="block";
+
+      })
+
+      $('#devolver2').click(function(){
+        var obj = document.getElementById('ediproducto').innerHTML;
+        var razon = document.getElementById('razon').value;
+        var dom = document.getElementById('direccion').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/devolver',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"objeto":obj,
+                                "razon":razon,
+                                "domicilio":dom}),
+          dataType: "json",
+          success: function(res){
+            console.log(res)
+            alert("Se guardo la devolucion");
+            document.getElementById("modalDev").style.display="none";
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+
+
+
+
    $('#btnAgrRes').click(function () {
     document.getElementById('subirRes').style.zIndex=1000;
     document.getElementById('textBot').innerHTML="Lo primero es agregar puntos.<br>Da click en el boton de 'Añadir Compra' para subir tu primer recibo"

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="static/rodaja-de-naranja.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Call Center</title>
+    <style>
+    .zoom:hover {
+      -ms-transform: scale(1.3); /* IE 9 */
+      -webkit-transform: scale(1.3); /* Safari 3-8 */
+      transform: scale(1.3); 
+    }
+    .zoom1:hover {
+      -ms-transform: scale(1.2); /* IE 9 */
+      -webkit-transform: scale(1.2); /* Safari 3-8 */
+      transform: scale(1.2);
+      color: #000f25;
+      
+    }
+    </style>
+    <style>
+      canvas {
+	position: absolute;
+	top: 0;
+  left: 0;
+  background: none;
+}
+    </style>
+  </head>
+  <body>
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
+              <div class="menu">
+                  <a href="/call_center" class="d-block text-light p-3"><i class="icon ion-md-paper mr-2 lead"></i>Tickets por usuario</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    
+              
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/mi_perfil">Ranking</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+
+              <div id="content">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <h1 class="font-weight-bold mb-0">Tickets por usuario</h1>
+                                <p class="lead text-muted">Selecciona un usuario para ver los detalles</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                  
+                  <section>
+                    <div class="container">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-lg-3 stat d-flex my-3">
+                                <div class="mx-auto">
+                                  <h6 class="text-muted">Llega a la meta con</h6>
+                                  <h2 class="font-weight-blod">10</h2>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 stat d-flex my-4">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Total de llamadas</h6>
+                                <h2 class="font-weight-blod">{{_ranking}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-4 stat d-flex my-4">
+                              <div class="mx-auto">
+                                {% if _ranking == 0 %}
+                                  <img src="static/undraw_runner_start_x0uu.svg" style="width: 130px;">
+                                  {% elif _ranking == 10 %}
+                                    <img src="static/undraw_finish_line_katerina_limpitsouni_xy20.svg" style="width: 130px;">
+                                  {% else %}
+                                  <img src="static/undraw_fitness_stats_sht6.svg" style="width: 130px;">
+                                {% endif %}
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </section>
+                  
+                  <section>
+                    <div class="row">
+                        
+                            <center><img src="static/IncredibleEachBat-small.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                        
+                    </div>
+                    <div class="container py-5">
+                      <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col"></th>
+                              <th scope="col"></th>
+                    
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for _allinfo in _allinfos %}
+                            <tr>
+                              <form action="/tcs_usuario" method="POST">
+                                <td>
+                                  <input style="display: none;" value="{{_allinfo.1}}" name="corre_tcs"></input>
+                                  <button type="submit" style="background: none; border-radius: 100% ;padding:0px; border:none; width:{{_allinfo.2}}0%"><img src="static/Selfie/{{_allinfo.0}}" class="img-fluid rounded-circle mr-2 zoom" style="width:{{_allinfo.2}}00%"></button>
+                                </td>
+                              </form>
+                              <form action="/call_sc" method="POST">           
+                                <td>{{_allinfo.4}}<br> Teléfono: <button onclick="mostar()" class="zoom1" style="background: none; border: none; color: #0167ff;"> {{_allinfo.3}} </button> <br> Correo: {{_allinfo.1}}</td>
+                                <input type="text" value="{{_allinfo.1}}" name="llamando_a" style="display: none;"></input>
+                              </form>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+
+                  </section>
+              </div>
+          </div>
+
+      </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+        function mostar()
+        {
+            document.getElementById("llamda").style.display="block";
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>

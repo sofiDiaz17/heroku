@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Hello, world!</title>
+    <style>
+      .zoom:hover {
+        -ms-transform: scale(1.3); /* IE 9 */
+        -webkit-transform: scale(1.3); /* Safari 3-8 */
+        transform: scale(1.1); 
+      }
+      </style>
+  </head>
+  <body>
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
+              <div class="menu">
+                <a href="/call_center" class="d-block text-light p-3"><i class="icon ion-md-paper mr-2 lead"></i>Tickets por usuario</a>
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/mi_perfil">Ranking</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+
+              <div id="content">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1 class="font-weight-bold mb-0">Ve todos los Tickets del usuario </h1>
+                                <p class="lead text-muted">Selecciona un ticket par ver los detalles</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                 
+                  <section>
+                    <div class="container">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-lg-3 stat d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Tickets Resueltos</h6>
+                                <h2 class="font-weight-blod"> {{ttf}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 stat d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Tickets en curso</h6>
+                                <h2 class="font-weight-blod"> {{tta}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 d-flex my-3">
+                              <div class="mx-auto">
+                                <h6 class="text-muted">Tickets pendientes</h6>
+                                <h2 class="font-weight-blod"> {{ttt}}</h2>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 d-flex">
+                              <div class="mx-auto">
+                                <img src="static/undraw_browsing_urt9.svg" style="width: 90px;">
+                              </div>
+                            </div>
+                          </div>
+  
+                        </div>
+  
+                      </div>
+                    </div>
+
+                  </section>
+                  <section>
+                    <div class="container py-5">
+                      <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Clave</th>
+                              <th scope="col">Producto</th>
+                              <th scope="col">Problema</th>
+                              <th scope="col"></th>
+                              <th scope="col">Estatus</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for ticket in tickets %}
+                            <tr>
+                              <form action="/edi_tc" method="POST">
+                                <td>
+                                <input  style="display: none;" value="{{ticket.0 }}" name="SERCHT"></input>
+                                <button type="submit" style="background: none; border-radius: 100% ;padding:0px; border:none;" class="zoom" >CLAVT0{{ticket.0 }}</button>
+                                </td>
+                              </form>
+                              <td>{{ticket.2 }}</td>
+                              <td>{{ticket.3 }}</td>
+                              <td><img src="static/{{ticket.5}}.png" class="img-fluid rounded-circle avatar mr-2"></td>
+                              <td>
+                                <div class="form-group" >
+                                  {% if ticket.5 == 1%}
+                                  <div class="progress" >
+                                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 10%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" ></div>
+                                  </div>
+                                  {% endif %}
+                                  {% if ticket.5 == 2%}
+                                  <div class="progress" >
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" ></div>
+                                  </div>
+                                  {% endif %}
+                                  
+                                </div>
+                              </td>
+                              
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+
+                  </section>
+
+                  <section>
+                    <div class="container py-5">
+                      <h2>Historial de llamadas</h2>
+                      <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Clave</th>
+                              <th scope="col">Producto</th>
+                              <th scope="col">Respuesta</th>
+                              <th scope="col">Animo</th>
+                              <th scope="col">Fecha</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for ticketsfeels in ticketsfeel %}
+                            <tr>
+                              <form action="/edi_tc" method="POST">
+                                <td>
+                                <input  style="display: none;" value="{{ticketsfeels.0 }}" name="SERCHT"></input>
+                                <button type="submit" style="background: none; border-radius: 100% ;padding:0px; border:none;" class="zoom" >CLAVT0{{ticketsfeels.0 }}</button>
+                                </td>
+                              </form>
+                              <td>{{ticketsfeels.2 }}</td>
+                              <td>{{ticketsfeels.12 }}</td>
+                              <td><img src="static/{{ticketsfeels.13}}.png" class="img-fluid rounded-circle avatar mr-2"></td>
+                              <td>{{ticketsfeels.17 }}</td>
+                              
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                    </div>
+
+                  </section>
+
+                  
+              </div>
+          </div>
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>
+      function mostar()
+      {
+          document.getElementById("1").style.display="block";
+      }
+      function mostar()
+      {
+          document.getElementById("2").style.display="block";
+      }
+  </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <div class="d-flex">
+          <div id="sidebar-container" class="bg-primary">
+              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Servicio al cliente</h4></div>
+              <div class="menu">
+                <a href="/call_center" class="d-block text-light p-3"><i class="icon ion-md-paper mr-2 lead"></i>Tickets por usuario</a>
+                
+                </div>
+          </div>
+
+          <div class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+              
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                            {{g.user}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/mi_perfil">Ranking</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+              </nav>
+
+              <div id="content">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h1 class="font-weight-bold mb-0">Llamadas</h1>
+                                <p class="lead text-muted">Recopila los datos más relevantes de la llamda</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                 
+                  <section>
+                    <div class="container">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-lg-3 stat d-flex my-3">
+                                <div class="mx-auto">
+                                    <img src="static/undraw_Mobile_application_mr4r.svg" style="width: 300px;">
+                                </div>
+                            </div>
+                            <div class="col-lg-5 stat d-flex my-4">
+                              <div style="margin-left: 10%;">
+                                <form action="">
+                                <h6 class="text-muted">Lector de llamada</h6>
+                                <textarea placeholder="Lamada en curso..." class="form-control" id="texto_llamada" rows="6" style="height: auto; width: 190%; margin-top: 7%; display: none;" name="">{{_analisis_llamada.4}}</textarea>
+                                <textarea disabled placeholder="Lamada en curso..." class="form-control" id="exampleFormControlTextarea1" rows="6" style="height: auto; width: 190%;">{{_analisis_llamada.4}}</textarea>
+                              </div>
+                            </div>
+                            <div class="col-lg-4 stat d-flex my-4">
+                                <div>
+                                    <h6 class="text-muted">Analisis</h6>
+                                    <input class="form-control" id="sentimiento" style="margin-top: 7%; display: none;" value="{{_analisis_llamada.0}}" name=""></input>
+                                    <input disabled class="form-control" id="exampleFormControlInput1" style="margin-top: 2%;" value="{{_analisis_llamada.0}}"></input>
+                                    <div class="row" style="margin-top: 4%;">
+                                        <div class="col 3">
+                                          <input class="form-control" id="positivo" style="margin-top: 7%; display: none;"  value="{{_analisis_llamada.1}}" name=""></input>
+                                          <input disabled class="form-control" id="exampleFormControlInput1" style="margin-top: 2%;"  value="{{_analisis_llamada.1}}"></input>
+                                        </div>
+                                        <div class="col 3">
+                                          <input class="form-control" id="neutral" style="margin-top: 7%; display: none;" value="{{_analisis_llamada.2}}" name=""></input>
+                                          <input disabled class="form-control" id="exampleFormControlInput1" style="margin-top: 2%;" value="{{_analisis_llamada.2}}"></input>
+                                        </div>
+                                        <div class="col 3">
+                                          <input class="form-control" id="negativo" style="margin-top: 7%; display: none; " value="{{_analisis_llamada.3}}" name=""></input>
+                                          <input disabled class="form-control" id="exampleFormControlInput1" style="margin-top: 2%;" value="{{_analisis_llamada.3}}"></input>
+                                        </div>                                       
+                                    </div>
+                                    <div class="row" style="margin-top: 4%;">
+                                      <div class="col 8">
+                                        <input class="form-control" id="cliente" style="margin-top: 7%; display: none;" name="" placeholder="Nombre del cliente" value="{{llamando_a}}"></input>
+                                        <input disabled class="form-control"  style="margin-top: 7%;" name="" placeholder="Nombre del cliente" value="{{llamando_a}}"></input>
+                                      </div>
+                                      <div class="col 4">
+                                        <input class="form-control" id="ticket_c" style="margin-top: 7%;" name="" placeholder="Clave del tickt"></input>                                        
+                                      </div>                                      
+                                  </div>
+                                    <button id="boton_llamada" type="button" class="btn btn-primary" style="width:100%; position:relative; top:10%;">Guardar</button><br>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </section>
+                  
+
+                  <section>
+                    <div class="container py-5">
+                      <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">El servicio al cliente es una actitud</th>
+                              <th scope="col">Crea soluciones, con un paso a la vez</th>
+                              <th scope="col">Tú logras que suceda</th>
+                              
+                            </tr>
+                          </thead>
+                          
+                        </table>
+                    </div>
+
+                  </section>
+              </div>
+          </div>
+
+      </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $('#boton_llamada').click(function(){
+        
+        var texto_llamada = document.getElementById('texto_llamada').value;
+        var sentimiento = document.getElementById('sentimiento').value;
+        var positivo = document.getElementById('positivo').value;
+        var neutral = document.getElementById('neutral').value;
+        var negativo = document.getElementById('negativo').value;
+        var cliente = document.getElementById('cliente').value;
+        var ticket_c = document.getElementById('ticket_c').value;
+       
+        $.ajax({
+          type: 'POST',
+          url: '/add_llamada',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"texto_llamada":texto_llamada, 
+                                "sentimiento":sentimiento, 
+                                "positivo":positivo, 
+                                "neutral":neutral, 
+                                "negativo":negativo, 
+                                "cliente":cliente, 
+                                "ticket_c":ticket_c}),
+          dataType: "json",
+          success: function(res){
+            alert("Se ha subido exitosamente la llamada al sistema");
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

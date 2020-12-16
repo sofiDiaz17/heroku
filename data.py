@@ -68,15 +68,18 @@ def validarUsuario( _email, _password):
                 print(data)
                 salt=data[0][4]
                 sPass=hashlib.sha512(_password.encode('utf-8')  + salt.encode('utf-8')).hexdigest()
-                if data and data [0][3] == sPass:
-                    print(data[0][15])
-                    if len(data[0][15])>0:
-                        return 1
-                    else:
-                        return 2
-                    return True 
-                else: 
-                    return False
+                if data and data [0][14] == "CALL_CENTER":
+                    return 3
+                else:
+                    if data and data [0][3] == sPass:
+                        print(data[0][15])
+                        if len(data[0][15])>0:
+                            return 1
+                        else:
+                            return 2
+                        return True 
+                    else: 
+                        return False
             except Exception as e:
                 return e 
             cursor.close()
@@ -92,18 +95,10 @@ def crearUsr(_correo, _contraseña,_salt,_cel,_img):
         if _correo and _contraseña and _cel:
             conn = mysql.connect()
             cursor = conn.cursor()
-            query="INSERT INTO CUsers (email, password, salt, Phone, OnBoardingState, BipTips) VALUES (%s, %s, %s,%s,0,0);"
+            query="INSERT INTO CUsers (email, password, salt, Phone, OnBoardingState, BipTips,BIT) VALUES (%s, %s, %s,%s,0,0,%s);"
             try:
-                cursor.execute(query, (_correo,_contraseña,_salt,_cel))
-                today=datetime.datetime.now()
-                d1 = today.strftime("%Y-%m-%d")
-                ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
-                expR=ddd+relativedelta(years=+1)
-                id="regalo300"+_correo
-                points=300
-                doc="regalo300"
-                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
-                cursor.execute(queryRegalo, (id,_correo,d1,points,expR,doc))
+                cursor.execute(query, (_correo,_contraseña,_salt,_cel,_img))
+              
                 return True
             except Exception as e:
                 print(str(e))
@@ -141,6 +136,26 @@ def fotoUser(_user):
         conn = mysql.connect()
         cursor = conn.cursor()
         query="SELECT Selfie FROM CUsers WHERE email = %s"
+        try:
+            cursor.execute(query, (_user))
+            data = cursor.fetchall()
+            if data:
+                return data
+            else:
+                return False
+        except Exception as e:
+            return e
+        finally:
+            cursor.close() 
+            conn.close()
+    else:
+        return json.dumps({'html':'<span>Datos faltantes</span>'})
+
+def buscarBIT(_user):
+    if _user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query="SELECT BIT FROM CUsers WHERE email = %s"
         try:
             cursor.execute(query, (_user))
             data = cursor.fetchall()
@@ -379,10 +394,22 @@ def crearPurch(folio, user, monto, fecha,  rubro, arch, bips):
     conn.close()
 
 
+def insertarDevolucion(user,objeto,razon,domicilio):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query="Insert into S_C_REFUND1 (EMAIL_R, PRODUCT_R, REASON_R, ADRRESS, STATUS_R) values (%s,%s,%s,%s,1)"
+    try:
+        cursor.execute(query,(user,objeto,razon,domicilio))
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+
 def pedidos(user):
     conn = mysql.connect()
     cursor = conn.cursor()
-    query="SELECT amountPurchase, datePurchase, objetoPurchase FROM T_Purchases WHERE user = %s"
+    query="SELECT amountPurchase, datePurchase, objetoPurchase, objectPictures, objectName FROM T_Purchases, C_Catalog WHERE objectName = objetoPurchase AND user = %s"
     try:
         cursor.execute(query,user)
         data = cursor.fetchall()
@@ -462,7 +489,7 @@ def setEstadoOnboarding(user,estado):
     conn.close()
 
 
-def comprar(user, compra,objeto):
+def comprar(user, compra,objeto,bips):
     conn = mysql.connect()
     cursor = conn.cursor()
     selectPuntos="SELECT points FROM T_Movements where expiration > CURRENT_DATE and status=2 and user=%s"
@@ -513,10 +540,62 @@ def comprar(user, compra,objeto):
     compraReg="Insert into T_Purchases (amountPurchase, user, objetoPurchase) values (%s,%s,%s)"
     try:
         cursor.execute(compraReg, (int(compra),user,objeto))
+        today=datetime.datetime.now()
+        d1 = today.strftime("%Y-%m-%d")
+        ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+        expR=ddd+relativedelta(years=+1)
+
+        if int(bips) + 150 >= 4000:
+            id="regalo1500"
+            points=1500
+            doc="regalo1500"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+        elif int(bips) + 150 >= 3000:
+            id="regalo1000"
+            points=1000
+            doc="regalo1000"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+        elif int(bips) + 150 >= 2000:
+            id="regalo700"
+            points=700
+            doc="regalo700"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+
+        elif int(bips) + 150 >= 1000:
+            id="regalo500"
+            points=500
+            doc="regalo500"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+
+
+        queryBips="UPDATE CUsers SET Biptips = Biptips + 150 WHERE email = %s"
+        doneBip=cursor.execute(queryBips, (user))
+        if doneBip:
+            return True
+        else:
+            return False
     except Exception as e:
         print(str(e))
         return False
-    return True
 
 
 
@@ -1234,6 +1313,15 @@ def RegistroContrato(usuario,filen):
             
             try:
                 cursor.execute(sqlCreateSP)
+                today=datetime.datetime.now()
+                d1 = today.strftime("%Y-%m-%d")
+                ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+                expR=ddd+relativedelta(years=+1)
+                id="regalo300"+usuario
+                points=300
+                doc="regalo300"
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,usuario,d1,points,expR,doc))
                 return True
             except Exception as e:
                 print(str(e))
@@ -1293,10 +1381,63 @@ def borrarticket(Borrar):
     cursor.execute('UPDATE S_C_REFUND1 SET STATUS_R = 5 WHERE ID_REFUND =  %s;', Borrar)
     return True
 
-def CALI_ASESOR(ide_call,califica):
+def CALI_ASESOR(ide_call,califica,bips,user):
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute('UPDATE S_C_CALL SET CALIFICATIO_CALL = %s WHERE ID_CALL =  %s;', (califica, ide_call))
+    today=datetime.datetime.now()
+    d1 = today.strftime("%Y-%m-%d")
+    ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+    expR=ddd+relativedelta(years=+1)
+
+    if int(bips) + 150 >= 4000:
+            id="regalo1500"
+            points=1500
+            doc="regalo1500"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+    elif int(bips) + 150 >= 3000:
+            id="regalo1000"
+            points=1000
+            doc="regalo1000"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+    elif int(bips) + 150 >= 2000:
+            id="regalo700"
+            points=700
+            doc="regalo700"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+
+    elif int(bips) + 150 >= 1000:
+            id="regalo500"
+            points=500
+            doc="regalo500"
+            try:
+                queryRegalo="Insert into T_Movements (invoice, user, amount, date, category, points, expiration, file, status) values (%s, %s, 0, %s, 6, %s ,%s, %s, 2)"
+                cursor.execute(queryRegalo, (id,user,d1,points,expR,doc))
+            except Exception as e:
+                print(str(e))
+                
+
+
+    queryBips="UPDATE CUsers SET Biptips = Biptips + 150 WHERE email = %s"
+    doneBip=cursor.execute(queryBips, (user))
+    if doneBip:
+            return True
+    else:
+            return False
     return True
 
 def Num_CALIFICAR(user):
@@ -1305,17 +1446,17 @@ def Num_CALIFICAR(user):
     Num_CALIFICAR1 = cur.fetchall()
     return Num_CALIFICAR1
 
-
+'''
 def nomuser(user):
     cur1 = mysql.get_db().cursor()
     cur1.execute('SELECT NAME FROM S_C_USER WHERE NAME = %s',user)
     nomre = cur1.fetchall()
-    return nomre
+    return nomre'''
 
-def all_info(user):
+def all_info():
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute('SELECT NAME,LAST_NAME, EMAIL, COUNT(EMAIL_R), PHONE FROM S_C_REFUND1, S_C_USER WHERE EMAIL_R = EMAIL AND (STATUS_R=1 OR STATUS_R=2) AND ADVISER = %s GROUP BY NAME ORDER BY COUNT(EMAIL_R) DESC',user)
+    cursor.execute('SELECT Selfie, EMAIL, COUNT(EMAIL_R), Phone, Name FROM S_C_REFUND1, CUsers WHERE EMAIL_R = EMAIL AND (STATUS_R=1 OR STATUS_R=2) GROUP BY NAME ORDER BY COUNT(EMAIL_R) DESC')
     allinf = cursor.fetchall()
     return allinf
 
@@ -1361,13 +1502,14 @@ def analisis():
     return respuestas
 
 
-
+'''
 def DATOUSER(CORREUSER):
     conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM S_C_USER WHERE EMAIL = %s', CORREUSER)
     datuse = cursor.fetchall()
     return datuse
+    '''
 
 
 
@@ -1436,3 +1578,146 @@ def CALIFICAR(user):
     CALIFICAR1 = cur.fetchall()
     return CALIFICAR1
 
+def CHECKContr(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        frontINE="SELECT ContractState FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(frontINE, (user))
+            data = cursor.fetchone()
+            if data:
+                if data[0] != '': 
+                  return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKFront, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+
+
+
+def CHECKFront(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        frontINE="SELECT IneFront FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(frontINE, (user))
+            data = cursor.fetchone()
+            if data:
+                if data[0] != '': 
+                  return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKFront, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+
+def CHECKBack(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        backINE="SELECT IneBack FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(backINE, (user))
+            data = cursor.fetchone()
+            if data[0] != '':
+               return True
+            else:
+                return False
+                             
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKBack, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+def CHECKDom(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        address="SELECT ProofAddress FROM `CUsers` WHERE Email = %s"
+        
+        try:
+            cursor.execute(address, (user))
+            data = cursor.fetchone()
+            if data[0] != '':
+               return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKDom, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+def CHECKSelf(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        selfieq="SELECT Selfie FROM CUsers WHERE Email = %s"
+        try:
+            cursor.execute(selfieq, (user))
+            data = cursor.fetchone()
+            if data:
+                if data[0] != '': 
+                  return True
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close() 
+        conn.close()
+     
+    try:
+        cursor.execute(CHECKSelf, (user))
+    except Exception as e:
+        print(str(e))
+        return False
+   
+def SelectTelefono(busqueda):
+    if busqueda:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query= "SELECT Phone FROM CUsers WHERE Email ='"+busqueda+"'"
+        try: 
+            cursor.execute(query)
+            data = cursor.fetchall()
+            if data:
+                curp=data[0][0]
+                return curp
+            else:
+                return False
+        except Exception as e:
+            return e
+        cursor.close()
+        conn.close()
+    else: 
+            return json.dumps ({'html': '<span> Te faltan datos </span>'})

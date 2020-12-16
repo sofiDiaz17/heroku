@@ -33,106 +33,135 @@
           padding: 0;
         }
 
-.bell .material-icons { 
-  /* font-size:12rem !important; */
-  /* font-size:36px !important; */
-  font-size:1.3rem !important;
-}
+      .bell .material-icons { 
+        /* font-size:12rem !important; */
+        /* font-size:36px !important; */
+        font-size:1.3rem !important;
+      }
 
-.bell {
-  position:relative;
-  display:inline-block;  
-  /* border:dashed 1px rgba(0,0,0,.25); */
-  margin:0;
-  padding:0;  
-}
+      .bell {
+        position:relative;
+        display:inline-block;  
+        /* border:dashed 1px rgba(0,0,0,.25); */
+        margin:0;
+        padding:0;  
+      }
 
-.bell .anchor {
-  transform-origin:center top;
-  display:inline-block;
-  margin:0;
-  padding:0;       
-}
+      .bell .anchor {
+        transform-origin:center top;
+        display:inline-block;
+        margin:0;
+        padding:0;       
+      }
 
-.bell .layer-1 {
-  color:#ffffff;
-  z-index:9;
-  animation: animation-layer-1 5000ms infinite;      
-  opacity:0;  
-}
+      .bell .layer-1 {
+        color:#ffffff;
+        z-index:9;
+        animation: animation-layer-1 5000ms infinite;      
+        opacity:0;  
+      }
 
-.bell .layer-2 {
-  color:#ffffff;
-  z-index:8;
-  position:absolute;top:0;left:0;   
-  animation: animation-layer-2 5000ms infinite;    
-}
+      .bell .layer-2 {
+        color:#ffffff;
+        z-index:8;
+        position:absolute;top:0;left:0;   
+        animation: animation-layer-2 5000ms infinite;    
+      }
 
-.bell .layer-3 {
-  color:#cfcfcf;
-  z-index:7;
-  position:absolute;top:0;left:0; 
-  animation: animation-layer-3 5000ms infinite;    
-}
+      .bell .layer-3 {
+        color:#cfcfcf;
+        z-index:7;
+        position:absolute;top:0;left:0; 
+        animation: animation-layer-3 5000ms infinite;    
+      }
 
-@keyframes animation-layer-1 {
-  0% { transform: rotate(0deg);opacity:0; }
-  8.0% { transform: rotate(0deg);opacity:0; }
-  12.0% { transform: rotate(42deg);opacity:.5; }
-  16.0% { transform: rotate(-35deg);opacity:.4; }
-  20.0% { transform: rotate(0deg);opacity:.1; }
-  23.0% { transform: rotate(28deg);opacity:.3; }
-  26.0% { transform: rotate(-20deg);opacity:.2; }
-  29.0% { transform: rotate(0deg);opacity:.1; }
-  31.0% { transform: rotate(16deg);opacity:0; }
-  33.0% { transform: rotate(-12deg);opacity:0; }
-  35.0% { transform: rotate(0deg);opacity:0; }	
-  37.0% { transform: rotate(-6deg);opacity:0; }
-  39.0% { transform: rotate(0deg);opacity:0; }
-}
+      @keyframes animation-layer-1 {
+        0% { transform: rotate(0deg);opacity:0; }
+        8.0% { transform: rotate(0deg);opacity:0; }
+        12.0% { transform: rotate(42deg);opacity:.5; }
+        16.0% { transform: rotate(-35deg);opacity:.4; }
+        20.0% { transform: rotate(0deg);opacity:.1; }
+        23.0% { transform: rotate(28deg);opacity:.3; }
+        26.0% { transform: rotate(-20deg);opacity:.2; }
+        29.0% { transform: rotate(0deg);opacity:.1; }
+        31.0% { transform: rotate(16deg);opacity:0; }
+        33.0% { transform: rotate(-12deg);opacity:0; }
+        35.0% { transform: rotate(0deg);opacity:0; }	
+        37.0% { transform: rotate(-6deg);opacity:0; }
+        39.0% { transform: rotate(0deg);opacity:0; }
+      }
 
-@keyframes animation-layer-2 {
-  0% { transform: rotate(0deg); }
-  8.0% { transform: rotate(0deg); }
-  12.0% { transform: rotate(42deg); }
-  16.0% { transform: rotate(-35deg); }
-  20.0% { transform: rotate(0deg); }
-  23.0% { transform: rotate(28deg); }
-  26.0% { transform: rotate(-20deg); }
-  29.0% { transform: rotate(0deg); }
-  31.0% { transform: rotate(16deg); }
-  33.0% { transform: rotate(-12deg); }
-  35.0% { transform: rotate(0deg); }	
-  37.0% { transform: rotate(-6deg); }
-  39.0% { transform: rotate(0deg); }
-  40.0% { transform: rotate(6deg); }
-  44.0% { transform: rotate(-3deg); }
-  49.0% { transform: rotate(2deg);}
-  55.0% { transform: rotate(0deg); }
-  62.0% { transform: rotate(1deg); }
-  70.0% { transform: rotate(0deg); }  
-}
+      @keyframes animation-layer-2 {
+        0% { transform: rotate(0deg); }
+        8.0% { transform: rotate(0deg); }
+        12.0% { transform: rotate(42deg); }
+        16.0% { transform: rotate(-35deg); }
+        20.0% { transform: rotate(0deg); }
+        23.0% { transform: rotate(28deg); }
+        26.0% { transform: rotate(-20deg); }
+        29.0% { transform: rotate(0deg); }
+        31.0% { transform: rotate(16deg); }
+        33.0% { transform: rotate(-12deg); }
+        35.0% { transform: rotate(0deg); }	
+        37.0% { transform: rotate(-6deg); }
+        39.0% { transform: rotate(0deg); }
+        40.0% { transform: rotate(6deg); }
+        44.0% { transform: rotate(-3deg); }
+        49.0% { transform: rotate(2deg);}
+        55.0% { transform: rotate(0deg); }
+        62.0% { transform: rotate(1deg); }
+        70.0% { transform: rotate(0deg); }  
+      }
 
-@keyframes animation-layer-3 {
-  0% { transform: rotate(0deg);opacity:1; }
-  8.0% { transform: rotate(0deg);opacity:1; }
-  12.0% { transform: rotate(52deg);opacity:.5; }
-  16.0% { transform: rotate(-48deg);opacity:.4; }
-  20.0% { transform: rotate(0deg);opacity:1; }
-  23.0% { transform: rotate(42deg);opacity:.3; }
-  26.0% { transform: rotate(-30deg);opacity:.2; }
-  29.0% { transform: rotate(0deg);opacity:1; }
-  31.0% { transform: rotate(26deg);opacity:.15; }
-  33.0% { transform: rotate(-18deg);opacity:.1; }
-  35.0% { transform: rotate(0deg);opacity:1; }	
-  37.0% { transform: rotate(-12deg);opacity:.8; }
-  40.0% { transform: rotate(6deg);opacity:1; }
-  44.0% { transform: rotate(-3deg);opacity:.8; }
-  49.0% { transform: rotate(2deg);opacity:1; }
-  55.0% { transform: rotate(0deg);opacity:1; }
-  62.0% { transform: rotate(1deg);opacity:1; }
-  70.0% { transform: rotate(0deg);opacity:1; }
-}
+      @keyframes animation-layer-3 {
+        0% { transform: rotate(0deg);opacity:1; }
+        8.0% { transform: rotate(0deg);opacity:1; }
+        12.0% { transform: rotate(52deg);opacity:.5; }
+        16.0% { transform: rotate(-48deg);opacity:.4; }
+        20.0% { transform: rotate(0deg);opacity:1; }
+        23.0% { transform: rotate(42deg);opacity:.3; }
+        26.0% { transform: rotate(-30deg);opacity:.2; }
+        29.0% { transform: rotate(0deg);opacity:1; }
+        31.0% { transform: rotate(26deg);opacity:.15; }
+        33.0% { transform: rotate(-18deg);opacity:.1; }
+        35.0% { transform: rotate(0deg);opacity:1; }	
+        37.0% { transform: rotate(-12deg);opacity:.8; }
+        40.0% { transform: rotate(6deg);opacity:1; }
+        44.0% { transform: rotate(-3deg);opacity:.8; }
+        49.0% { transform: rotate(2deg);opacity:1; }
+        55.0% { transform: rotate(0deg);opacity:1; }
+        62.0% { transform: rotate(1deg);opacity:1; }
+        70.0% { transform: rotate(0deg);opacity:1; }
+      }
+
+      .modal {
+        display: block; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      }
+
+      /* Modal Content/Box */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+
+
+      input[type="file"] {
+          display: none;
+          
+      }
+
       </style>
   </head>
   <body>
@@ -140,7 +169,7 @@
     <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+          <img src="static/{{g.BIT}}" class="card-img" alt="..." style="margin-top: 1%">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -149,15 +178,16 @@
         </div>
       </div>
     </div>
+    {% if incompleto ==False %}
 
       <div class="d-flex">
           <div id="sidebar-container" class="bg-primary">
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
                 <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
-                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
                 <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
@@ -190,7 +220,7 @@
                       <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
-                          {{g.user}}
+                          {{g.correo}}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="/perfil">Mi Perfil</a>
@@ -225,8 +255,8 @@
                                 <div class="card-body">
                                   <h3 class="card-title" style="text-align: center; top: -20px; ">{{g.user}}</h3>
                                   <p class="card-title text-muted" style="text-align: center;">Cliente premier</p>
-                                  <p class="card-text text-muted">Dirección:  </p>
-                                  <p class="card-text text-muted">Teléfono:  </p>
+                                  <p class="card-text text-muted">Dirección: {{direccion}} </p>
+                                  <p class="card-text text-muted">Teléfono: {{telefono}} </p>
                                 </div>
                               </div>
                             </div>
@@ -259,7 +289,7 @@
                 
                                     </div>
                                   </div>
-                              <button type="submit" class="btn btn-primary" style=" width:100%; position:relative; top:2%;">Sube tus tickets y gana puntos</button>
+                              <a type="submit" href="/recibos" class="btn btn-primary" style=" width:100%; position:relative; top:2%;">Sube tus tickets y gana puntos</a>
                             </div>
                           </div>
 
@@ -305,17 +335,409 @@
                       </div>
                     
                   </section>
-              </div>
           </div>
 
       </div>
+    </div>  
+    {% endif %}
+    {% if incompleto %}
 
+    <div class="d-flex">
+      <div id="sidebar-container" class="bg-primary">
+          <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
+          <div class="menu">
+            <a href="" class="d-block text-light p-3" ><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+            <a href="" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+            <a href="" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+            <a href="" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
+            <a href="" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
+            </div>
+      </div>
+
+      <div class="w-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+          <div class="container">
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                
+              <span class="navbar-toggler-icon"></span>
+              </button>
+        
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                      {{g.correo}}
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/perfil">Mi Perfil</a>
+                      <a class="dropdown-item" href="/onboarding">Onboarding</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                  </div>
+                  </li>
+              </ul>
+              </div>
+          </div>
+        </nav>
+
+          <div id="content">
+            <div class="alert alert-danger" role="alert">
+             No has completado tu registro, preciona <button id="abrirMod">aquí</button> para terminar.
+            </div>
+              <section class="py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h1 class="font-weight-bold mb-0">Mi Perfil</h1>
+                            <p class="lead text-muted">Aquí podras encontrar tu información</p>
+                        </div>
+                    </div>
+                </div>
+              </section>
+             
+              <section>
+                <div class="container py-2">
+                    <div class="row row-cols-1 row-cols-md-2">
+                        <div class="col-lg-5 mb-4">
+                          <div class="card">
+                            <center><img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle mr-2" style="width: 100px; height: 100px; "></center>
+                            <div class="card-body">
+                              <h3 class="card-title" style="text-align: center; top: -20px; ">indefinido</h3>
+                              <p class="card-title text-muted" style="text-align: center;">Cliente premier</p>
+                              <p class="card-text text-muted">Dirección: indefinido </p>
+                              <p class="card-text text-muted">Teléfono: indefinido </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-7 mb-4">
+                            <div class="container">
+                                <div class="card">
+                                  <div class="card-body">
+                                    <div class="row">
+                                      <div class="col-lg-4 stat d-flex my-3">
+                                        <div class="mx-auto">
+                                          <h6 class="text-muted">Mis Puntos</h6>
+                                          <h2 class="font-weight-blod">0</h2>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-4 stat d-flex my-3">
+                                        <div class="mx-auto">
+                                          <h6 class="text-muted">Puntos en espera</h6>
+                                          <h2 class="font-weight-blod">0</h2>
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-4 d-flex my-3">
+                                        <div class="mx-auto">
+                                          <h6 class="text-muted">Nivel</h6>
+                                          <button class="zoom" type="submit" style="background: none; color: orange; border:none"><h1 class="font-weight-blod">0</h1></button>
+                                        </div>
+                                      </div>
+                                    </div>
+            
+                                  </div>
+            
+                                </div>
+                              </div>
+                          <a type="submit" href="" class="btn btn-primary" style=" width:100%; position:relative; top:2%;">Sube tus tickets y gana puntos</a>
+                        </div>
+                      </div>
+
+                </div>
+              </section>
+              
+
+              <section>
+                <div class="col mb-12">
+                    <div class="card">
+                      <div class="card-header" style="background-color: white;">
+                        <h5 class="font-weight-bold mb-0">Ultimos movimientos</h5>
+                      </div>
+                      <div class="card-body">
+                        
+                        <div class="container py-1">
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th class="column1">Folio</th>
+                                <th class="column1">Monto de compra</th>
+                                <th class="column1">Fecha de compra</th>
+                                <th class="column1">Rubro</th>
+                                <th class="column1">Puntos obtenidos</th>
+                                <th class="column1">Expiración</th>
+                                <th class="column1">Status</th>
+                              </tr>
+                            </thead>
+                              <tbody>
+                               
+                              
+                              </tbody>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+              </section>
+
+            
+                <div class="modal" id="modalDev">
+                  <div class="modal-content" >
+                    <div class="modal-header">
+                      <h5 class="modal-title" >Documentos Personales</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancelMod" name="cancelMod">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div style="padding-bottom: 0;">
+                        <section class="py-3">
+                          <div class="container">
+                              <div class="row">
+                                  <div class="col-lg-9">
+                                      <p class="lead text-muted">En este apartado debes subir tus documentos personales.</p>
+                                  </div>
+                              </div>
+                          </div>
+                        </section>
+                        <section>
+                            <div class="container">
+                              <div class="progress-container progress-primary" style="margin-bottom: 1%;">
+                                <div class="progress"> 
+                                  <div id="progreso" class="progress-bar progress-bar-striped progress-bar-animated" data-aos="progress-full" data-aos-offset="10" data-aos-duration="2000" role= "progressbar" aria-valuenow="{{llenado}}" aria-valuemin="0" aria-valuemax="4" style="width: {{bar}}%;"></div>
+                                </div>
+                              </div>
+                              <div class="row row-cols-1 row-cols-md-2">
+                                  <div class="col mb-4">
+                                    <div class="card">
+                                      <div style="position: relative;">
+                                        <div style="position: absolute;  top: 3%; left: 89%;">
+                                        {%if frontINE == true %}      
+                                          <img  src="../static/palomita.png" style="height: 50px;"/>
+                                        {%endif%}
+                                        </div>
+                                        <div id="cargar" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                            <img id="confIne" src="../static/palomita.png" style="height: 50px;"/>
+                                          </div>
+                                        <div class="card-body" >
+                                        <h5 class="card-title" >Identificación Oficial Parte Delantera</h5>
+                                        <p class="card-text text-muted">Sube la parte delantera de tu identificación oficial</p>
+                                        <section>
+                                          <button class=" btn btn-primary" type="button"><label for="img-uploader" class="custom-file-upload login100-form-btn" id="upbtn">
+                                            <i class="icon ion-md-cloud"></i> Subir INE
+                                            </label></button>
+                                            <input  type="file"  name="identfront" id="img-uploader" multiple="multiple">
+                                            <div>
+                                            </div>
+                                          </section>   
+                                       </div>
+                                     </div>
+                                    </div>
+                                  </div>
+                                  <div class="col mb-4">
+                                    <div class="card">
+                                       <div style="position: relative;">
+                                        <div style="position: absolute;  top: 3%; left: 89%;">
+                                        {%if backINE == True %}      
+                                          <img  src="../static/palomita.png" style="height: 50px;"/>
+                                        {%endif%}
+                                        </div>
+                                        <div id="cargar2" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                             
+                                          <img id="confBack" src="../static/palomita.png" style="height: 50px;"/>
+                                        
+                                        </div>
+                                      <div class="card-body">
+                                        <h5 class="card-title">Identificación Oficial Parte Trasera </h5>
+                                        <p class="card-text text-muted">Sube la parte de atrás de tu identificación oficial.</p>
+                                        <section>
+                                          <button class=" btn btn-primary" type="button"><label for="img-traser" class="custom-file-upload login100-form-btn" id="upbtn">
+                                            <i class="icon ion-md-cloud"></i> Subir INE Trasera
+                                          </label></button>
+                                          <input type="file"  name="traser" id="img-traser" multiple="multiple">
+                                        </section> 
+                                         </div>
+                                      </div>
+                                    </div>
+                                  </div>                            
+                                </div>
+                                <div class="row row-cols-1 row-cols-md-2">
+                                  <div class="col mb-4">
+                                    <div class="card">
+                                      <div style="position: relative;">
+                                         <div style="position: absolute;  top: 3%; left: 89%;">
+                                            {%if imgdom == true %}      
+                                            <img  src="../static/palomita.png" style="height: 50px;"/>
+                                            {%endif%}
+                                        </div>
+                                        <div id="cargar3" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                             
+                                          <img id="confCompr" src="../static/palomita.png" style="height: 50px;"/>
+                                        
+                                        </div>
+                                      <div class="card-body">
+                                        <h5 class="card-title">Comprobante de domicilio</h5>
+                                        <p class="card-text text-muted">Sube un comprobante de domicilio.</p>
+                                        <section> 
+                                          <button class=" btn btn-primary" type="button"><label for="img-compro" class="custom-file-upload login100-form-btn" id="upbtn">
+                                            <i class="icon ion-md-cloud"></i> Subir Comprobante
+                                        </label></button>
+                                          <input type="file" name="compd" id="img-compro" multiple="multiple">
+                                          </section> 
+                                      </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col mb-4">
+                                    <div class="card">
+                                      <div style="position: relative;">
+                                        <div  style="position: absolute;  top: 3%; left: 89%;">
+                                        {%if selfie == True %}      
+                                          <img  src="../static/palomita.png" style="height: 50px;"/>
+                                        {%endif%}
+                                        </div>
+                                        <div id="cargar4" style="position: absolute;  top: 3%; left: 89%; visibility: hidden;">
+                                             
+                                          <img id="confSelfie" src="../static/palomita.png" style="height: 50px;"/>
+                                        
+                                        </div>
+                                        <div class="card-body">
+                                          <h5 class="card-title">Selfie</h5>
+                                          <p class="card-text text-muted">Sube una foto de tu cara.</p>
+                                          <section>
+                                            <button class=" btn btn-primary" type="button"><label for="img-selfi" class="custom-file-upload login100-form-btn" id="upbtn">
+                                              <i class="icon ion-md-cloud"></i> Subir Selfie
+                                              </label></button>
+                                            <input type="file" name="selfi" id="img-selfi" multiple="multiple">
+                                        </section>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                               
+                               <div>
+                                  <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                                 </div>    
+                            </div>
+                                
+               
+                      </div> 
+                    </div>
+                    <div class="modal-footer">
+                      <button id="verCont" type="button" class="btn btn-primary"> Contrato</button>
+                    </div>
+                  </div>
+          </div>
+
+
+          <div class="modal" id="modalCont" style="display: none;">
+            <div class="modal-content" >
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Datos y contrato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="cancelModC" name="cancelMod">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div style="padding-bottom:0">
+                  <section class="py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <p class="lead text-muted">En este apartado podrás visualizar tus datos que serán utilizados para crear tu contrato.</p>
+                            </div>
+                        </div>
+                    </div>
+                  </section>
+                  <section>
+                      <div class="container">            
+                            <table id="table" class="table table-hover table-mc-light-blue">
+                                <thead>
+                                  <tr>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Dirección</th>
+                                    <th>Fecha de Nacimiento</th>
+                                    <th>CURP</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td data-title="ID">{{nombre}}</td>
+                                    <td data-title="Name">{{email}}</td>
+                                    <td data-title="Link"> {{direccion}} </td>
+                                    <td data-title="Status">{{fechanaci}}</td>
+                                    <td data-title="CURP">{{curp}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                                <div class="contract">
+                                  <p class="lead text-muted">Da click aquí para resivir tu contrato en tu correo electronico.</p>
+                                  <form  id="enviar">
+                                    <button  class="btn btn-success"  id="envcontrato">Mandame mi contrato</button>
+                                  </form> 
+                                  <section>
+                                    <p class="lead text-muted">Cuando tengas tu contrato no olvides firmarlo y subirlo aquí.</p>
+                                    <button class=" btn btn-primary" type="button"><label for="contrUp" class="custom-file-upload login100-form-btn" id="upbtn">
+                                    <i class="icon ion-md-cloud"></i> Documento</label></button>
+                                    <input  type="file" name="archi" id="contrUp" multiple="multiple">
+                                   
+                                  </section>
+                                </div>  
+                      </div>
+                     
+                      
+                  </section>
+                 
+                  
+              </div>
+              </div>
+              <div class="modal-footer">
+                <button id="CerrarCont" type="button" class="btn btn-primary"> Cerrar</button>
+              </div>
+            </div>
+        </div>
+
+
+      </div>
+
+  </div>
+</div>  
+{% endif %}
+    
+    
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="../static/alertaine.js"></script>
+    <script src="../static/perfil.js"></script>     
+
+
+
     <script>
+
+
+        $('#verCont').click(function(){
+          document.getElementById("modalDev").style.display="none";
+          document.getElementById("modalCont").style.display="block";
+        });
+
+        $('#abrirMod').click(function(){
+          document.getElementById("modalDev").style.display="block";
+        });
+        $('#cancelMod').click(function(){
+          document.getElementById("modalDev").style.display="none";
+        });
+        $('#cancelModC').click(function(){
+          document.getElementById("modalCont").style.display="none";
+        });
+
+
       function chat()
       {
           document.getElementById("bot").style.display="block";
@@ -335,7 +757,7 @@
                                 "cali":cali}),
           dataType: "json",
           success: function(res){
-            alert("Hemos registrado exitosamente tu calificación");
+            alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");          
           },
           error: function(res){
             alert("algo salio mal")
@@ -393,6 +815,15 @@
           }
         })
       })
+
+
+
+      $(document).ready(function(){ 
+            $('input[type="file"]').change(function(e){ 
+                var flName = e.target.files[0].name; 
+                $(this).closest('section').find('label').text(flName);
+            }); 
+        }); 
     </script>
   
 

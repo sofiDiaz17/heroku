@@ -180,9 +180,9 @@
               <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
               <div class="menu">
                 <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
-                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
                 <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
                 <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
                 </div>
           </div>
@@ -251,29 +251,31 @@
                           <div class="card-body">
                             
                             <div class="container py-1">
-                              <table class="table table-hover">
-                                <thead>
-                                  <tr>
-                                    <th class="column1">Cantidad de compra</th>
-                                    <th class="column1">Fecha de compra</th>
-                                    <th class="column1">Objeto comprado</th>
-                
-                                  </tr>
-                                </thead>
-                                  <tbody>
-                                    {% for row in tabla %}
+                        
+                                <table class="table table-hover">
+                                  <thead>
                                     <tr>
-                                        {% for cell in row %}
-                                          <td>{{cell}}</td>
-                                        {% endfor %}
-                                        <td><button type="button" data-toggle="modal" name="devolver" class="btn btn-primary">Devolver</button></td>
+                                      <th class="column1">Producto</th>
+                                      <th class="column1">Monto</th>
+                                      <th class="column1">Fecha de compra</th>
+                  
                                     </tr>
-                                    {% endfor %}
-                                  
-                                  </tbody>
-                                </table>
+                                  </thead>
+                                    <tbody>
+                                      {% for row in tabla %}
+                                      <tr>
+                                        <td><img src="static/img/catalogo/{{row.3}}" class="img-fluid rounded-circle avatar mr-2">{{row.2}}</td>
+                                        <td>${{row.0}}.00</td>
+                                        <td>{{row.1}}</td>
+                                        <td><button type="button" data-toggle="modal" name="devolver" id="devolver" class="btn btn-primary">Devolver</button></td>
+                                          
+                                      </tr>
+                                      {% endfor %}
+                                    
+                                    </tbody>
+                                  </table>
 
-                                <div class="modal" id="modalDev">
+                              <div class="modal" id="modalDev">
                                 <div class="modal-content" >
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Devovler Producto</h5>
@@ -289,15 +291,19 @@
                                         <p></p>
                                         <div class="form-row">
                             
-                                          <div class="form-group col-md-6" style="float:left">
+                                          <div class="form-group" style="float:left">
                                             <span for="inputPassword4">Producto: </span>
-                                            <input type="text" class="form-control" id="ediproducto" >
+                                            <label class="form-control" id="ediproducto" ></label>
                                           </div>
-                                          <div class="form-group col-md-3">
+                                        </div>
+                                        <div class="form-row">
+                                          <div class="form-group">
                                             <span for="inputEmail4">Dirección: </span>
                                             <input type="text" class="form-control" id="direccion" >
                                           </div>
-                                          <div class="form-group col-md-3">
+                                        </div>
+                                        <div class="form-row">
+                                          <div class="form-group">
                                             <span for="inputEmail4">Razón de la devolucón: </span>
                                             <textarea  class="form-control" id="razon" ></textarea>
                                           </div>
@@ -306,7 +312,7 @@
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" id="cancel" name="cancelMod" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button id="btn_bor" type="button" class="btn btn-primary"> Devolver</button>
+                                    <button id="devolver2" type="button" class="btn btn-primary"> Devolver</button>
                                   </form>
                                   </div>
                                 </div>
@@ -344,8 +350,8 @@
           dataDev.push($(this).text());
 
         });
-
-        $('#ediproducto').val(dataDev[2])
+        console.log(dataDev)
+        $('#ediproducto').text(dataDev[0])
         document.getElementById("modalDev").style.display="block";
 
       })
@@ -369,13 +375,43 @@
                                 "cali":cali}),
           dataType: "json",
           success: function(res){
-            alert("Hemos registrado exitosamente tu calificación");
+            alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");          
           },
           error: function(res){
             alert("algo salio mal")
           }
         })
       })
+
+
+
+
+      $('#devolver2').click(function(){
+        var obj = document.getElementById('ediproducto').innerHTML;
+        var razon = document.getElementById('razon').value;
+        var dom = document.getElementById('direccion').value;
+        
+        $.ajax({
+          type: 'POST',
+          url: '/devolver',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({"objeto":obj,
+                                "razon":razon,
+                                "domicilio":dom}),
+          dataType: "json",
+          success: function(res){
+            console.log(res)
+            alert("Se guardo la devolucion");
+            document.getElementById("modalDev").style.display="none";
+          },
+          error: function(res){
+            alert("algo salio mal")
+          }
+        })
+      })
+
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>

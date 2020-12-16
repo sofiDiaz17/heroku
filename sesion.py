@@ -21,6 +21,28 @@ import requests, uuid
 import json
 import hashlib
 import pdfkit
+import asyncio
+import io
+import glob
+import os
+import sys
+import time
+import uuid
+import requests
+from urllib.parse import urlparse
+from io import BytesIO
+# To install this module, run:
+# python -m pip install Pillow
+from PIL import Image, ImageDraw
+from azure.cognitiveservices.vision.face import FaceClient
+from msrest.authentication import CognitiveServicesCredentials
+from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person
+
+KEYF = "4e341ff775bf4ee18e3a726fc1b5de7b"
+
+# This endpoint will be used in all examples in this quickstart.
+ENDPOINTF = "https://faceorange.cognitiveservices.azure.com/"
+face_client=FaceClient(ENDPOINTF, CognitiveServicesCredentials(KEYF))
 
 
 
@@ -57,6 +79,7 @@ def landing():
 def before_request():
     g.user = None
     if 'user' in session:
+        g.correo=session['user']
         userF = Modelo.buscarUser(session['user'])
         if userF:
             g.user=userF
@@ -67,6 +90,11 @@ def before_request():
             g.foto =fotoB[0][0]
         else:
             g.foto=" "
+        BIT = Modelo.buscarBIT(session['user'])
+        if userF:
+            g.BIT=BIT[0][0]
+        else:
+            g.BIT=" "
         
 @app.route('/registro',methods=['GET','POST'])
 def registro():
@@ -76,7 +104,7 @@ def registro():
         contra=request.form['password']
         contra2=request.form['re_password']
         img=request.form['img']
-
+        print(img)
         if contra == contra2:
             salt = uuid.uuid4().hex
             sPass=hashlib.sha512(contra.encode('utf-8')  + salt.encode('utf-8')).hexdigest()
@@ -106,19 +134,23 @@ def login():
         password=request.form['contraseña']
         if(user and password):
             usuario=Modelo.validarUsuario(user,password)
-            print(usuario)    
-            if usuario==1:              
+            print(usuario)
+            if usuario==3:
                 session['user']=user
-                Modelo.entities(user,'Login','El usuario hace login')
-                return redirect(url_for('perfil'))
-            elif usuario==2:
-                session['user']=user
-                Modelo.entities(user,'Login','El usuario hace login')
-                return redirect(url_for('subdocumentos'))     
+                return redirect(url_for('call_center'))
             else:
-                errorLog="Los datos no concuerdan"
-                Modelo.entities(user,'Login.Fail.NotFound','Error de datos al iniciar sesion')
-                return render_template('loginD.html',errorLog=errorLog)
+                if usuario==1:              
+                    session['user']=user
+                    Modelo.entities(user,'Login','El usuario hace login')
+                    return redirect(url_for('perfil'))
+                elif usuario==2:
+                    session['user']=user
+                    Modelo.entities(user,'Login','El usuario hace login')
+                    return redirect(url_for('perfil'))     
+                else:
+                    errorLog="Los datos no concuerdan"
+                    Modelo.entities(user,'Login.Fail.NotFound','Error de datos al iniciar sesion')
+                    return render_template('loginD.html',errorLog=errorLog)
     return render_template('loginD.html')
 
 
@@ -136,6 +168,12 @@ def perfil():
             acumP=Modelo.puntfal(session['user'])
             b=Modelo.bitsUser(session['user'])
             bips=b[0][0]
+            
+            busquedaN= Modelo.SelectNombre(session['user'])
+            busquedaEm= Modelo.SelectCorreo(session['user'])
+            busquedaFe= Modelo.SelectFecha(session['user'])
+            busquedaCu= Modelo.SelectCurp(session['user'])
+           
             #print(userOnBoard)
             #print(bips) 
             if bips==0:
@@ -162,7 +200,42 @@ def perfil():
             num_calificar=Modelo.Num_CALIFICAR(session['user'])
             Modelo.entities(session['user'],'ProfileLoad','Se cargo el perfil del usuario')
             #print(dataU)
-            return render_template('perfil_cliente.html',onboarding=userOnBoard,puntos=puntos, expiracion=date_,puntosF=puntosF,nivel=r[0][0], tabla=dataU,num_calificar=num_calificar )
+            front = Modelo.CHECKFront(session['user'])
+            print(front)
+            back=Modelo.CHECKBack(session['user'])
+            print(back)
+            imgdom=Modelo.CHECKDom(session['user'])  
+            print(imgdom)
+            selfie=Modelo.CHECKSelf(session['user'])
+            print(selfie)
+            llenado=0
+            if front:
+                llenado=llenado+1
+            if back:
+                    llenado=llenado+1
+            if imgdom:
+                    llenado=llenado+1
+            if selfie:
+                    llenado=llenado+1
+            incompleto=True
+            if llenado==4:
+                incompleto=False
+
+            contr=Modelo.CHECKContr(session['user'])
+            if contr:
+                print('cont')
+            else:
+                incompleto=True
+
+            print(incompleto)
+            llenadoB=(llenado*100)/4
+            #QUERY DE TELEFONO Y DIRECCIÓN 
+            direccion=Modelo.SelectDireccion(session['user'])
+            telefono=Modelo.SelectTelefono(session['user'])
+            return render_template('perfil_cliente.html',incompleto=incompleto,onboarding=userOnBoard,puntos=puntos, 
+            expiracion=date_,puntosF=puntosF,nivel=r[0][0], tabla=dataU,num_calificar=num_calificar, 
+            frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie,llenado=llenado,bar=llenadoB,telefono=telefono,
+            direccion=direccion,nombre=busquedaN,email=busquedaEm,fechanaci=busquedaFe,curp=busquedaCu)
         else:
             Modelo.entities(session['user'],'UserOnBoarding.Fail','Ocurrio un error con el proceso de OnBoarding del usuario')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
@@ -273,14 +346,17 @@ def catalogo():
             data=Modelo.catalogo(20)
         elif int(bips) >= 4000:
             data=Modelo.catalogo(25)
-        
+        print(data)
+        num_calificar=Modelo.Num_CALIFICAR(session['user'])
         Modelo.entities(session['user'],'CatalogLoad','Se cargo la pagina de catalogo')
-        return render_template('catalogo.html',data=data)
+        return render_template('catalogo.html',num_calificar=num_calificar,data=data)
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'CatalogLoad.Fail.NotFound','Error al cargar la pagina de catalogo')
         errorLog="Algo salio mal al cargar el catalogo, vuelva a intentarlo"
         return render_template('perfil.html',errorLog=errorLog)
+
+
 
 def guardarArch(file):
     try:
@@ -402,40 +478,46 @@ def form():
 def recibos():
     if not g.user:
         return redirect(url_for('login'))
-    if request.method=='POST':
-            folio = request.form['folio']
-            monto = request.form['monto']
-            fecha = request.form['fechaCom']
-            rubro = request.form['rubro']
-            archivo = request.form['archivo']
-
-            today=datetime.datetime.now()
-            d1 = today.strftime("%Y-%m-%d")
-            ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
-            #print(d1)
-            d2=(ddd-timedelta(days=7)).strftime("%Y-%m-%d")
-            #print(d2)
-            if fecha > d1 or fecha < d2:
-                errorLog="La fecha no es valida. (Recuerde que los recibos tienen solo una semana de validez)"
-                return render_template('uploadAn.html',errorLog=errorLog)
-            else:
-                if folio and monto and fecha and rubro and archivo:
-                    b=Modelo.bitsUser(session['user'])
-                    bips=b[0][0]
-                    guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo,bips)
-                    if guardar:
-                        Modelo.entities(session['user'],'SavePurchaseInDB','Se guardo una compra en la base de datos')
-                        print('se subio la data')
-                        return redirect(url_for('perfil'))
-                    else:
-                        Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
-                        errorLog="Revise los datos"
-                        return render_template('uploadAn.html',errorLog=errorLog)
     estado=Modelo.estadoOnboarding(session['user'])
     userOnBoard=estado[0][0]
-    return render_template('uploadAn.html',onboarding=userOnBoard)
+    num_calificar=Modelo.Num_CALIFICAR(session['user'])
 
+    return render_template('uploadAn.html',onboarding=userOnBoard,num_calificar=num_calificar)
 
+@app.route('/subirRecibo',methods=['GET','POST'])
+def subirRecibo():
+    if request.method=='POST':
+        data=request.get_json()
+        folio = data['folio']
+        monto = data['monto']
+        fecha = data['fechaCom']
+        rubro = data['rubro']
+        archivo = data['archivo']
+
+        today=datetime.datetime.now()
+        d1 = today.strftime("%Y-%m-%d")
+        ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
+        #print(d1)
+        d2=(ddd-timedelta(days=7)).strftime("%Y-%m-%d")
+
+        #print(d2)
+        if fecha > d1 or fecha < d2:
+            errorLog="La fecha no es valida. (Recuerde que los recibos tienen solo una semana de validez)"
+            print(errorLog)
+            return json.dumps(False)
+        else:
+            if folio and monto and fecha and rubro and archivo:
+                b=Modelo.bitsUser(session['user'])
+                bips=b[0][0]
+                guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo,bips)
+                if guardar:
+                    Modelo.entities(session['user'],'SavePurchaseInDB','Se guardo una compra en la base de datos')
+                    print('se subio la data')
+                    return json.dumps(True)
+                else:
+                    Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
+                    errorLog="Revise los datos"
+                    return json.dumps(False)
 
 @app.route('/getObj',methods=['GET','POST'])
 def getObj():
@@ -509,7 +591,9 @@ def comprar():
         objeto=data['objeto']
         print(compra)
         print(objeto)
-        base=Modelo.comprar(session['user'],compra,objeto)
+        b=Modelo.bitsUser(session['user'])
+        bips=b[0][0]
+        base=Modelo.comprar(session['user'],compra,objeto,bips)
         if base:
             return json.dumps(True)
         else:
@@ -562,6 +646,7 @@ def devoluciones_reembolsos():
     _tickettotal=Modelo.Ttickett(session['user'])
     _ticketfinal=Modelo.Tticketf(session['user'])
     num_calificar=Modelo.Num_CALIFICAR(session['user'])
+    
     return render_template('devoluciones_reembolsos.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0],num_calificar=num_calificar)
 
 @app.route('/ticket', methods=['GET','POST'])
@@ -614,9 +699,9 @@ def compras():
     puntos = 0
     try:
         for data in dataP:
-            puntos = puntos + data[0]
+            puntos=puntos+data[0]
     except:
-        puntos = 0
+         puntos = 0
     try:
         Modelo.entities(session['user'],'TesterLoad','Se cargo la pagina de tester')
         estado=Modelo.estadoOnboarding(session['user'])
@@ -628,6 +713,22 @@ def compras():
         Modelo.entities(session['user'],'TesterLoad.Fail.NotFound','Error al cargar el tester')
         errorLog="Algo salio mal al cargar el tester, vuelva a intentarlo"
         return render_template('compras.html',errorLog=errorLog)
+
+@app.route('/devolver', methods=['GET', 'POST'])
+def devolver():
+    if request.method == 'POST':
+        data=request.get_json()
+        obj=data['objeto']
+        razon=data['razon']
+        domicilio=data['domicilio']
+        sub=Modelo.insertarDevolucion(session['user'],obj,razon,domicilio)
+        if sub:
+            return json.dumps("bien")
+        else:
+            return json.dumps("mal")
+    
+
+
 
 
 @app.route('/mis_pedidos', methods=['GET', 'POST'])
@@ -651,7 +752,9 @@ def calificar():
         califica=data['cali']
         print("#############")
         print(califica)
-        CALI_ASE = Modelo.CALI_ASESOR(ide_call,califica)
+        b=Modelo.bitsUser(session['user'])
+        bips=b[0][0]
+        CALI_ASE = Modelo.CALI_ASESOR(ide_call,califica,bips,session['user'])
         
         if CALI_ASE:
             return json.dumps(True)
@@ -666,11 +769,10 @@ def calificar():
 @app.route('/call_center')
 def call_center():
     #Modelo.pasos(session['user'],'P.LISTA_CLIENTES', 'CC VE A LOS CLIENTES QUE TIENE QUE LLAMAR')
-    _username=Modelo.nomuser(session['user'])
-    _allinfos = Modelo.all_info(session['user'])
+    _allinfos = Modelo.all_info()
     _ranking=Modelo.game(session['user'])
     #print(_allinfos)
-    return render_template('call_center.html', _allinfos = _allinfos, nomre = _username[0][0],_ranking=_ranking[0][0])
+    return render_template('call_center.html', _allinfos = _allinfos,_ranking=_ranking[0][0])
 
 
 @app.route('/call_sc', methods=['GET','POST'])
@@ -679,18 +781,17 @@ def call_sc():
         llamando_a = request.form['llamando_a']
         #Modelo.pasos(session['user'],'P.LLAMADAS', 'CC LLAMA Y VE EL ANALISIS DE LA LLAMADA')
         #time.sleep(1)
-        _username=Modelo.nomuser(session['user'])
         #_inicio_llamada = Modelo.llamada()
         _analisis_llamada = Modelo.analisis()
-        _allinfos = Modelo.all_info(session['user'])    
-        return render_template('call_sc.html', nomre = _username[0][0],_analisis_llamada =_analisis_llamada,llamando_a=llamando_a)
+        _allinfos = Modelo.all_info()    
+        return render_template('call_sc.html', _analisis_llamada =_analisis_llamada,llamando_a=llamando_a)
 
 
 @app.route('/tcs_usuario', methods=['GET','POST'])
 def tsc_usuario():
     if request.method == 'POST':
         #Modelo.pasos(session['user'],'P.TICKET POR USUARIO', 'CC VE LA LISTA DE LOS TICKETS DE UN CLIENTE')
-        _username=Modelo.nomuser(session['user'])
+        #_username=Modelo.nomuser(session['user'])
         corre_tcs = request.form['corre_tcs']
         print(corre_tcs)
         tickets=Modelo.tickets_tod(corre_tcs)
@@ -698,8 +799,8 @@ def tsc_usuario():
         _ticketactivos=Modelo.Ttickets(corre_tcs)
         _tickettotal=Modelo.Ttickett(corre_tcs)
         _ticketfinal=Modelo.Tticketf(corre_tcs)
-        _DATAUSER=Modelo.DATOUSER(corre_tcs)
-        return render_template('tcs_usuario.html', ticketsfeel=ticketsfeel, tickets = tickets,nomre = _username[0][0],tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0], DU =_DATAUSER )
+        #_DATAUSER=Modelo.DATOUSER(corre_tcs)
+        return render_template('tcs_usuario.html', ticketsfeel=ticketsfeel, tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0])
 
 
 @app.route('/add_llamada', methods=['GET','POST'])
@@ -727,11 +828,10 @@ def onboarding():
     _ticketactivos=Modelo.Ttickets(session['user'])
     _tickettotal=Modelo.Ttickett(session['user'])
     _ticketfinal=Modelo.Tticketf(session['user'])
-    _username=Modelo.nomuser(session['user'])
-    Modelo.listo(session['user'])
+    #Modelo.listo(session['user'])
     #print(tickets)
 
-    return render_template('onboarding.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0], nomre= _username[0][0])
+    return render_template('onboarding.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0])
 
 
 @app.route('/mi_perfil')
@@ -741,17 +841,30 @@ def mi_perfil():
     _ticketactivos=Modelo.Ttickets(session['user'])
     _tickettotal=Modelo.Ttickett(session['user'])
     _ticketfinal=Modelo.Tticketf(session['user'])
-    _username=Modelo.nomuser(session['user'])
+    #_username=Modelo.nomuser(session['user'])
     _ranking=Modelo.game(session['user'])
     _ran_call=Modelo.r_call()
     _ran_ticket=Modelo.r_ticket5()
-    _DATAUSER=Modelo.DATOUSER(session['user'])
+    #_DATAUSER=Modelo.DATOUSER(session['user'])
     _trofeos=Modelo.trafeos(session['user'])
     _stars = Modelo.stars(session['user'])
     print(_trofeos)
-    return render_template('mi_perfil.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0], nomre= _username[0][0], _ranking=_ranking,_ran_call=_ran_call,_ran_ticket=_ran_ticket,DU =_DATAUSER,_trofeos=_trofeos,_stars=_stars[0][1])
+    return render_template('mi_perfil.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0], _ranking=_ranking,_ran_call=_ran_call,_ran_ticket=_ran_ticket,_trofeos=_trofeos,_stars=_stars[0][1])
 
-
+@app.route('/edi_tc', methods=['GET','POST'])
+def edi_tc():
+    if request.method == 'POST':
+        #Modelo.pasos(session['name'],'P.EDICION DE TICKET CC', 'CC EDITA UN TICKET DE UN USUARIO')
+        SERCHT = request.form['SERCHT']
+        _SERCHT = Modelo.BUSTI(SERCHT)
+        #print(_SERCHT)
+        #_username=Modelo.nomuser(session['user'])
+        tickets=Modelo.tickets_tod(session['user'])
+        _ticketactivos=Modelo.Ttickets(session['user'])
+        _tickettotal=Modelo.Ttickett(session['user'])
+        _ticketfinal=Modelo.Tticketf(session['user'])
+        return render_template('edi_tc.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0], SERCHTIK=_SERCHT[0][0],SERCHTIK1=_SERCHT[0][1],SERCHTIK2=_SERCHT[0][2],SERCHTIK3=_SERCHT[0][3],SERCHTIK4=_SERCHT[0][4],SERCHTIK5=_SERCHT[0][5],SERCHTIK6=_SERCHT[0][6])
+    return redirect('mis_pedidos')
 
 
 
@@ -919,7 +1032,7 @@ def SELF():
 
         if success:
             resp = json.dumps({'message' : 'Files successfully uploaded'})
-            resp.status_code = 201            
+            #resp.status_code = 201            
             #Modelo.entities(busqueda,'busqueda','Subio su selfie')
             return resp
 
@@ -1007,8 +1120,28 @@ def misdatos():
 @app.route("/subdocumentos",methods=['GET', 'POST'] )
 def subdocumentos():
    #busqueda= Modelo.buscarU(session['user'])
+   
+   front = Modelo.CHECKFront(session['user'])
+   print(front)
+   back=Modelo.CHECKBack(session['user'])
+   print(back)
+   imgdom=Modelo.CHECKDom(session['user'])  
+   print(imgdom)
+   selfie=Modelo.CHECKSelf(session['user'])
+   print(selfie)
+   llenado=0
+   if front:
+       llenado=llenado+1
+   if back:
+        llenado=llenado+1
+   if imgdom:
+        llenado=llenado+1
+   if selfie:
+        llenado=llenado+1
+
+   llenadoB=(llenado*100)/4
    Modelo.entities(session['user'],'documentos','Entro a mis documentos')
-   return render_template("documentosdb.html") 
+   return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie,llenado=llenado,bar=llenadoB) 
 
 
 @app.route("/sendContract",methods=['GET', 'POST'] )
@@ -1035,6 +1168,55 @@ def sendContract():
       print("esta vacío")
       return json.dumps(False)
 
+
+def Comprobacion(_urlIne,_urlSelfie):
+    target_image_file_names = [_urlIne]
+    # The source photos contain this person
+    source_image_file_name1 = open(_urlSelfie,"rb")
+    #source_image_file_name2 = open("pelon.jpeg","rb")
+
+    # Detect face(s) from source image 1, returns a list[DetectedFaces]
+    # We use detection model 2 because we are not retrieving attributes.
+    detected_faces1 = face_client.face.detect_with_stream(source_image_file_name1 , detectionModel='detection_02')
+    # Add the returned face's face ID
+    source_image1_id = detected_faces1[0].face_id
+    print('{} face(s) detected from image {}.'.format(len(detected_faces1), source_image_file_name1))
+
+    # Detect face(s) from source image 2, returns a list[DetectedFaces]
+    #detected_faces2 = face_client.face.detect_with_stream(source_image_file_name2, detectionModel='detection_02')
+    # Add the returned face's face ID
+    #source_image2_id = detected_faces2[0].face_id
+    #print('{} face(s) detected from image {}.'.format(len(detected_faces2), source_image_file_name2))
+
+    # List for the target face IDs (uuids)
+    detected_faces_ids = []
+    # Detect faces from target image url list, returns a list[DetectedFaces]
+    for image_file_name in target_image_file_names:
+        # We use detection model 2 because we are not retrieving attributes.
+        print(image_file_name)
+        image_file_name = open(image_file_name,"rb")
+        detected_faces = face_client.face.detect_with_stream(image_file_name, detectionModel='detection_02')
+        # Add the returned face's face ID
+        detected_faces_ids.append(detected_faces[0].face_id)
+        print('{} face(s) detected from image {}.'.format(len(detected_faces), image_file_name))
+
+        # Verification example for faces of the same person. The higher the confidence, the more identical the faces in the images are.
+    # Since target faces are the same person, in this example, we can use the 1st ID in the detected_faces_ids list to compare.
+    verify_result_same = face_client.face.verify_face_to_face(source_image1_id, detected_faces_ids[0])
+    print('Faces from {} & {} are of the same person, with confidence: {}'
+        .format(source_image_file_name1, target_image_file_names[0], verify_result_same.confidence)
+        if verify_result_same.is_identical
+           
+        else 'Faces from {} & {} are of a different person, with confidence: {}'
+            .format(source_image_file_name1, target_image_file_names[0], verify_result_same.confidence))
+
+    print(verify_result_same.confidence)
+    if verify_result_same.confidence >.5:
+        bandera=1
+        return bandera
+    else:
+        bandera=0
+        return bandera
 
 
 
