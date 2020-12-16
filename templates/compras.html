@@ -221,20 +221,20 @@
   <body>
       <!-- Chofos -->
       {% if onboarding == 2 %}
-  <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+        <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
           <div  class="chatB" id="chatB">
             <div class="bubble" id="bubble">
               <div id="textBot">
-          Bienvenido al tester
-          <br>Aquí podras subir fotos de objetos que te interesen y ver su disponibilidad.
-          <br>Intentalo!.
+                Bienvenido al tester
+                <br>Aquí podras subir fotos de objetos que te interesen y ver su disponibilidad.
+                <br>Intentalo!.
+              </div>
+              <button id="btnFot" style="color: white; background: #a9461d;"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i>Siguiente </button>
+            </div>
+            <img src="../static/miv2.gif" class="circle" id="bipbop">
+          </div>
         </div>
-        <button id="btnFot"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i></button>
-      </div>
-      <img src="static/img/botHelp.png" id="bipbop" class="circle">
-    </div>
-  </div>
-  {% endif %}
+        {% endif %}
   {% if errorLog %}
   <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-animate-zoom w3-card-4">
@@ -798,6 +798,7 @@ window.onclick = function(event) {
 $('#btnFot').click(function () {
     document.getElementById('upload-file').style.zIndex=5000;
     document.getElementById('textBot').innerHTML="Sube una foto";
+    document.getElementById('btnFot').style.visibility="hidden";
     //document.getElementById('btnFot').id="btnFin";
   });
 
