@@ -37,7 +37,7 @@ from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person
-
+import comprobacionfacial as Comp
 KEYF = "4e341ff775bf4ee18e3a726fc1b5de7b"
 
 # This endpoint will be used in all examples in this quickstart.
@@ -1050,28 +1050,39 @@ def COMP():
 
 @app.route('/SELF',methods= ['POST','GET'])
 def SELF():
-        print("si llego a la sefie")
-        #busqueda= Modelo.buscarU(session['user'])
-        files = request.files.getlist('files[]')
-	
-       # errors = {}
-        success = False
-      
-        for file in files:
-         if file:
-            filename = secure_filename(file.filename)
-            _nombrearchivo=filename
-            Modelo.IngresarSelfie(session['user'],_nombrearchivo)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER4'], filename))
-            success = True
+   print("si llego")
+   busqueda= Modelo.buscarU(session['user'])
 
-        if success:
-            resp = json.dumps({'message' : 'Files successfully uploaded'})
-            #resp.status_code = 201            
-            #Modelo.entities(busqueda,'busqueda','Subio su selfie')
+   files = request.files.getlist('files[]')
+
+   errors = {}
+   success = False
+
+   for file in files:
+      if file:
+         filename = secure_filename(file.filename)
+         _nombrearchivo=filename
+         _urlComp="./static/INEDELANTE\\"+Modelo.SelectIneArchivo
+         file.save(os.path.join(app.config['UPLOAD_FOLDER4'], filename))
+         success = True
+
+      if success:
+         resp = json.jsonify({'message' : 'Files successfully uploaded'})
+         _urline="./static/Selfie\\"+filename
+         bandera=Comp.Comprobacion(busqueda,_urline)
+         if bandera == 1:
+            print('NOINE')
+            resp = json.jsonify({'response' : 'Documento Valido'})
+            Modelo.IngresarSelfie(busqueda,_nombrearchivo)
+            Modelo.entities(busqueda,'uploadSelfie','Subio su Selfie')
             return resp
-
-
+         else:
+            resp = json.jsonify({'response' : 'Imagen no legible'})
+            Modelo.entities(busqueda,'NoUploadSelfie','No se pudo leer imagen')
+            return resp
+         resp.status_code = 201
+         
+         return resp
 
 
 @app.route('/B',methods= ['POST','GET'])

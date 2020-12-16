@@ -227,7 +227,27 @@ def expDate(_user):
         conn.close()
     else:
         return json.dumps({'html':'<span>Datos faltantes</span>'})
-    
+
+
+def SelectIneArchivo(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query= "SELECT IneFront FROM CUsers WHERE UEmail ='"+user+"'"
+        try: 
+            cursor.execute(query)
+            data = cursor.fetchall()
+            if data:
+                status=data[0][7]
+                return status
+            else:
+                return False
+        except Exception as e:
+            return e
+            cursor.close()
+            conn.close()
+    else: 
+            return json.dumps ({'html': '<span> Te faltan datos </span>'})
 
 def puntfal(_user):
     if _user:
