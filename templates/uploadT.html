@@ -11,6 +11,38 @@
     <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
     <title>Perfil</title>
     <style>
+      .bubble {
+ 
+      background: #E67E22;
+      padding: 1.5em;
+      text-align: center;
+      font-weight: 900;
+      color: #fff;
+      font-family: arial;
+      position: relative;
+      }
+
+      .bubble:after { 
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 10px solid #E67E22;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #E67E22;
+      border-bottom: 10px solid transparent;
+      left: 39px;
+      bottom: -19px;
+      border-radius: 5px;
+      }
+
+      .circle {
+      width: 20%;
+      height: 20%;
+      position: relative;
+      left: 15px;
+      margin-top: 5%;
+      }
     .zoom:hover {
         -ms-transform: scale(1.7); /* IE 9 */
         -webkit-transform: scale(1.7); /* Safari 3-8 */
@@ -136,6 +168,21 @@
       </style>
   </head>
   <body>
+     {% if onboarding == 0 %}
+      <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+        <div style="margin: auto; height: 60%;width: 60%; margin-top: 20%;" id="chatB">
+          <div class="bubble" id="bubble">
+            <div id="textBot">
+              Esta es tu página de compras. 
+              <br>Aquí podras subir fotos de tus recibos y obtener puntos.
+              <br>¡Intentalo!.
+            </div>
+            <button id="btnAgrRes" style=" background: #a9461d;"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i></button>
+          </div>
+          <img src="../static/miv2.gif" class="circle" id="bipbop">
+        </div>
+      </div>
+      {% endif %}
     <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
     <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
       <div class="row no-gutters">
