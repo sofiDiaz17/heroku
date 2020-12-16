@@ -398,10 +398,10 @@ def form():
                 return json.dumps(False)
     
 
-@app.route('/recibos',methods=['GET','POST'])
+@app.route('/uploadT',methods=['GET','POST'])
 def recibos():
     num_calificar=Modelo.Num_CALIFICAR(session['user'])
-    return render_template ("uploadT.html", num_calificar=num_calificar)
+     
     if not g.user:
         return redirect(url_for('login'))
     if request.method=='POST':
@@ -435,7 +435,8 @@ def recibos():
                         return render_template('uploadT.html',errorLog=errorLog)
     estado=Modelo.estadoOnboarding(session['user'])
     userOnBoard=estado[0][0]
-    return render_template('uploadT.html',onboarding=userOnBoard)
+    return render_template('uploadT.html',onboarding=userOnBoard,num_calificar=num_calificar)
+
 
 
 
