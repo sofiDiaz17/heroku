@@ -101,7 +101,14 @@
                                         <input disabled class="form-control"  style="margin-top: 7%;" name="" placeholder="Nombre del cliente" value="{{llamando_a}}"></input>
                                       </div>
                                       <div class="col 4">
-                                        <input class="form-control" id="ticket_c" style="margin-top: 7%;" name="" placeholder="Clave del tickt"></input>                                        
+                                        <!--<input class="form-control" id="ticket_c" style="margin-top: 7%;" name="" placeholder="Clave del tickt"></input>-->
+                                        <select style="margin-top: 7%;" class="custom-select" id="ticket_c">
+                                          <option selected>Ticket</option>
+                                          <option value="N/A">N/A</option>
+                                          {% for llam_tickets in llam_ticket %}
+                                          <option value="{{llam_tickets.0 }}">ClVT{{llam_tickets.0 }} {{llam_tickets.1 }}</option>
+                                          {% endfor %}
+                                        </select>                                     
                                       </div>                                      
                                   </div>
                                     <button id="boton_llamada" type="button" class="btn btn-primary" style="width:100%; position:relative; top:10%;">Guardar</button><br>

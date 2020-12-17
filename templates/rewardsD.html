@@ -293,7 +293,7 @@ color: whitesmoke;
     <style>
         .bubble {
  
- background: #E67E22;
+ background: #00bfb6;
  padding: 1.5em;
  text-align: center;
  font-weight: 900;
@@ -307,18 +307,17 @@ color: whitesmoke;
  width: 0px;
  height: 0px;
  position: absolute;
- border-left: 10px solid #E67E22;
+ border-left: 10px solid #00bfb6;
  border-right: 10px solid transparent;
- border-top: 10px solid #E67E22;
+ border-top: 10px solid #00bfb6;
  border-bottom: 10px solid transparent;
  left: 39px;
  bottom: -19px;
- border-radius: 5px;
 }
 
 .circle {
- width: 20%;
- height: 20%;
+ width: 70px;
+ height: 70px;
  position: relative;
  left: 15px;
  margin-top: 5%;
@@ -368,8 +367,8 @@ color: whitesmoke;
   </head>
   <body>
     {% if onboarding == 4 %}
-  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute; z-index:1000 ; ">
-    <div  style="margin: auto; height: 40%;width: 46%; margin-top: 19%; ">
+  <div id="OnBoard" style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 200%; overflow: auto; position:absolute;z-index:1000;">
+    <div  style="margin: auto; height: 40%;width: 46%; margin-top: 27%;">
       <div class="bubble" id="bubble">
         <div id="textBot">
           ¡Hola otra vez!
@@ -377,11 +376,9 @@ color: whitesmoke;
           <br>Aquí encuentras tus BipTips (o Bips), estos son recompensas que recibes al canjear recibos.
           <br>Los BipTips sirven para subir de nivel y poder desbloquer nuevos beneficios.
         </div>
-        
-        <button id="graciasb" style="color: white; background: #a9461d;">¡Entendido!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
-        
+        <button id="gracias" style="color: white;">¡Entendido!<i class="fa fa-thumbs-o-up" style="text-align: left;color: white;" aria-hidden="true"></i></button>
       </div>
-      <img src="../static/miv2.gif" class="circle" id="bipbop">
+      <img src="static/img/botHelp.png" id="bipbop" class="circle">
     </div>
   </div>
   {% endif %}
@@ -390,7 +387,7 @@ color: whitesmoke;
     <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+          <img src="static/{{g.BIT}}" class="card-img" alt="..." style="margin-top: 1%">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -421,6 +418,7 @@ color: whitesmoke;
                   </button>
             
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!--
                     {% if num_calificar[0][0] ==0%}
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
                       {%else%}
@@ -435,12 +433,12 @@ color: whitesmoke;
                           </div>
                         
                         </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                    {%endif%}
+                    {%endif%}-->
                   <ul class="navbar-nav ml-auto">
                       <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
-                          {{g.user}}
+                          {{g.correo}}
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="/perfil">Mi Perfil</a>
@@ -508,14 +506,11 @@ color: whitesmoke;
                     <div class="container">
                         <h3> <b>BipTips para el siguiente nivel</b></h3>
                         <h6 class="text-muted">{{nlvl}}</h6>
-                        <div class="progress-wrap progress" data-progress-percent="{{bipsPer}}">
-                          <div class="progress-bar progress">Estas a {{faltan}} BipTips</div>
-                        </div>
                     </div>
                   </section>
                   <section>
                     <ul class="chart--horiz" style="margin-top: 2%;">
-                      <li class="chart__bar" style="width: {{bipsPer}};">
+                      <li class="chart__bar" style="width: {{bipsPer}}%;">
                         <span class="chart__label">
                           Estas a {{faltan}} BipTips
                         </span>
@@ -679,12 +674,6 @@ color: whitesmoke;
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="static/js/login.js"></script>
-    
     <script>
       function chat()
       {
@@ -748,10 +737,7 @@ moveProgressBar();
             left: progressTotal
         }, animationLength);
     }
-
-
-
-    $('#graciasb').click(function () {
+    $('#gracias').click(function () {
     document.getElementById('OnBoard').style.display="none";
     $.ajax({
       type: 'POST',

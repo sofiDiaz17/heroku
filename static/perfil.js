@@ -31,11 +31,17 @@ btn.addEventListener("click",function (){
         showLoader: true,
         dataType: 'json',
         success: function (data) {
-          alert("¡Genial!. Tu contrato se subio exitosamente y por completar tu perfil eres nivel 1. Checa tus recompensas")
+            document.getElementById("textoBien").innerHTML="¡Genial!. Tu contrato se subio exitosamente y por completar tu perfil eres nivel 1. Checa tus recompensas";
+            document.getElementById("success-box").style.display="block"
+         // alert("¡Genial!. Tu contrato se subio exitosamente y por completar tu perfil eres nivel 1. Checa tus recompensas")
           document.getElementById("llamda").style.display = 'none';
           window.location.href = "/perfil";
 
         },
+        error: function(){
+            document.getElementById("mensajeError").innerHTML="Algo salió mal";
+            document.getElementById("error-box").style.display="block";
+        }
 
     });
       }); 

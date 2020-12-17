@@ -13,6 +13,245 @@
     <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
     <title>Compras</title>
     <style>
+      @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+
+
+
+.h1alert {
+  font-size: 0.9em;
+  font-weight: 100;
+  letter-spacing: 3px;
+  padding-top: 5px;
+  color: #FCFCFC;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.green {
+  color: #4ec07d;
+}
+
+.red {
+  color: #e96075;
+}
+
+.alert {
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 5px;
+}
+
+palert {
+  margin-top: -5px;
+  font-size: 0.5em;
+  font-weight: 100;
+  color: #5e5e5e;
+  letter-spacing: 1px;
+}
+
+button, .dot {
+  cursor: pointer;
+}
+
+#success-box {
+  display: grid;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  z-index: 2000;
+  left: 40%;
+  background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px rgba(203, 205, 211, 0.1);
+  perspective: 40px;
+}
+
+#error-box {
+  display: grid;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  right: 40%;
+  z-index: 2000;
+  background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px rgba(203, 205, 211, 0.1);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #FCFCFC;
+  border-radius: 50%;
+  position: absolute;
+  top: 4%;
+  right: 6%;
+}
+.dot:hover {
+  background: #c9c9c9;
+}
+
+.two {
+  right: 12%;
+  opacity: 0.5;
+}
+
+.face {
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  background: #FCFCFC;
+  border-radius: 50%;
+  border: 1px solid #777777;
+  top: 21%;
+  left: 37.5%;
+  z-index: 2;
+  animation: bounce 1s ease-in infinite;
+}
+
+.face2 {
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  background: #FCFCFC;
+  border-radius: 50%;
+  border: 1px solid #777777;
+  top: 21%;
+  left: 37.5%;
+  z-index: 2;
+  animation: roll 3s ease-in-out infinite;
+}
+
+.eye {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #777777;
+  border-radius: 50%;
+  top: 40%;
+  left: 20%;
+}
+
+.right {
+  left: 68%;
+}
+
+.mouth {
+  position: absolute;
+  top: 43%;
+  left: 41%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.happy {
+  border: 2px solid;
+  border-color: transparent #777777 #777777 transparent;
+  transform: rotate(45deg);
+}
+
+.sad {
+  top: 49%;
+  border: 2px solid;
+  border-color: #777777 transparent transparent #777777;
+  transform: rotate(45deg);
+}
+
+.shadow {
+  position: absolute;
+  width: 21%;
+  height: 3%;
+  opacity: 0.5;
+  background: #777777;
+  left: 40%;
+  top: 43%;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.scale {
+  animation: scale 1s ease-in infinite;
+}
+
+.move {
+  animation: move 3s ease-in-out infinite;
+}
+
+.message {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  height: 40%;
+  top: 47%;
+}
+
+.button-box {
+  position: absolute;
+  background: #FCFCFC;
+  width: 50%;
+  height: 15%;
+  border-radius: 20px;
+  top: 73%;
+  left: 25%;
+  outline: 0;
+  border: none;
+  box-shadow: 2px 2px 10px rgba(119, 119, 119, 0.5);
+  transition: all 0.5s ease-in-out;
+}
+.button-box:hover {
+  background: #efefef;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes bounce {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes scale {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+    transform: rotate(168deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+}
+@keyframes move {
+  0% {
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    left: 25%;
+  }
+}
+    </style>
+    <style>
       .up:hover {
         transform: translate(0, -15px);
       }
@@ -165,36 +404,35 @@
 
 .bubble {
  
- background: #E67E22;
+ background: #00bfb6;
  padding: 1.5em;
  text-align: center;
  font-weight: 900;
  color: #fff;
  font-family: arial;
  position: relative;
- }
-
- .bubble:after { 
+}
+.bubble:after { 
  content: "";
  width: 0px;
  height: 0px;
  position: absolute;
- border-left: 10px solid #E67E22;
+ border-left: 10px solid #00bfb6;
  border-right: 10px solid transparent;
- border-top: 10px solid #E67E22;
+ border-top: 10px solid #00bfb6;
  border-bottom: 10px solid transparent;
  left: 39px;
  bottom: -19px;
- border-radius: 5px;
- }
+}
 
- .circle {
- width: 20%;
- height: 20%;
+.circle {
+ width: 70px;
+ height: 70px;
  position: relative;
  left: 15px;
  margin-top: 5%;
- }
+
+}
 .chatB{
   margin: auto; 
   height: 40%;
@@ -222,9 +460,9 @@
       <!-- Chofos -->
       {% if onboarding == 2 %}
   <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
-          <div  class="chatB" id="chatB">
-            <div class="bubble" id="bubble">
-              <div id="textBot">
+    <div  class="chatB" id="chatB">
+      <div class="bubble" id="bubble">
+        <div id="textBot">
           Bienvenido al tester
           <br>Aquí podras subir fotos de objetos que te interesen y ver su disponibilidad.
           <br>Intentalo!.
@@ -319,7 +557,7 @@
     <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
       <div class="row no-gutters">
         <div class="col-md-4">
-          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+          <img src="static/{{g.BIT}}" class="card-img" alt="..." style="margin-top: 1%">
         </div>
         <div class="col-md-8">
           <div class="card-body">
@@ -350,26 +588,12 @@
                     </button>
               
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      {% if num_calificar[0][0] ==0%}
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                        {%else%}
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
-
-                          <div class="wrapper">
-                          
-                            <div class="bell" id="bell-1">
-                              <div class="anchor material-icons layer-1">notifications_active</div>
-                              <div class="anchor material-icons layer-2">notifications</div>
-                              <div class="anchor material-icons layer-3">notifications</div>
-                            </div>
-                          
-                          </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                      {%endif%}
+                      
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
-                            {{g.user}}
+                            {{g.correo}}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/perfil">Mi Perfil</a>
@@ -398,8 +622,7 @@
                     <div class="row" style="margin-right: 0; margin-left: 0;">
                         <div class="col-sm-1"></div>
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
-                       
-                          <div id="formFot">
+                          <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>                          <div id="formFot">
                             <form id="upload-file" method="post" style="width: 18rem; position: absolute;" enctype="multipart/form-data">
                               <button class=" btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn">
                                 <i class="icon ion-md-cloud"></i> Subir foto de objeto
@@ -419,7 +642,7 @@
                         <div class="col-sm" style=" margin: auto; margin-left: 3%;" class="gradientBox">
                           <h2>Objetos en el carro: <label id="cant" style="display: inline;">0</label></h2>
                           <h3>Total: $ <label id="prec" style="display: inline;">0</label></h3>
-                            <p id="puntos">Mis puntos {{puntos}}</p>
+                           <p>Mis puntos </p><p id="puntos">{{puntos}}</p>
                           <p class="alert alert-danger" style="display: none;" id="alP">Atención, no posees suficientes puntos para estos productos, si deseas añadir más da click <a href="/recibos" class="alert-link">aquí</a></p>
                           <ul class="list-unstyled" id="compList">
                           </ul>
@@ -430,15 +653,36 @@
                       
                       </div>
                   </section>
-                 <section>
-                          <div>
-                          <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
-                         </div> 
-                 </section>
               </div>
 
           </div>
+
+          <div id="error-box" style="display: none;">
+            <div class="dot" id="closeMA3"></div>
+            <div class="face2">
+              <div class="eye"></div>
+              <div class="eye right"></div>
+              <div class="mouth sad"></div>
+            </div>
+            <div class="shadow move"></div>
+            <div class="message"><h1 class="alert h1alert">¡Oh No!</h1><p class="palert" id="mensajeError"></p></div>
+            <button class="button-box"><h1 class="red h1alert" id="closeMA2">Aceptar</h1></button>
+          </div>
+    
+
+          <div id="success-box" style="display: none;">
+            <div class="dot" id="closeMA1"></div>
+            <div class="face">
+              <div class="eye"></div>
+              <div class="eye right"></div>
+              <div class="mouth happy"></div>
+            </div>
+            <div class="shadow scale"></div>
+            <div class="message"><h1 class="alert h1alert">¡Genial!</h1><p class="palert" style="margin-top: 1%;" id="textoBien"></p></div>
+            <button class="button-box"><h1 class="green h1alert" id="closeMA">Aceptar</h1></button>
+          </div>
       </div>
+   
       {%if calificar%}
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -503,14 +747,30 @@
                                 "cali":cali}),
           dataType: "json",
           success: function(res){
-            alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");
+            document.getElementById("textoBien").innerHTML="Hemos registrado exitosamente tu calificación, obtuviste 150 biptips.";
+            document.getElementById("success-box").style.display="block"
+            //alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");
           },
           error: function(res){
-            alert("algo salio mal")
+            document.getElementById("mensajeError").innerHTML="Error al registra calificación.";
+            document.getElementById("error-box").style.display="block";
           }
         })
       })
 
+      $("#closeMA").click(function(){
+        document.getElementById("success-box").style.display="none"
+      })
+      $("#closeMA1").click(function(){
+        document.getElementById("success-box").style.display="none"
+      })
+
+      $("#closeMA2").click(function(){
+        document.getElementById("error-box").style.display="none"
+      })
+      $("#closeMA3").click(function(){
+        document.getElementById("error-box").style.display="none"
+      })
 
 
       $(document).ready(function(){ 
@@ -602,7 +862,9 @@
 $('#comprar').click(function () {
   var cant = document.getElementById("cant").innerHTML;
   if(cant=="0"){
-    alert("No hay objetos")
+    //alert("No hay objetos")
+    document.getElementById("mensajeError").innerHTML="No hay objetos.";
+    document.getElementById("error-box").style.display="block";
   }
   else{
     var precT = document.getElementById("prec").innerHTML;
@@ -617,7 +879,9 @@ $('#comprar').click(function () {
     intPuntos=parseInt(puntos)
       if(intPuntos<interPT)
       {
-        alert("NO puedes comprar eso")
+        //alert("NO puedes comprar eso")
+        document.getElementById("mensajeError").innerHTML="No puedes comprar eso.";
+        document.getElementById("error-box").style.display="block";
       }
       else
       {
@@ -633,14 +897,22 @@ $('#comprar').click(function () {
                                 "objeto":obj}),
           dataType:"json",
           success: function(res) {
-            console.log('wujuuu!');    
-            nuevoTot=interPT-intPuntos;
+            console.log('wujuuu!');
+            console.log("mis puntos")
+            console.log(intPuntos)
+            console.log("gaste")
+            console.log(interPT)    
+            nuevoTot=intPuntos-interPT;
             console.log(nuevoTot)
-            alert("¡Excelente! Se realizo tu compra de forma exitosa, y has ganado 150 biptips")
+            document.getElementById("textoBien").innerHTML="Se realizo tu compra de forma exitosa, y has ganado 150 biptips";
+            document.getElementById("success-box").style.display="block"
+            //alert("¡Excelente! Se realizo tu compra de forma exitosa, y has ganado 150 biptips")
             document.getElementById("puntos").innerHTML=nuevoTot; 
           },
           error: function() {
-            console.log("No se pudo");
+            //console.log("No se pudo");
+            document.getElementById("mensajeError").innerHTML="Hubo un error con tu compra, no se procesó.";
+            document.getElementById("error-box").style.display="block";
           }
         });
       }
@@ -659,7 +931,8 @@ $(function() {
           document.getElementById("noFot").style.display="block";
         }
         else{
-        document.getElementById("llamda").style.display = 'block';
+          document.getElementById("llamda").style.display = 'block';
+
         var form_data = new FormData($('#upload-file')[0]);
         $.ajax({
             type: 'POST',
@@ -693,7 +966,7 @@ $(function() {
                           document.getElementById("nomOb").innerHTML=n;
                           document.getElementById("puntOb").innerHTML=p;
                           document.getElementById("imOb").src="static/img/catalogo/"+i;
-                          document.getElementById("llamda").style.display='none';
+                          document.getElementById("llamda").style.display = 'none';
 
                           var bip=document.getElementById("bipbop");
                           if(bip){
@@ -743,13 +1016,16 @@ $(function() {
                             document.getElementById("llamda").style.display = 'none';
                           }
                           else{
-                            document.getElementById("noBas").style.display="block";
+                            document.getElementById("mensajeError").innerHTML="Ese objeto no esta a la venta.";
+                            document.getElementById("error-box").style.display="block";
+                            //document.getElementById("noBas").style.display="block";
                             document.getElementById("llamda").style.display = 'none';
                           }
                         }
                     },
                     error: function() {
-                      document.getElementById("algoMal").style.display="block";
+                      document.getElementById("mensajeError").innerHTML="Ese objeto no esta a la venta.";
+                      document.getElementById("error-box").style.display="block";
                       document.getElementById("llamda").style.display = 'none';
                     }
                  });
@@ -761,13 +1037,16 @@ $(function() {
                     document.getElementById("llamda").style.display = 'none';
                   }
                   else{
-                  document.getElementById("noVe").style.display="block";
-                  document.getElementById("llamda").style.display = 'none';
+                    document.getElementById("mensajeError").innerHTML="No se reconoce ningún objeto.";
+                            document.getElementById("error-box").style.display="block";
+                            document.getElementById("llamda").style.display = 'none';
                   }
                }
               },
               error: function() {
-                document.getElementById("algoMal").style.display="block";
+                document.getElementById("mensajeError").innerHTML="Algo salió mal.";
+                document.getElementById("error-box").style.display="block";
+                //document.getElementById("algoMal").style.display="block";
                 document.getElementById("llamda").style.display = 'none';
               }
         });

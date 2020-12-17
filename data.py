@@ -227,27 +227,7 @@ def expDate(_user):
         conn.close()
     else:
         return json.dumps({'html':'<span>Datos faltantes</span>'})
-
-
-def SelectIneArchivo(user):
-    if user:
-        conn = mysql.connect()
-        cursor = conn.cursor()
-        query= "SELECT IneFront FROM CUsers WHERE UEmail ='"+user+"'"
-        try: 
-            cursor.execute(query)
-            data = cursor.fetchall()
-            if data:
-                status=data[0][7]
-                return status
-            else:
-                return False
-        except Exception as e:
-            return e
-            cursor.close()
-            conn.close()
-    else: 
-            return json.dumps ({'html': '<span> Te faltan datos </span>'})
+    
 
 def puntfal(_user):
     if _user:
@@ -566,7 +546,7 @@ def comprar(user, compra,objeto,bips):
         expR=ddd+relativedelta(years=+1)
 
         if int(bips) + 150 >= 4000:
-            id="regalo1500"
+            id="regalo1500"+user
             points=1500
             doc="regalo1500"
             try:
@@ -576,7 +556,7 @@ def comprar(user, compra,objeto,bips):
                 print(str(e))
                 
         elif int(bips) + 150 >= 3000:
-            id="regalo1000"
+            id="regalo1000"+user
             points=1000
             doc="regalo1000"
             try:
@@ -586,7 +566,7 @@ def comprar(user, compra,objeto,bips):
                 print(str(e))
                 
         elif int(bips) + 150 >= 2000:
-            id="regalo700"
+            id="regalo700"+user
             points=700
             doc="regalo700"
             try:
@@ -596,7 +576,7 @@ def comprar(user, compra,objeto,bips):
                 print(str(e))
 
         elif int(bips) + 150 >= 1000:
-            id="regalo500"
+            id="regalo500"+user
             points=500
             doc="regalo500"
             try:
@@ -939,6 +919,7 @@ def ImagenATextoINE(usuario,_urline):
         #usuario=busqueda
         conn = mysql.connect()
         cursor = conn.cursor()
+        _TABLA="CUsers"
         sqlCreateSP="UPDATE "+ _TABLA +" SET IneFront =''  WHERE Email = '"+usuario+"'"
         cursor.execute(sqlCreateSP)
         conn.commit()
@@ -1145,6 +1126,8 @@ def ImagenATextoDomicilio(usuario,_urline):
 	r"([a-zA-Z0-9]+.+)")
     bandera = re.findall(bandera, contador, re.MULTILINE)
     bandera2 = re.findall(bandera2, contador, re.MULTILINE)
+    if not bandera and not bandera2:
+        return 1
     print(bandera)
     bandera=bandera[0]
     print(bandera2)
@@ -1388,6 +1371,13 @@ def BUSTI(SERCHT):
     ENCON = cursor.fetchall()
     return ENCON
 
+def USERDATA(user):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM CUsers WHERE Email = %s', user)
+    ENCON = cursor.fetchall()
+    return ENCON
+
 def editart(editicket1, ediestado1, ediproducto1, edidireccion1, edirazon1):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -1411,7 +1401,7 @@ def CALI_ASESOR(ide_call,califica,bips,user):
     expR=ddd+relativedelta(years=+1)
 
     if int(bips) + 150 >= 4000:
-            id="regalo1500"
+            id="regalo1500"+user
             points=1500
             doc="regalo1500"
             try:
@@ -1421,7 +1411,7 @@ def CALI_ASESOR(ide_call,califica,bips,user):
                 print(str(e))
                 
     elif int(bips) + 150 >= 3000:
-            id="regalo1000"
+            id="regalo1000"+user
             points=1000
             doc="regalo1000"
             try:
@@ -1431,7 +1421,7 @@ def CALI_ASESOR(ide_call,califica,bips,user):
                 print(str(e))
                 
     elif int(bips) + 150 >= 2000:
-            id="regalo700"
+            id="regalo700"+user
             points=700
             doc="regalo700"
             try:
@@ -1441,7 +1431,7 @@ def CALI_ASESOR(ide_call,califica,bips,user):
                 print(str(e))
 
     elif int(bips) + 150 >= 1000:
-            id="regalo500"
+            id="regalo500"+user
             points=500
             doc="regalo500"
             try:
@@ -1547,7 +1537,13 @@ def anali_llama(mensaje, senti, pos, neutra, nega, clieb, tick, user):
 
 def listo(user):
     cur = mysql.get_db().cursor()
-    cur.execute('UPDATE S_C_USER SET STATUS = 1 WHERE NAME = %s',user)
+    cur.execute('UPDATE CUsers SET Status = 1 WHERE Email = %s',user)
+    listo1 = cur.fetchall()
+    return listo1
+
+def llam_ticket(llamando_a):
+    cur = mysql.get_db().cursor()
+    cur.execute('SELECT ID_REFUND,PRODUCT_R FROM `S_C_REFUND1` WHERE STATUS_R in (1, 2) AND EMAIL_R = %s',llamando_a)
     listo1 = cur.fetchall()
     return listo1
 
@@ -1739,5 +1735,27 @@ def SelectTelefono(busqueda):
             return e
         cursor.close()
         conn.close()
+    else: 
+            return json.dumps ({'html': '<span> Te faltan datos </span>'})
+            
+
+def SelectIneArchivo(user):
+    if user:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        query= "SELECT IneFront FROM CUsers WHERE Email ='"+user+"'"
+        try: 
+            cursor.execute(query)
+            data = cursor.fetchall()
+            if data:
+                status=data[0][0]
+                return status
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            return False
+            cursor.close()
+            conn.close()
     else: 
             return json.dumps ({'html': '<span> Te faltan datos </span>'})

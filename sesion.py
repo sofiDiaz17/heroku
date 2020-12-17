@@ -38,6 +38,9 @@ from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person
 import comprobacionfacial as Comp
+
+
+
 KEYF = "4e341ff775bf4ee18e3a726fc1b5de7b"
 
 # This endpoint will be used in all examples in this quickstart.
@@ -47,13 +50,17 @@ face_client=FaceClient(ENDPOINTF, CognitiveServicesCredentials(KEYF))
 
 
 
-#pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-pytesseract.pytesseract.tesseract_cmd = './.apt/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+#pytesseract.pytesseract.tesseract_cmd = './.apt/usr/bin/tesseract'
 
 
 
 
 app = Flask(__name__)
+@app.errorhandler(404)
+
+def not_found(e):
+    return render_template("404.html")
 app.secret_key = 'claveultrasecretadeapp'
 
 MYDIR = os.path.dirname(os.path.abspath(__file__))
@@ -74,6 +81,10 @@ computervision_client = ComputerVisionClient(endpoint, CognitiveServicesCredenti
 @app.route('/index')
 def landing():
     return render_template ("index.html")
+
+@app.route('/error')
+def error():
+    return render_template ("error.html")
 
 @app.before_request
 def before_request():
@@ -198,6 +209,7 @@ def perfil():
                 puntosF = 0 
             dataU = Modelo.dataUsuario(session['user'])
             num_calificar=Modelo.Num_CALIFICAR(session['user'])
+            calificar=Modelo.CALIFICAR(session['user'])
             Modelo.entities(session['user'],'ProfileLoad','Se cargo el perfil del usuario')
             #print(dataU)
             front = Modelo.CHECKFront(session['user'])
@@ -229,23 +241,25 @@ def perfil():
 
             print(incompleto)
             llenadoB=(llenado*100)/4
+            print(llenadoB)
+            print(calificar)
             #QUERY DE TELEFONO Y DIRECCIÓN 
             direccion=Modelo.SelectDireccion(session['user'])
             telefono=Modelo.SelectTelefono(session['user'])
             return render_template('perfil_cliente.html',incompleto=incompleto,onboarding=userOnBoard,puntos=puntos, 
-            expiracion=date_,puntosF=puntosF,nivel=r[0][0], tabla=dataU,num_calificar=num_calificar, 
+            expiracion=date_,puntosF=puntosF,nivel=r[0][0], tabla=dataU,num_calificar=num_calificar, calificar=calificar,
             frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie,llenado=llenado,bar=llenadoB,telefono=telefono,
             direccion=direccion,nombre=busquedaN,email=busquedaEm,fechanaci=busquedaFe,curp=busquedaCu)
         else:
             Modelo.entities(session['user'],'UserOnBoarding.Fail','Ocurrio un error con el proceso de OnBoarding del usuario')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-            return render_template('login.html',errorLog=errorLog)
+            return redirect(url_for('error'))
         
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'ProfileLoad.Fail.NotFound','Error al cargar el perfil del usuario')
         errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-        return render_template('login.html',errorLog=errorLog)
+        return redirect(url_for('error'))
 
 
 @app.route('/rewards',methods=['GET','POST'])
@@ -286,12 +300,12 @@ def rewards():
         else:
             Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
             errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-            return render_template('perfil.html',errorLog=errorLog)
+            return redirect(url_for('error'))
     except Exception as e:
         print(str(e))
         Modelo.entities(session['user'],'RewardsLoad.Fail','No se cargaron los rewards')
         errorLog="Algo salio mal al cargar perfil, vuelva a intentarlo"
-        return render_template('perfil.html',errorLog=errorLog)
+        return redirect(url_for('error'))
 
 
 """@app.route('/historial')
@@ -327,7 +341,7 @@ def conversion():
         print(str(e))
         Modelo.entities(session['user'],'ConversionLoad.Fail.NotFound','Error al cargar la pagina de conversiones')
         errorLog="Algo salio mal al cargar las conversiones, vuelva a intentarlo"
-        return render_template('perfil.html',errorLog=errorLog)
+        return redirect(url_for('error'))
 
 @app.route('/catalogo')
 def catalogo():
@@ -354,7 +368,7 @@ def catalogo():
         print(str(e))
         Modelo.entities(session['user'],'CatalogLoad.Fail.NotFound','Error al cargar la pagina de catalogo')
         errorLog="Algo salio mal al cargar el catalogo, vuelva a intentarlo"
-        return render_template('perfil.html',errorLog=errorLog)
+        return redirect(url_for('error'))
 
 
 
@@ -370,8 +384,8 @@ def guardarArch(file):
 
 def extraerInfo(filename):
     try:
-        img = Image.open(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
-        #img = Image.open(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+        #img = Image.open(os.path.join(MYDIR + "/" + app.config['UPLOAD_FOLDER'], filename))
+        img = Image.open(os.path.join(app.config['UPLOAD_FOLDER'],filename))
         texto = pytesseract.image_to_string(img,lang='spa')
         Modelo.entities(session['user'],'GetTextFromImage','El programa extrajo el texto de la foto')
         return texto
@@ -474,48 +488,13 @@ def form():
                 return json.dumps(False)
     
 
-@app.route('/uploadT',methods=['GET','POST'])
+@app.route('/recibos',methods=['GET','POST'])
 def recibos():
-    num_calificar=Modelo.Num_CALIFICAR(session['user'])
-     
     if not g.user:
         return redirect(url_for('login'))
     estado=Modelo.estadoOnboarding(session['user'])
     userOnBoard=estado[0][0]
     num_calificar=Modelo.Num_CALIFICAR(session['user'])
-    if request.method=='POST':
-            folio = request.form['folio']
-            monto = request.form['monto']
-            fecha = request.form['fechaCom']
-            rubro = request.form['rubro']
-            archivo = request.form['archivo']
-
-            today=datetime.datetime.now()
-            d1 = today.strftime("%Y-%m-%d")
-            ddd=datetime.datetime.strptime(d1, '%Y-%m-%d').date()
-            #print(d1)
-            d2=(ddd-timedelta(days=7)).strftime("%Y-%m-%d")
-            #print(d2)
-            if fecha > d1 or fecha < d2:
-                errorLog="La fecha no es valida. (Recuerde que los recibos tienen solo una semana de validez)"
-                return render_template('uploadT.html',errorLog=errorLog)
-            else:
-                if folio and monto and fecha and rubro and archivo:
-                    b=Modelo.bitsUser(session['user'])
-                    bips=b[0][0]
-                    guardar=Modelo.crearPurch(folio,session['user'],monto,fecha,rubro,archivo,bips)
-                    if guardar:
-                        Modelo.entities(session['user'],'SavePurchaseInDB','Se guardo una compra en la base de datos')
-                        print('se subio la data')
-                        return redirect(url_for('perfil'))
-                    else:
-                        Modelo.entities(session['user'],'SavePurchaseInDB.Fail','No se pudo guardar en la base de datos')
-                        errorLog="Revise los datos"
-                        return render_template('uploadT.html',errorLog=errorLog)
-    estado=Modelo.estadoOnboarding(session['user'])
-    userOnBoard=estado[0][0]
-    return render_template('uploadT.html',onboarding=userOnBoard,num_calificar=num_calificar)
-
 
     return render_template('uploadAn.html',onboarding=userOnBoard,num_calificar=num_calificar)
 
@@ -577,8 +556,8 @@ def getObj():
                     print("object at location {}".format(object.object_property))
 
                     headers = {
-                        'Ocp-Apim-Subscription-Key': "a17af57ca4ca4ec2ab4930bce9967c13",
-                        'Ocp-Apim-Subscription-Region':'southcentralus',
+                        'Ocp-Apim-Subscription-Key': "36897135dcf04893864e79b62e0d3aec",
+                        'Ocp-Apim-Subscription-Region':'eastus',
                         'Content-type': 'application/json',
                         'X-ClientTraceId': str(uuid.uuid4())
                     }
@@ -674,13 +653,26 @@ def inicio():
 
 '''Diego'''
 
+@app.route('/404')
+def error404():
+    return render_template('404.html')
+
+@app.route('/error')
+def error():
+    return render_template('error.html')
+
 @app.route('/devoluciones_reembolsos')
 def devoluciones_reembolsos():
-    tickets=Modelo.tickets_tod(session['user'])
-    _ticketactivos=Modelo.Ttickets(session['user'])
-    _tickettotal=Modelo.Ttickett(session['user'])
-    _ticketfinal=Modelo.Tticketf(session['user'])
-    num_calificar=Modelo.Num_CALIFICAR(session['user'])
+    userD=Modelo.USERDATA(session['user'])
+    print(userD)
+    if userD[0][18]!=1:
+        return redirect(url_for('onboarding'))
+    else:
+        tickets=Modelo.tickets_tod(session['user'])
+        _ticketactivos=Modelo.Ttickets(session['user'])
+        _tickettotal=Modelo.Ttickett(session['user'])
+        _ticketfinal=Modelo.Tticketf(session['user'])
+        num_calificar=Modelo.Num_CALIFICAR(session['user'])
     
     return render_template('devoluciones_reembolsos.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0],num_calificar=num_calificar)
 
@@ -747,7 +739,7 @@ def compras():
         print(str(e))
         Modelo.entities(session['user'],'TesterLoad.Fail.NotFound','Error al cargar el tester')
         errorLog="Algo salio mal al cargar el tester, vuelva a intentarlo"
-        return render_template('compras.html',errorLog=errorLog)
+        return redirect(url_for('error'))
 
 @app.route('/devolver', methods=['GET', 'POST'])
 def devolver():
@@ -762,9 +754,6 @@ def devolver():
         else:
             return json.dumps("mal")
     
-
-
-
 
 @app.route('/mis_pedidos', methods=['GET', 'POST'])
 def mis_pedidos():
@@ -818,8 +807,9 @@ def call_sc():
         #time.sleep(1)
         #_inicio_llamada = Modelo.llamada()
         _analisis_llamada = Modelo.analisis()
-        _allinfos = Modelo.all_info()    
-        return render_template('call_sc.html', _analisis_llamada =_analisis_llamada,llamando_a=llamando_a)
+        _allinfos = Modelo.all_info()
+        llam_ticket = Modelo.llam_ticket(llamando_a)    
+        return render_template('call_sc.html', _analisis_llamada =_analisis_llamada,llamando_a=llamando_a,llam_ticket=llam_ticket)
 
 
 @app.route('/tcs_usuario', methods=['GET','POST'])
@@ -858,15 +848,8 @@ def add_llamada():
 
 @app.route('/onboarding')
 def onboarding():
-    #Modelo.pasos(session['user'],'P.ONBOARDING', 'USUARIO TOMA ONBOARDING')
-    tickets=Modelo.tickets_tod(session['user'])
-    _ticketactivos=Modelo.Ttickets(session['user'])
-    _tickettotal=Modelo.Ttickett(session['user'])
-    _ticketfinal=Modelo.Tticketf(session['user'])
-    #Modelo.listo(session['user'])
-    #print(tickets)
-
-    return render_template('onboarding.html', tickets = tickets,tta= _ticketactivos[0][0],ttt= _tickettotal[0][0],ttf= _ticketfinal[0][0])
+    Modelo.listo(session['user'])
+    return render_template('onboarding.html')
 
 
 @app.route('/mi_perfil')
@@ -1048,41 +1031,75 @@ def COMP():
          resp.status_code = 201
          return resp
 
+
 @app.route('/SELF',methods= ['POST','GET'])
 def SELF():
-   print("si llego")
-   busqueda= Modelo.buscarU(session['user'])
+   print("si llego a la selfie")
+   #busqueda= Modelo.buscarU(session['user'])
 
    files = request.files.getlist('files[]')
 
-   errors = {}
+   #errors = {}
    success = False
 
    for file in files:
       if file:
          filename = secure_filename(file.filename)
          _nombrearchivo=filename
-         _urlComp="./static/INEDELANTE\\"+Modelo.SelectIneArchivo
+         ine=Modelo.SelectIneArchivo(session['user'])
+         if ine == False:
+             return json.dumps({'response' : 'No subio su INE'})
+         _urlComp="./static/INEDELANTE\\"+ ine
          file.save(os.path.join(app.config['UPLOAD_FOLDER4'], filename))
          success = True
 
       if success:
-         resp = json.jsonify({'message' : 'Files successfully uploaded'})
+         resp = json.dumps({'message' : 'Files successfully uploaded'})
          _urline="./static/Selfie\\"+filename
-         bandera=Comp.Comprobacion(busqueda,_urline)
+         bandera=Comp.Comprobacion(_urlComp,_urline)
          if bandera == 1:
             print('NOINE')
-            resp = json.jsonify({'response' : 'Documento Valido'})
-            Modelo.IngresarSelfie(busqueda,_nombrearchivo)
-            Modelo.entities(busqueda,'uploadSelfie','Subio su Selfie')
+            resp = json.dumps({'response' : 'Documento Valido'})
+            Modelo.IngresarSelfie(session['user'],_nombrearchivo)
+            Modelo.entities(session['user'],'uploadSelfie','Subio su Selfie')
             return resp
-         else:
-            resp = json.jsonify({'response' : 'Imagen no legible'})
-            Modelo.entities(busqueda,'NoUploadSelfie','No se pudo leer imagen')
+         elif bandera == 2:
+            resp = json.dumps({'response' : 'No hay rostros'})
+            Modelo.entities(session['user'],'NoUploadSelfie','No se pudo leer imagen')
             return resp
-         resp.status_code = 201
+         elif bandera == 0:
+            resp = json.dumps({'response' : 'No hay coincidencia'})
+            Modelo.entities(session['user'],'NoUploadSelfie','No se pudo leer imagen')
+            return resp
+         #resp.status_code = 201
          
          return resp
+
+"""
+@app.route('/SELF',methods= ['POST','GET'])
+def SELF():
+        print("si llego a la sefie")
+        #busqueda= Modelo.buscarU(session['user'])
+        files = request.files.getlist('files[]')
+	
+       # errors = {}
+        success = False
+      
+        for file in files:
+         if file:
+            filename = secure_filename(file.filename)
+            _nombrearchivo=filename
+            Modelo.IngresarSelfie(session['user'],_nombrearchivo)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER4'], filename))
+            success = True
+
+        if success:
+            resp = json.dumps({'message' : 'Files successfully uploaded'})
+            #resp.status_code = 201            
+            #Modelo.entities(busqueda,'busqueda','Subio su selfie')
+            return resp
+"""
+
 
 
 @app.route('/B',methods= ['POST','GET'])
@@ -1169,7 +1186,6 @@ def subdocumentos():
    
    front = Modelo.CHECKFront(session['user'])
    print(front)
-
    back=Modelo.CHECKBack(session['user'])
    print(back)
    imgdom=Modelo.CHECKDom(session['user'])  
@@ -1189,8 +1205,6 @@ def subdocumentos():
    llenadoB=(llenado*100)/4
    Modelo.entities(session['user'],'documentos','Entro a mis documentos')
    return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie,llenado=llenado,bar=llenadoB) 
-   Modelo.entities(session['user'],'documentos','Entro a mis documentos')
-   return render_template("documentosdb.html",frontINE=front,backINE=back,imgdom=imgdom,selfie=selfie) 
 
 
 @app.route("/sendContract",methods=['GET', 'POST'] )

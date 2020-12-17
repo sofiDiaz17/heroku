@@ -10,6 +10,246 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static',filename='styleD.css')}}"> 
     <title>Perfil</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+
+
+
+.h1alert {
+  font-size: 0.9em;
+  font-weight: 100;
+  letter-spacing: 3px;
+  padding-top: 5px;
+  color: #FCFCFC;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.green {
+  color: #4ec07d;
+}
+
+.red {
+  color: #e96075;
+}
+
+.alert {
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  letter-spacing: 5px;
+}
+
+palert {
+  margin-top: -5px;
+  font-size: 0.5em;
+  font-weight: 100;
+  color: #5e5e5e;
+  letter-spacing: 1px;
+}
+
+button, .dot {
+  cursor: pointer;
+}
+
+#success-box {
+  display: grid;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  left: 40%;
+  z-index: 2000;
+  background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px rgba(203, 205, 211, 0.1);
+  perspective: 40px;
+}
+
+#error-box {
+  display: grid;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  position: absolute;
+  width: 25%;
+  height: 40%;
+  z-index: 2000;
+  right: 40%;
+  background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px rgba(203, 205, 211, 0.1);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #FCFCFC;
+  border-radius: 50%;
+  position: absolute;
+  top: 4%;
+  right: 6%;
+}
+.dot:hover {
+  background: #c9c9c9;
+}
+
+.two {
+  right: 12%;
+  opacity: 0.5;
+}
+
+.face {
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  background: #FCFCFC;
+  border-radius: 50%;
+  border: 1px solid #777777;
+  top: 21%;
+  left: 37.5%;
+  z-index: 2;
+  animation: bounce 1s ease-in infinite;
+}
+
+.face2 {
+  position: absolute;
+  width: 22%;
+  height: 22%;
+  background: #FCFCFC;
+  border-radius: 50%;
+  border: 1px solid #777777;
+  top: 21%;
+  left: 37.5%;
+  z-index: 2;
+  animation: roll 3s ease-in-out infinite;
+}
+
+.eye {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #777777;
+  border-radius: 50%;
+  top: 40%;
+  left: 20%;
+}
+
+.right {
+  left: 68%;
+}
+
+.mouth {
+  position: absolute;
+  top: 43%;
+  left: 41%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.happy {
+  border: 2px solid;
+  border-color: transparent #777777 #777777 transparent;
+  transform: rotate(45deg);
+}
+
+.sad {
+  top: 49%;
+  border: 2px solid;
+  border-color: #777777 transparent transparent #777777;
+  transform: rotate(45deg);
+}
+
+.shadow {
+  position: absolute;
+  width: 21%;
+  height: 3%;
+  opacity: 0.5;
+  background: #777777;
+  left: 40%;
+  top: 43%;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.scale {
+  animation: scale 1s ease-in infinite;
+}
+
+.move {
+  animation: move 3s ease-in-out infinite;
+}
+
+.message {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  height: 40%;
+  top: 47%;
+}
+
+.button-box {
+  position: absolute;
+  background: #FCFCFC;
+  width: 50%;
+  height: 15%;
+  border-radius: 20px;
+  top: 73%;
+  left: 25%;
+  outline: 0;
+  border: none;
+  box-shadow: 2px 2px 10px rgba(119, 119, 119, 0.5);
+  transition: all 0.5s ease-in-out;
+}
+.button-box:hover {
+  background: #efefef;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes bounce {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes scale {
+  50% {
+    transform: scale(0.9);
+  }
+}
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+    transform: rotate(168deg);
+  }
+  100% {
+    transform: rotate(0deg);
+    left: 25%;
+  }
+}
+@keyframes move {
+  0% {
+    left: 25%;
+  }
+  50% {
+    left: 60%;
+  }
+  100% {
+    left: 25%;
+  }
+}
+    </style>
     <style>
     .zoom:hover {
         -ms-transform: scale(1.7); /* IE 9 */
@@ -143,147 +383,174 @@ input[type="file"] {
       </style>
   </head>
   <body>
-    <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
-    <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-          <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h6 class="card-title">¿Te puedo ayudar?</h6>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% if onboarding == 0 %}
+     <div style="background-color: rgba(128, 128, 128, 0.726); width: 100%; height: 100%; overflow: auto; position:absolute;z-index:1000;">
+       <div style="margin: auto; height: 60%;width: 60%; margin-top: 20%;" id="chatB">
+         <div class="bubble" id="bubble">
+           <div id="textBot">
+             Esta es tu página de compras. 
+             <br>Aquí podras subir fotos de tus recibos y obtener puntos.
+             <br>¡Intentalo!.
+           </div>
+           <button id="btnAgrRes" style=" background: #a9461d;"><i class="fa fa-arrow-right" style="text-align: left;color: white;" aria-hidden="true"></i>Siguiente </button>
+         </div>
+         <img src="../static/miv2.gif" class="circle" id="bipbop">
+       </div>
+     </div>
+     {% endif %}
+   <iframe id="bot" src='https://webchat.botframework.com/embed/powerc-chat-bot?s=9ZZtNyxP4vI.ZssJoWtMtEFgpdqnaU2MsyOIWX5zR71s0R46Er8ch6o'  style='display: none; width: 19%; height: 40%; ;position: absolute; margin-top: 33%; margin-left: .5%;'></iframe>
+   <div id="bit" class="card mb-3 up" onclick="chat()" style="position: absolute; width: 19%;height: 15%; margin-top: 50%; margin-left: .5%; background-color: rgb(7, 7, 7);">
+     <div class="row no-gutters">
+       <div class="col-md-4">
+         <img src="static/miv.gif" class="card-img" alt="..." style="margin-top: 1%">
+       </div>
+       <div class="col-md-8">
+         <div class="card-body">
+           <h6 class="card-title">¿Te puedo ayudar?</h6>
+         </div>
+       </div>
+     </div>
+   </div>
 
-      <div class="d-flex">
-          <div id="sidebar-container" class="bg-primary">
-              <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
-              <div class="menu">
-                <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
-                <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
-                <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Catalogo</a>
-                <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
-                <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
-                </div>
-          </div>
-
-          <div class="w-100">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
-              <div class="container">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    
-                  <span class="navbar-toggler-icon"></span>
-                  </button>
-            
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    {% if num_calificar[0][0] ==0%}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none; margin-left: 80%;"><i class="icon ion-md-notifications" style="height: 15px;"></i><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                      {%else%}
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" style="background: none;margin-left: 80%;"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" media="all">
-
-                        <div class="wrapper">
-                        
-                          <div class="bell" id="bell-1">
-                            <div class="anchor material-icons layer-1">notifications_active</div>
-                            <div class="anchor material-icons layer-2">notifications</div>
-                            <div class="anchor material-icons layer-3">notifications</div>
-                          </div>
-                        
-                        </div><span class="badge" style="height:12px; font-size:10px">{{num_calificar[0][0]}}</span></button>
-                    {%endif%}
-                  <ul class="navbar-nav ml-auto">
-                      <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
-                          {{g.user}}
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/perfil">Mi Perfil</a>
-                          <a class="dropdown-item" href="/onboarding">Onboarding</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="/close">Cerrar sesión</a>
-                      </div>
-                      </li>
-                  </ul>
-                  </div>
+     <div class="d-flex">
+         <div id="sidebar-container" class="bg-primary">
+             <div class="logo"><h4 class="text-light font-weight-bold mb-0">Orange Juice</h4></div>
+             <div class="menu">
+              <a href="/compras" class="d-block text-light p-3"><i class="icon ion-md-camera mr-2 lead"></i>Compras</a>
+              <a href="/mis_pedidos" class="d-block text-light p-3"><i class="icon ion-md-pricetags mr-2 lead"></i>Mis pedidos</a>
+              <a href="/devoluciones_reembolsos" class="d-block text-light p-3"><i class="icon ion-md-cube mr-2 lead"></i>Devoluciones y Reembolsos</a>
+              <a href="/catalogo" class="d-block text-light p-3"><i class="icon ion-md-albums mr-2 lead"></i>Catalogo</a>
+              <a href="/rewards" class="d-block text-light p-3"><i class="icon ion-md-wallet mr-2 lead"></i>Recompensas</a>
               </div>
-            </nav>
+         </div>
 
-              <div id="content">
+         
+         <div class="w-100">
+           <nav class="navbar navbar-expand-lg navbar-light bg-light border-botton">
+             <div class="container">
+                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                   
+                 <span class="navbar-toggler-icon"></span>
+                 </button>
+           
+                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   
+                 <ul class="navbar-nav ml-auto">
+                     <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         <img src="static/Selfie/{{g.foto}}" class="img-fluid rounded-circle avatar mr-2">
+                         {{g.user}}
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         <a class="dropdown-item" href="/perfil">Mi Perfil</a>
+                         <a class="dropdown-item" href="/onboarding">Onboarding</a>
+                         <div class="dropdown-divider"></div>
+                         <a class="dropdown-item" href="/close">Cerrar sesión</a>
+                     </div>
+                     </li>
+                 </ul>
+                 </div>
+             </div>
+           </nav>
+
+             <div id="content">
                  
-                  <section>
-                                        <!-- The Band Section -->
-                    <div class="row" style="margin-top: 40px;">
-
-                        <div id="container"></div>
-                    
-                        <div class="col-sm-2"></div>
-                        <div class="col-sm" style=" margin: auto;" class="gradient">
-                        <div class="row" style="padding: 3px;">
-                        <div class="loader" id="loader"></div>
-                        <div>
-                            <div>
-                                <h1>Sube tus recibos y obtén puntos</h1>
-                            </div>
-                            <div class="center" style="display:inline-block;">
-                                <form id="upload-file" method="post" enctype="multipart/form-data" style="vertical-align: middle;position: absolute;">
-                                  <button class=" btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn" style="vertical-align:text-top;">
-                                    <i class="fa fa-cloud-upload"> </i> Subir recibo
-                                </label> </button>
-                                <div >
-                                    <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                        <div class="row" style="margin-top: 15%; padding: 3px; position: relative;" id="verDatos">
-                        <h2 style="margin-top: 1%; text-align: center; margin-left: 6%;">Verificar datos</h2>
-                        <div style="margin: auto; width: 100%; background-color: #f7f9fb; margin-top: 10%; margin-bottom: 5%;">
-                            <form method="POST" enctype="multipart/form-data" class="gradient" style="padding: 7%; color: white;">
-                                <div class="form-group">
-                                <label for="folio" style="color: #E67E22;">Folio o referencia</label>
-                                <input type="text" class="form-control" required value="{{folio}}" name="folio" id="folio">
-                                </div>
-                                <div class="form-group">
-                                <label for="monto" style="color: #E67E22;">Monto</label>
-                                <input type="number" class="form-control" required value="{{monto}}" name="monto" id="monto">
-                                </div>
-                                <div class="form-group">
-                                <label for="fechaCom" style="color: #E67E22;">Fecha de compra</label>
-                                <input type="text" class="form-control" required value="{{fecha}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="fechaCom" id="fechaCom" placeholder="YYYY-mm-dd">
-                                <small id="Helpdate" class="form-text" style="color: rgb(250, 250, 250);">Insertar fecha con formato: YYYY-mm-dd</small>
-                                </div>
-                                <div class="form-group">
-                                <label for="rubro" style="color: #E67E22;">Seleccione el rubro de su compra</label>
-                                <select class="form-control" id="rubro" name="rubro">
-                                    <option disabled selected>Rubros</option>
-                                    <option value="1">Comida/Restaurantes</option>
-                                    <option value="2">Tienda departamental</option>
-                                    <option value="3">Supermercado</option>
-                                    <option value="4">Muebles</option>
-                                    <option value="5">Gasolinera</option>
-                                </select>
-                                </div>
-                                <button type="button" id="subRec" name="ingresar"  class="login100-form-btn">Guardar</button>
-                            </form>
-                            </div>
-                        </div>    
-                        </div>
-                        <div class="col-sm-2" ></div>
-                  </section>
+              <div id="error-box" style="display: none;">
+                <div class="dot" id="closeMA3"></div>
+                <div class="face2">
+                  <div class="eye"></div>
+                  <div class="eye right"></div>
+                  <div class="mouth sad"></div>
+                </div>
+                <div class="shadow move"></div>
+                <div class="message"><h1 class="alert h1alert">¡Oh No!</h1><p class="palert" id="mensajeError"></p></div>
+                <button class="button-box"><h1 class="red h1alert" id="closeMA2">Aceptar</h1></button>
               </div>
+        
+        
+              <div id="success-box" style="display: none;">
+                <div class="dot" id="closeMA1"></div>
+                <div class="face">
+                  <div class="eye"></div>
+                  <div class="eye right"></div>
+                  <div class="mouth happy"></div>
+                </div>
+                <div class="shadow scale"></div>
+                <div class="message"><h1 class="alert h1alert">¡Genial!</h1><p class="palert" style="margin-top: 1%;" id="textoBien"></p></div>
+                <button class="button-box"><h1 class="green h1alert" id="closeMA">Aceptar</h1></button>
+              </div>
+      
+      
                  <section>
-                <div>
-                  <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
-                 </div>  
-                </section>
-          </div>
+                                       <!-- The Band Section -->
+                   <div class="row" style="margin-top: 40px;">
 
-      </div>
+                       <div id="container"></div>
+                   
+                       <div class="col-sm-2"></div>
+                       <div class="col-sm" style=" margin: auto;" class="gradient">
+                       <div class="row" style="padding: 3px;">
+                       <div class="loader" id="loader"></div>
+                       <div>
+                           <div>
+                               <h1>Sube tus recibos y obtén puntos</h1>
+                           </div>
+                           <div class="center" style="display:inline-block;">
+                               <form id="upload-file" method="post" enctype="multipart/form-data" style="vertical-align: middle;position: absolute;">
+                               <button class="btn btn-primary" type="button"><label for="file-upload" class="custom-file-upload login100-form-btn" id="upbtn" style="vertical-align:text-top;">
+                                   <i class="fa fa-cloud-upload"> </i> Subir recibo
+                               </label> </button>
+                               <div >
+                                   <input style="padding-left: 5px;" id="file-upload" type="file" name="file" accept="image/*">
+                               </div>
+                           </div>
+                           </form>
+                       </div>
+                   </div>
+                       <div class="row" style="margin-top: 15%; padding: 3px; position: relative;" id="verDatos">
+                       <h2 style="margin-top: 1%; text-align: center; margin-left: 6%;">Verificar datos</h2>
+                       <div style="margin: auto; width: 100%; background-color: #f7f9fb; margin-top: 10%; margin-bottom: 5%;">
+                           <form method="POST" enctype="multipart/form-data" class="gradient" style="padding: 7%; color: white;">
+                               <div class="form-group">
+                               <label for="folio" style="color: #E67E22;">Folio o referencia</label>
+                               <input type="text" class="form-control" required value="{{folio}}" name="folio" id="folio">
+                               </div>
+                               <div class="form-group">
+                               <label for="monto" style="color: #E67E22;">Monto</label>
+                               <input type="number" class="form-control" required value="{{monto}}" name="monto" id="monto">
+                               </div>
+                               <div class="form-group">
+                               <label for="fechaCom" style="color: #E67E22;">Fecha de compra</label>
+                               <input type="date" class="form-control" required value="{{fecha}}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" name="fechaCom" id="fechaCom" placeholder="YYYY-mm-dd">
+                               <small id="Helpdate" class="form-text" style="color: rgb(250, 250, 250);">Insertar fecha con formato: YYYY-mm-dd</small>
+                               </div>
+                               <div class="form-group">
+                               <label for="rubro" style="color: #E67E22;">Seleccione el rubro de su compra</label>
+                               <select class="form-control" id="rubro" name="rubro">
+                                   <option disabled selected>Rubros</option>
+                                   <option value="1">Comida/Restaurantes</option>
+                                   <option value="2">Tienda departamental</option>
+                                   <option value="3">Supermercado</option>
+                                   <option value="4">Muebles</option>
+                                   <option value="5">Gasolinera</option>
+                               </select>
+                               </div>
+                               <button type="button" id="subRec" name="ingresar"  class="login100-form-btn">Guardar</button>
+                           </form>
+                           </div>
+                       </div>    
+                       </div>
+                       <div class="col-sm-2" ></div>
+                 </section>
+             </div>
+                <section>
+               <div>
+                 <center><img src="../static/espera.gif" class="avatar1" id="llamda" style=" width: auto;height: auto;display: none; border-radius: 100%; margin-top: 15%;"></center>
+                </div>  
+               </section>
+         </div>
+
+     </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -303,6 +570,8 @@ input[type="file"] {
           document.getElementById("bit").style.display="none";
       }
       $('#subRec').click(function(){
+        console.log("click al subir rec")
+        document.getElementById("llamda").style.display='block';
         var rubro = document.getElementById('rubro').value;
         var folio = document.getElementById('folio').value;
         var monto = document.getElementById('monto').value;
@@ -331,34 +600,22 @@ input[type="file"] {
                               }),
           dataType: "json",
           success: function(res){
-            alert("Se subio tu recibo, en una semana obtendras su aprovación o rechazo. Has ganado 300 biptips");          },
-          error: function(res){
-            alert("algo salio mal")
-          }
-        })
-      })
-
-
-      $('#calificar').click(function(){
-        var id_call = document.getElementById('id_call').value;
-        var cali = document.getElementById('cali').value;
-        
-        $.ajax({
-          type: 'POST',
-          url: '/calificar',
-          headers:{
-            'Content-Type': 'application/json'
+            document.getElementById("textoBien").innerHTML="Se subio tu recibo, pronto sera aprovado. Has ganado 300 biptips";
+            document.getElementById("success-box").style.display="block";
+            document.getElementById("llamda").style.display='none';
+            //alert("Se subio tu recibo, en una semana obtendras su aprovación o rechazo. Has ganado 300 biptips");          },
           },
-          data: JSON.stringify({"id_call":id_call,
-                                "cali":cali}),
-          dataType: "json",
-          success: function(res){
-            alert("Hemos registrado exitosamente tu calificación, obtuviste 150 biptips");          },
           error: function(res){
-            alert("algo salio mal")
+            document.getElementById("mensajeError").innerHTML="Algo salió mal.";
+            document.getElementById("error-box").style.display="block";
+            document.getElementById("llamda").style.display='none';
+            //alert("algo salio mal")
           }
-        })
+        });
       })
+
+
+  
 
       function myFunction() {
         var x = document.getElementById("navDemo");
@@ -371,60 +628,7 @@ input[type="file"] {
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
-      $('#btn_edi').click(function(){
-        var editicket = document.getElementById('editicket').value;
-        var ediestado = document.getElementById('ediestado').value;
-        var ediproducto = document.getElementById('ediproducto').value;
-        var edidireccion = document.getElementById('edidireccion').value;
-        var edirazon = document.getElementById('edirazon').value;
-        document.getElementById("llamda").style.display='block';
-        
-        $.ajax({
-          type: 'POST',
-          url: '/editar',
-          headers:{
-            'Content-Type': 'application/json'
-          },
-          data: JSON.stringify({"editicket":editicket, 
-                                "ediestado":ediestado, 
-                                "ediproducto":ediproducto, 
-                                "edidireccion":edidireccion, 
-                                "edirazon":edirazon }),
-          dataType: "json",
-          success: function(res){
-            alert("Se ha editado exitosamente el ticket");
-            document.getElementById("llamda").style.display = 'none';
-          },
-          error: function(res){
-            alert("algo salio mal")
-            document.getElementById("llamda").style.display = 'none';
-          }
-        })
-      })
 
-      $('#btn_bor').click(function(){
-        
-        var borrid = document.getElementById('borrid').value;
-        document.getElementById("llamda").style.display='block';
-        
-        $.ajax({
-          type: 'POST',
-          url: '/borrar',
-          headers:{
-            'Content-Type': 'application/json'
-          },
-          data: JSON.stringify({"borrid":borrid }),
-          dataType: "json",
-          success: function(res){
-            alert("Se ha borrado exitosamente el ticket");
-            document.getElementById("llamda").style.display = 'none';
-          },
-          error: function(res){
-            alert("algo salio mal")
-            document.getElementById("llamda").style.display = 'none';
-          }
-        })
-      })
 
       $(document).ready(function(){ 
             $('input[type="file"]').change(function(e){ 
@@ -443,7 +647,9 @@ input[type="file"] {
         console.log(name);
         if(name.includes("Subir recibo", 0))
         {
-          document.getElementById("noFot").style.display="block";
+          document.getElementById("mensajeError").innerHTML="No se puede leer la foto.";
+          document.getElementById("error-box").style.display="block";
+          //document.getElementById("noFot").style.display="block";
         }
         else
         {
@@ -502,7 +708,9 @@ input[type="file"] {
               },
               error: function() {
                 //alert("Algo salio mal");
-                document.getElementById("algoMal").style.display="block";
+                document.getElementById("mensajeError").innerHTML="Algo salió mal.";
+                document.getElementById("error-box").style.display="block";
+                //document.getElementById("algoMal").style.display="block";
                 //document.getElementById("loader").style.display = 'none';
                 document.getElementById("llamda").style.display = 'none';
               }
@@ -517,9 +725,23 @@ $('#btnAgrRes').click(function () {
     document.getElementById('textBot').innerHTML="Sube tu primer recibo";
     document.getElementById('btnAgrRes').style.display='none';
     
-    textBot
+    
   });
 
+
+  $("#closeMA").click(function(){
+        document.getElementById("success-box").style.display="none"
+      })
+      $("#closeMA1").click(function(){
+        document.getElementById("success-box").style.display="none"
+      })
+
+      $("#closeMA2").click(function(){
+        document.getElementById("error-box").style.display="none"
+      })
+      $("#closeMA3").click(function(){
+        document.getElementById("error-box").style.display="none"
+      })
 
 
 

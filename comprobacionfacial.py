@@ -42,6 +42,11 @@ def Comprobacion(_urlIne,_urlSelfie):
     # We use detection model 2 because we are not retrieving attributes.
     detected_faces1 = face_client.face.detect_with_stream(source_image_file_name1 , detectionModel='detection_02')
     # Add the returned face's face ID
+    print(detected_faces1)
+    if not detected_faces1:
+        print("NO HAY ROSTRO")
+        bandera=2
+        return bandera
     source_image1_id = detected_faces1[0].face_id
     print('{} face(s) detected from image {}.'.format(len(detected_faces1), source_image_file_name1))
 
